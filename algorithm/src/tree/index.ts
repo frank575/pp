@@ -1,3 +1,4 @@
+import './binary-tree'
 import './dfs'
 import './bfs'
 `
