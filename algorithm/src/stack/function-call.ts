@@ -1,5 +1,5 @@
 ;`
-函數調用堆棧
+函數調用棧
 後進的函數先執行
 `
 function fun1(){
@@ -17,4 +17,5 @@ function fun3(){
 }
 
 console.log('======')
+console.log('函數調用棧')
 fun1()
