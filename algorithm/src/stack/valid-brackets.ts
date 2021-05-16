@@ -62,6 +62,7 @@ const validBrackets = (s:string) => {
   return validBrackets2(s)
 }
 
+console.log('======')
 console.log('有效的括號')
 console.log(validBrackets('])'))
 console.log(validBrackets(']]'))

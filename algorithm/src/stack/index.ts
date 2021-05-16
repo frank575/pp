@@ -13,5 +13,6 @@ stack.push(2)
 
 const item1 = stack.pop()
 const item2 = stack.pop()
-console.log('sample stack')
+console.log('======')
+console.log('棧')
 console.log(item1, item2)
