@@ -3,6 +3,16 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   margin-top: 60px;
 }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #1b1b1b;
+}
+
+* {
+  color: rgba(255, 255, 255, .7);
+}
+
