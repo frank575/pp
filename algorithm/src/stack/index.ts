@@ -1,5 +1,6 @@
 import './valid-brackets'
 import './function-call'
+import './ten-to-two'
 
 ;`
 棧就是後進先出的數據結構
