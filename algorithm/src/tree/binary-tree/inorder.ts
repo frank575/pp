@@ -23,4 +23,6 @@ const inorder = (root: ISimpleBinaryTree|null) => {
   console.log(root.el)
   inorder(root.right)
 }
+console.log('======')
+console.log('中序遍歷 inorder')
 inorder(tree) ;'3>2>5>4>1>6>7'
