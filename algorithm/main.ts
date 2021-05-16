@@ -1,3 +1,5 @@
+import './src/stack'
+// import './src/heap'
 import './style.css'
 
 document.querySelector('#app')!.innerHTML = `
