@@ -19,23 +19,23 @@ a>b>c>d>e>f>g
 `
 
 const tree = createSimpleTree()
-// const bfs1 = (root: ISimpleTree) => {
-//   const nextRoots: ISimpleTree[] = []
-//   console.log(root.el)
-//   root.children.forEach(e => {
-//     console.log(e.el)
-//     nextRoots.push(e)
-//   })
-//   nextRoots.forEach(e => e.children.forEach(bfs))
-// }
-// const bfs2 = (root: ISimpleTree) => {
-//   const q = [root]
-//   while (q.length) {
-//     const e = q.shift()!
-//     console.log(e.el)
-//     e.children.forEach(f => q.push(f))
-//   }
-// }
+const bfs1 = (root: ISimpleTree) => {
+  const nextRoots: ISimpleTree[] = []
+  console.log(root.el)
+  root.children.forEach(e => {
+    console.log(e.el)
+    nextRoots.push(e)
+  })
+  nextRoots.forEach(e => e.children.forEach(bfs))
+}
+const bfs2 = (root: ISimpleTree) => {
+  const q = [root]
+  while (q.length) {
+    const e = q.shift()!
+    console.log(e.el)
+    e.children.forEach(f => q.push(f))
+  }
+}
 const bfs3 = (root: ISimpleTree, q: ISimpleTree[] = [root]) => {
   const e = q.shift()!
   console.log(e.el)
