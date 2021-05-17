@@ -1,1 +1,2 @@
+import './inorder'
 import './preorder'
