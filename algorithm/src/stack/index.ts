@@ -1,3 +1,4 @@
+import './Stack'
 import './preorder-tree'
 import './valid-brackets'
 import './function-call'
