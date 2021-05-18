@@ -2,6 +2,13 @@ import {createSimpleBinaryTree, ISimpleBinaryTree} from "../../helper";
 
 `
 非遞規版先序遍歷(preorder DLR)
+    1(1)
+   /    \
+  2(2)   6(6)
+ /  \     \
+3(3) 4(4)  7(7)
+    /
+   5(5)
 `
 const tree = createSimpleBinaryTree()
 const preorder1 = (root: ISimpleBinaryTree|null) => {
