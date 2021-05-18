@@ -12,6 +12,7 @@ import {createSimpleBinaryTree, ISimpleBinaryTree} from "../../helper";
 `
 const tree = createSimpleBinaryTree()
 const inorder = (root: ISimpleBinaryTree) => {
+  if (!root) return
   const stack = [] as ISimpleBinaryTree[]
   let e = root as ISimpleBinaryTree | null
   while (stack.length || e) {
