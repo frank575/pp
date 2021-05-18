@@ -5,12 +5,16 @@ import {createSimpleBinaryTree, ISimpleBinaryTree} from "../../helper";
 `
 const tree = createSimpleBinaryTree()
 const inorder = (root: ISimpleBinaryTree) => {
-  const stack = [root] as ISimpleBinaryTree[]
-  while (stack.length){
-    const e = stack.pop()!
-    console.log(e.el)
-    if (e.right) stack.push(e.right)
-    if (e.left) stack.push(e.left)
+  const stack = [] as ISimpleBinaryTree[]
+  let e = root as ISimpleBinaryTree | null
+  while (stack.length || e) {
+    while (e) {
+      stack.push(e)
+      e = e.left
+    }
+    const f = stack.pop()!
+    console.log(f.el)
+    e = f.right
   }
 }
 console.log('======')
