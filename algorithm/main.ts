@@ -1,5 +1,5 @@
-import './src/stack'
-// import './src/heap'
+// import './src/stack'
+import './src/queue'
 // import './src/tree'
 import './style.css'
 
