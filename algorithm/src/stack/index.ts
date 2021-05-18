@@ -8,7 +8,8 @@ import './ten-to-two'
 適用場景：
   * 所有需要後進先出的場景
     * 十進制轉二進制、判斷字符串的括號是否有效、函數調用堆棧等
-    
+常用操作：
+push, pop, stack[stack.length - 1]
 `
 const stack = [] as number[]
 stack.push(1)
