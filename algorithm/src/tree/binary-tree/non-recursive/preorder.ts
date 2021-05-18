@@ -21,6 +21,7 @@ const preorder1 = (root: ISimpleBinaryTree|null) => {
   }
 }
 const preorder2 = (root: ISimpleBinaryTree) => {
+  if (!root) return
   const stack = [root] as ISimpleBinaryTree[]
   while (stack.length){
     const e = stack.pop()!
