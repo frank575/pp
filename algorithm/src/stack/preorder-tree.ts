@@ -25,9 +25,9 @@ const tree = new TreeNode(
 执行用时76 ms, 在所有 TypeScript 提交中击败了100.00%的用户
 内存消耗38.9 MB, 在所有 TypeScript 提交中击败了100.00%的用户
 `
-const preorder = (tree: TreeNode): number[] => {
-  if (!tree) return []
-  const stack = [tree]
+const preorder1 = (root: TreeNode | null): number[] => {
+  if (!root) return []
+  const stack = [root]
   const output = []
   while (stack.length) {
     const e = stack.pop()!
@@ -36,6 +36,25 @@ const preorder = (tree: TreeNode): number[] => {
     if (e.left) stack.push(e.left)
   }
   return output
+}
+;`
+执行用时88 ms, 在所有 TypeScript 提交中击败了67.84%的用户
+内存消耗39.5 MB, 在所有 TypeScript 提交中击败了48.63%的用户
+`
+const preorder2 = (root: TreeNode | null): number[] => {
+  if (!root) return []
+  const result = [] as number[]
+  const rec = (root: TreeNode | null, result: number[]) => {
+    if (root == null) return
+    result.push(root.val)
+    rec(root.left, result)
+    rec(root.right, result)
+  }
+  rec(root, result)
+  return result
+}
+const preorder = (tree: TreeNode | null): number[] => {
+  return preorder2(tree)
 }
 console.log('======')
 console.log('棧的二叉樹的前序遍歷')
