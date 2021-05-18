@@ -1,6 +1,6 @@
 `
 二叉樹的前序遍歷
-力扣144
+力扣144(中等)
 `
 class TreeNode {
   val: number
