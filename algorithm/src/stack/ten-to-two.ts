@@ -3,11 +3,15 @@
 `
 function tenToTwo(ten: number): number {
   let two = [] as number[]
+  let result = ''
   while (ten > 0) {
-    two.unshift(ten % 2)
+    two.push(ten % 2)
     ten = Math.floor(ten / 2)
   }
-  return Number(two.join(''))
+  while (two.length) {
+    result += two.pop()
+  }
+  return Number(result)
 }
 
 console.log('======')
