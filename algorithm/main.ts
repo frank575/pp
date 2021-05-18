@@ -1,6 +1,6 @@
-// import './src/stack'
+import './src/stack'
 // import './src/heap'
-import './src/tree'
+// import './src/tree'
 import './style.css'
 
 document.querySelector('#app')!.innerHTML = `
