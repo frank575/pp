@@ -1,6 +1,7 @@
-// import './src/stack'
-import './src/queue'
 // import './src/tree'
+import './src/linked-list'
+// import './src/queue'
+// import './src/stack'
 import './style.css'
 
 document.querySelector('#app')!.innerHTML = `
