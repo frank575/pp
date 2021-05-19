@@ -1,4 +1,5 @@
-`
+import './delete-node'
+;`
 鏈表 linkedList
   多個元素組成的列表
   元素儲存不連續，使用next指針連在一起
@@ -18,6 +19,8 @@ a.next = b
 b.next = c
 c.next = d
 
+console.log('======')
+console.log('基本鏈表 linked-list')
 ;`遍歷鏈表`
 let p = a as ILinkedList | undefined
 while (p) {
