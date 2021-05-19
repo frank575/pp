@@ -2,7 +2,7 @@
   "name": "algorithm",
   "version": "0.0.0",
   "scripts": {
-    "dev:algorithm": "vite",
+    "dev:algorithm": "vite --port 9987",
     "build": "vite build",
     "serve": "vite preview"
   },
