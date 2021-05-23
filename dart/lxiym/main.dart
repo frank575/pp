@@ -220,6 +220,36 @@ void main() {
   '泛型約束 使用 extends 關鍵字';
   int sum4<T extends int>(int v, T v2) => v + v2;
   sum4(1, 2);
+
+
+
+
+
+  '''
+  可用於flutter的OOP技巧
+  1 封裝、繼承、多態
+    不管小大都封裝，且不要在一個方法體寫太多代碼<100
+  2 點點的技巧
+    在一個類的世界裡：萬物皆對象
+      1 點查看對象有哪些方法和屬性
+      2 點看源碼
+      3 點探究竟
+      
+  Dart編程小技巧
+  1 安全調用 防止空異常(2前用，使用?.可選鍊防止空)
+  2 設置默認值(2前用，如： ?? 0)
+  3 簡化判斷
+  可參閱：Effective Dart 最佳實踐(https://www.dartcn.com/guides/language/effective-dart/)
+  ''';
+  print('----小技巧----');
+  var list2 = [0, '', null];
+
+  '簡化判斷';
+  if(list[0]==null||list[0]==''||list[0]==0) {
+    print('list[0] is empty');
+  }
+  '簡寫成↓';
+  if([null, '', 0].contains(list[0])){}
 }
 
 // OOP 在dart裡所有類都繼承於Object
