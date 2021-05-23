@@ -254,3 +254,36 @@ class Logger2 {
     return Logger2(log.history);
   }
 }
+
+
+
+//抽象類
+//使用abstract修飾符定義抽象類，該類不能被實例化
+//在定義接口時非常有用
+abstract class Study {
+  //沒有方法體的方法就是抽象方法
+  void study();
+}
+
+//繼承類要實現抽象方法
+class StudyFlutter extends Study {
+  @override
+  void study() {
+    print('learning flutter');
+  }
+}
+
+
+
+// mixins
+// mixins 是在多個層次結構中重用代碼的一種方式
+// 要使用mixins，在with關鍵字後面跟上一個或多個mixin的名字, 並且with要在extends關鍵字之後
+// 特徵：實現mixin，就創建一個繼承Object類的子類(不能繼承其他類)，不申明任何構造方法，不調用super
+class Test extends Person with Study {
+  Test(String name, int age) : super(name, age);
+
+  @override
+  void study() {
+    // TODO: implement study
+  }
+}
