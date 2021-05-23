@@ -10,6 +10,7 @@ void main() {
     數字類型
     num 數字類型的父類
   ''';
+  print('----num type----');
   num num1 = -1.0;
   num num2 = 2;
 
@@ -18,7 +19,6 @@ void main() {
 
   '雙精度';
   double d1 = 1.68;
-  print('----num type----');
   print('num:$num1, num:$num2, int:$int1, double:$d1');
 
   '''
@@ -34,7 +34,10 @@ void main() {
   num1.toDouble();
 
 
-  '字符串類型';
+  '''
+  字符串類型
+  ''';
+  print('----string type----');
   String str1 = '字符串',
       str2 = "雙引號字符串";
   String str3 = str1 + ' ' + str2;
@@ -47,7 +50,6 @@ void main() {
   常用方法
   擷取字符串 hel
   ''';
-  print('----string type----');
   print(str5.substring(0, 3));
 
   '獲取字符串索引 6';
@@ -59,9 +61,9 @@ void main() {
   布爾類型
   dart是強bool類型檢查，只有值是true才被認為是true
   ''';
+  print('----bool type----');
   bool success = true,
       fail = false;
-  print('----bool type----');
   print(success);
   print(fail);
   print(success || fail); // true
@@ -72,14 +74,14 @@ void main() {
   List集合 List<T>
   使用List, []表示集合
   ''';
-  List list = [1, 3, 5, '集合'];
   print('----list type----');
+  List list = [1, 3, 5, '集合'];
   print(list);
 
   List<int> intList = [1, 3, 5];
   intList.add(7);
   intList.addAll([9, 11]);
-  print(intList); // [1,3,5,7,9,11]
+  print(intList); '[1,3,5,7,9,11]';
 
   'List.generate如同js的Array.from(new Array)';
   List list3 = List.generate(3, (i) => i * 2);
@@ -94,6 +96,36 @@ void main() {
   for(var e in list) {}
   list3.forEach((e){});
   '常用方法removeXx,insert,sublist,indexOf,...';
+
+
+
+
+
+
+  '''
+  Map key-value
+  ''';
+  print('----list type----');
+  Map users={'1':'frank', 2: 'jeff'};
+  print(users);
+  Map ages={};
+  ages['frank'] = 24;
+
+  '遍歷';
+  ages.forEach((key, value) { });
+  'dart map也可以使用map, 這裡用MapEntry更改原本的key-value';
+  Map ages2 = ages.map((key, value) => MapEntry(value, key));
+  print('ages: $ages'); '{frank: 24}';
+  print('ages2: $ages2'); '{24: frank}';
+  for (var key in ages.keys) {
+    '\${}如同js的\${}, 用來處理非單一值得區塊';
+    print('$key: ${ages[key]}');
+  }
+  '''
+  ages.key == Object.keys(arr)
+  ages.values == Object.values(arr)
+  ''';
+  '常見方法keys,values,remove,containsKey';
 
 
 
