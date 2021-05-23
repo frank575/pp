@@ -151,6 +151,7 @@ void main() {
   '''
   OOP
   ''';
+  print('----OOP----');
   '實例化可以省略new關鍵字';
   var person = Person('frank', 24);
   print(person);
@@ -162,6 +163,44 @@ void main() {
   var log2 = Logger();
   print(log1 == log2);
   log1.log('hello world');
+
+
+
+
+
+
+
+
+
+
+
+  '''
+  方法 function
+  返回值類型 方法名(參數){}
+  返回值類型：可以省略
+  方法名：匿名方法可省
+  參數：參數類型和參數名，類型可省(又可分可選參數跟默認參數)
+  ''';
+  print('----function----');
+  study(){
+    print('study');
+  }
+  int sum(int v, int v2) {
+    return v + v2;
+  }
+  print(sum(5, 8)); '13';
+  '默認可選參數[類型 名稱 = 默認值]';
+  int sum2(int v, [int v2 = 0]) => v + v2;
+  print(sum2(5)); '5';
+  print(sum2(5, 9)); '14';
+
+  int sum3(int v, {int v2 = 0}) => v + v2;
+  print(sum3(5, v2: 20)); '25';
+
+  // 可以使用_創建私有方法，作用域為當前文件
+  void _a() {}
+
+  [1].forEach((e) => e + 5); '這個(e) => ...就是匿名方法';
 }
 
 // OOP 在dart裡所有類都繼承於Object
