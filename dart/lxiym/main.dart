@@ -210,6 +210,18 @@ class Student extends Person {
   String toString() {
     return '_school: $_school, city: $city, name: $name';
   }
+
+  // getter 類型可省略(此指String)，可以用來暴露私有變量
+  String get school => _school;
+  // setter 類型可省略(此指String)
+  set school(String val) {
+    _school = val;
+  }
+
+  static hello() {
+    'static 靜態方法';
+    print('hello my name is Student-class.');
+  }
 }
 
 class Logger {
