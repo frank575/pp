@@ -157,6 +157,11 @@ void main() {
 
   var student = Student('真香國小', 'frank', 24);
   print(student);
+
+  var log1 = Logger();
+  var log2 = Logger();
+  print(log1 == log2);
+  log1.log('hello world');
 }
 
 // OOP 在dart裡所有類都繼承於Object
@@ -191,13 +196,49 @@ class Student extends Person {
         // 這裡的name=為this.name=，不是構造參數的name
         name = '$country.$city.$name',
         // 如果父類沒有默認構造方法，則需要在初始化列表中調用父類的構造方法
+        // super(值, 值) // 將值傳給父類構造器
         super(name, age) {
     '構造方法體 不是必需的';
     print('this.name: ${this.name}, name: $name');
   }
 
+  // 命名構造方法: [類明.方法名]
+  // 使用命名構造方法為類實現多個構造方法
+  Student.cover(Student stu, this._school, this.name): super(stu.name, stu.age);
+
   @override
   String toString() {
     return '_school: $_school, city: $city, name: $name';
+  }
+}
+
+class Logger {
+  static Logger _cache = Logger._internal();
+  factory Logger(){
+    '''
+    工廠構造方法：
+    不僅是構造方法，更是一種模式
+    有時候為了返回一個之前已經創建的緩存對象, 原始的構造方法已經不能滿足要求
+    那麼便可使用工廠模式來定義構造方法(也可理解為單例)
+    ''';
+    return Logger._cache;
+  }
+  Logger._internal();
+  void log(String msg) {
+    print(msg);
+  }
+}
+
+class Logger2 {
+  String history;
+  Logger2(this.history);
+
+  factory Logger2.v(Logger2 log){
+    '''
+    命名工廠構造方法：factory 類名.方法名
+    她可以有返回值, 而且不需要將類型的final變量作為參數，是提供一種靈活獲取類對象的方式
+    可以當作靈活的命名構造類看待
+    ''';
+    return Logger2(log.history);
   }
 }
