@@ -33,13 +33,11 @@ void main() {
   '轉換成double類型';
   num1.toDouble();
 
-
   '''
   字符串類型
   ''';
   print('----string type----');
-  String str1 = '字符串',
-      str2 = "雙引號字符串";
+  String str1 = '字符串', str2 = "雙引號字符串";
   String str3 = str1 + ' ' + str2;
 
   '可以使用單或雙引號+\$[變量名稱]來拼接字符串';
@@ -56,19 +54,16 @@ void main() {
   print(str5.indexOf('wor'));
   'startsWith, replaceAll, contains, split...';
 
-
   '''
   布爾類型
   dart是強bool類型檢查，只有值是true才被認為是true
   ''';
   print('----bool type----');
-  bool success = true,
-      fail = false;
+  bool success = true, fail = false;
   print(success);
   print(fail);
   print(success || fail); // true
   print(success && fail); // false
-
 
   '''
   List集合 List<T>
@@ -81,7 +76,8 @@ void main() {
   List<int> intList = [1, 3, 5];
   intList.add(7);
   intList.addAll([9, 11]);
-  print(intList); '[1,3,5,7,9,11]';
+  print(intList);
+  '[1,3,5,7,9,11]';
 
   'List.generate如同js的Array.from(new Array)';
   List list3 = List.generate(3, (i) => i * 2);
@@ -90,33 +86,30 @@ void main() {
   '''
   集合遍歷方式
   ''';
-  for(int i=0;i<list3.length;i++){
-    int e=list3[i];
+  for (int i = 0; i < list3.length; i++) {
+    int e = list3[i];
   }
-  for(var e in list) {}
-  list3.forEach((e){});
+  for (var e in list) {}
+  list3.forEach((e) {});
   '常用方法removeXx,insert,sublist,indexOf,...';
-
-
-
-
-
 
   '''
   Map key-value
   ''';
   print('----list type----');
-  Map users={'1':'frank', 2: 'jeff'};
+  Map users = {'1': 'frank', 2: 'jeff'};
   print(users);
-  Map ages={};
+  Map ages = {};
   ages['frank'] = 24;
 
   '遍歷';
-  ages.forEach((key, value) { });
+  ages.forEach((key, value) {});
   'dart map也可以使用map, 這裡用MapEntry更改原本的key-value';
   Map ages2 = ages.map((key, value) => MapEntry(value, key));
-  print('ages: $ages'); '{frank: 24}';
-  print('ages2: $ages2'); '{24: frank}';
+  print('ages: $ages');
+  '{frank: 24}';
+  print('ages2: $ages2');
+  '{24: frank}';
   for (var key in ages.keys) {
     '\${}如同js的\${}, 用來處理非單一值得區塊';
     print('$key: ${ages[key]}');
@@ -127,35 +120,84 @@ void main() {
   ''';
   '常見方法keys,values,remove,containsKey';
 
-
-
-
-
-
   '''
   dynamic, var, Object三者區別
   ''';
   print('----dynamic, var, Object三者區別----');
-  dynamic aa='aa';
+  dynamic aa = 'aa';
   '運行時的type, dynamic只能在運行時知道type, 但會讓dart語法檢查失效';
-  print(aa.runtimeType); 'String';
+  print(aa.runtimeType);
+  'String';
   print(aa);
   // aa.foo(); 不會報錯，因為放棄類型檢查
-  aa=123;
-  print(aa.runtimeType); 'int';
+  aa = 123;
+  print(aa.runtimeType);
+  'int';
   print(aa);
 
-
   'var 為類型推斷，申明是什麼類型最終就是什麼類型';
-  var aaa='aaa';
-  print(aaa.runtimeType); 'String';
+  var aaa = 'aaa';
+  print(aaa.runtimeType);
+  'String';
   print(aaa);
   // aaa=123; 報錯，aaa應該是字串
 
-
   'Object dart對象的基類';
-  Object o1='111';
+  Object o1 = '111';
   print(o1.runtimeType); //String
   print(o1);
   // o1.foo() 與dynamic插在不能調用Object裡沒有的方法
+
+  '''
+  OOP
+  ''';
+  '實例化可以省略new關鍵字';
+  var person = Person('frank', 24);
+  print(person);
+
+  var student = Student('真香國小', 'frank', 24);
+  print(student);
+}
+
+// OOP 在dart裡所有類都繼承於Object
+class Person {
+  String name;
+  int age;
+
+  // constructor, 可以使用這種方式省略 this.name=name, ... 的寫法
+  // this.xxx == 初始化自有參數
+  Person(this.name, this.age);
+
+  @override
+  String toString() {
+    '可以使用@override複寫父類方法';
+    return 'Person:: name: $name, age: $age';
+  }
+}
+
+//繼承
+class Student extends Person {
+  String _school; // 通過_表示私有字段
+  String? city; // ? 表示可選
+  String? country;
+  String name;
+
+  // 初始化子類必須要調用父類構造方法(super)
+  // {}表示可選參數, =xx默認參數
+  Student(this._school, String name, int age,
+      {this.country = 'taiwan', this.city = 'taichung'})
+      :
+        // 初始化列表：除了調用父類構造器，在子類構造器方法體之前，你也可以初始化實例變量，不同的初始化變量之間用逗號分開
+        // 這裡的name=為this.name=，不是構造參數的name
+        name = '$country.$city.$name',
+        // 如果父類沒有默認構造方法，則需要在初始化列表中調用父類的構造方法
+        super(name, age) {
+    '構造方法體 不是必需的';
+    print('this.name: ${this.name}, name: $name');
+  }
+
+  @override
+  String toString() {
+    return '_school: $_school, city: $city, name: $name';
+  }
 }
