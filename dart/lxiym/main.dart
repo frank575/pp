@@ -201,6 +201,25 @@ void main() {
   void _a() {}
 
   [1].forEach((e) => e + 5); '這個(e) => ...就是匿名方法';
+
+
+
+
+
+
+
+  '''
+  泛型 generic
+  ''';
+  print('----泛型 generic----');
+  var cache = Cache<String>();
+  cache.setItem('k', 'v');
+  print(cache.getItem('k')); 'v';
+  print(cache.getItem('ks')?.length); 'null 可以使用 ?. 可選鍊';
+
+  '泛型約束 使用 extends 關鍵字';
+  int sum4<T extends int>(int v, T v2) => v + v2;
+  sum4(1, 2);
 }
 
 // OOP 在dart裡所有類都繼承於Object
@@ -324,5 +343,27 @@ class Test extends Person with Study {
   @override
   void study() {
     // TODO: implement study
+  }
+}
+
+
+
+// 泛型類
+class Cache<T> {
+  static final Map<String, Object> _cached = Map();
+  setItem(String k, T v) {
+    _cached[k] = v!;
+  }
+  getItem(String k) {
+    return _cached[k];
+  }
+}
+
+ //泛型約束 使用 extends 關鍵字
+class Member<T extends Person> {
+  T _person;
+  Member(this._person);
+  String fixedName(){
+    return 'fixed:${_person.name}';
   }
 }
