@@ -132,4 +132,30 @@ void main() {
 
 
 
+  '''
+  dynamic, var, Object三者區別
+  ''';
+  print('----dynamic, var, Object三者區別----');
+  dynamic aa='aa';
+  '運行時的type, dynamic只能在運行時知道type, 但會讓dart語法檢查失效';
+  print(aa.runtimeType); 'String';
+  print(aa);
+  // aa.foo(); 不會報錯，因為放棄類型檢查
+  aa=123;
+  print(aa.runtimeType); 'int';
+  print(aa);
+
+
+  'var 為類型推斷，申明是什麼類型最終就是什麼類型';
+  var aaa='aaa';
+  print(aaa.runtimeType); 'String';
+  print(aaa);
+  // aaa=123; 報錯，aaa應該是字串
+
+
+  'Object dart對象的基類';
+  Object o1='111';
+  print(o1.runtimeType); //String
+  print(o1);
+  // o1.foo() 與dynamic插在不能調用Object裡沒有的方法
 }
