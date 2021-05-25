@@ -25,7 +25,13 @@ class _StatefulGroupState extends State<StatefulGroup> {
           primarySwatch: Colors.blue,
         ),
         home: Scaffold(
-            appBar: AppBar(title: Text('StatefulWidget與基礎組件')),
+            appBar: AppBar(
+                title: Text('StatefulWidget與基礎組件'),
+                leading: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(Icons.arrow_back))),
             // 至少要有兩個item
             bottomNavigationBar: BottomNavigationBar(
                 currentIndex: _currentIndex,
