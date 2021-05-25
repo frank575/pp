@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/less_group_page.dart';
+import 'package:flutter_app/plguin_use.dart';
 import 'package:flutter_app/stateful_group_page.dart';
 import 'flutter_layout_page.dart';
 
@@ -17,9 +18,10 @@ class MyApp extends StatelessWidget {
             appBar: AppBar(title: Text('如何創建和使用Flutter路由及導航？')),
             body: RootNavigator()),
         routes: {
+          'plugin': (context) => PluginUse(),
           'less': (context) => LessGroupPage(),
           'full': (context) => StatefulGroup(),
-          'layout': (context) => FlutterLayoutPage()
+          'layout': (context) => FlutterLayoutPage(),
         });
   }
 }
@@ -30,7 +32,7 @@ class RootNavigator extends StatefulWidget {
 }
 
 class _RootNavigatorState extends State<RootNavigator> {
-  bool byName = false; // false 表示不透過Navigator直接跳轉
+  bool byName = true; // false 表示不透過Navigator直接跳轉
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,9 +46,10 @@ class _RootNavigatorState extends State<RootNavigator> {
                   byName = value;
                 });
               }),
-          _item('如何進行Flutter布局開發', FlutterLayoutPage(), 'layout'),
-          _item('StatefulWidget與基礎組件', StatefulGroup(), 'full'),
+          _item('如何在flutter使用plugin？', PluginUse(), 'plugin'),
           _item('StatelessWidget與基礎組件', LessGroupPage(), 'less'),
+          _item('StatefulWidget與基礎組件', StatefulGroup(), 'full'),
+          _item('如何進行Flutter布局開發', FlutterLayoutPage(), 'layout'),
         ],
       ),
     );
