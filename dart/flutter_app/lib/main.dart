@@ -39,7 +39,7 @@ class _RootNavigatorState extends State<RootNavigator> {
       child: Column(
         children: [
           SwitchListTile(
-              title: Text('${byName ? '' : '不'}通過路由名跳轉'),
+              title: Text('${byName ? '' : '不'}通過Navigator跳轉'),
               value: byName,
               onChanged: (value) {
                 setState(() {
