@@ -7,6 +7,7 @@ import 'package:flutter_app/res_page.dart';
 import 'package:flutter_app/stateful_group_page.dart';
 
 import 'flutter_layout_page.dart';
+import 'flutter_widget_lifecycle.dart';
 
 void main() => runApp(MyApp());
 
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
           'gesture': (context) => GesturePage(),
           'res': (context) => ResPage(),
           'launch': (context) => LaunchPage(),
+          'lifecycle': (context) => FlutterWidgetLifecycle(),
         });
   }
 }
@@ -60,6 +62,7 @@ class _RootNavigatorState extends State<RootNavigator> {
           _item('如何檢測用戶手勢以及處理點擊事件？', GesturePage(), 'gesture'),
           _item('如何導入和使用Flutter的資源文件？', ResPage(), 'res'),
           _item('如何打開第三方應用？', LaunchPage(), 'launch'),
+          _item('Flutter頁面生命週期', FlutterWidgetLifecycle(), 'lifecycle'),
         ],
       ),
     );
