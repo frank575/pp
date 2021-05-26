@@ -19,11 +19,15 @@ class DynamicTheme extends StatefulWidget {
 
 class _DynamicThemeState extends State<DynamicTheme> {
   var _brightness = Brightness.light;
+
+  // 字體下載地址：https://fonts.google.com/specimen/Noto+Sans+TC
+  // 字體設定參考：https://flutter.dev/docs/cookbook/design/fonts
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
+          // fontFamily: 'NotoSansTC', // 此為全APP配置
           brightness: _brightness,
           primarySwatch: Colors.blue,
         ),
@@ -32,7 +36,10 @@ class _DynamicThemeState extends State<DynamicTheme> {
             body: Column(
               children: [
                 SwitchListTile(
-                    title: Text('夜間模式'),
+                    title: Text(
+                      '夜間模式',
+                      style: TextStyle(fontFamily: 'NotoSansTC'), // 局部配置
+                    ),
                     value: _brightness != Brightness.light,
                     onChanged: (value) {
                       setState(() {
