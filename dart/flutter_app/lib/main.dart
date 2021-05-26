@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/app_lifecycle.dart';
 import 'package:flutter_app/gesture_page.dart';
 import 'package:flutter_app/launch_page.dart';
 import 'package:flutter_app/less_group_page.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
           'res': (context) => ResPage(),
           'launch': (context) => LaunchPage(),
           'lifecycle': (context) => FlutterWidgetLifecycle(),
+          'applifecycle': (context) => AppLifecycle(),
         });
   }
 }
@@ -63,6 +65,7 @@ class _RootNavigatorState extends State<RootNavigator> {
           _item('如何導入和使用Flutter的資源文件？', ResPage(), 'res'),
           _item('如何打開第三方應用？', LaunchPage(), 'launch'),
           _item('Flutter頁面生命週期', FlutterWidgetLifecycle(), 'lifecycle'),
+          _item('Flutter應用生命週期', AppLifecycle(), 'applifecycle'),
         ],
       ),
     );
