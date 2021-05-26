@@ -10,19 +10,42 @@ import 'package:flutter_app/stateful_group_page.dart';
 import 'flutter_layout_page.dart';
 import 'flutter_widget_lifecycle.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(DynamicTheme());
 
-class MyApp extends StatelessWidget {
+class DynamicTheme extends StatefulWidget {
+  @override
+  _DynamicThemeState createState() => _DynamicThemeState();
+}
+
+class _DynamicThemeState extends State<DynamicTheme> {
+  var _brightness = Brightness.light;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
+          brightness: _brightness,
           primarySwatch: Colors.blue,
         ),
         home: Scaffold(
             appBar: AppBar(title: Text('如何創建和使用Flutter路由及導航？')),
-            body: RootNavigator()),
+            body: Column(
+              children: [
+                SwitchListTile(
+                    title: Text('夜間模式'),
+                    value: _brightness != Brightness.light,
+                    onChanged: (value) {
+                      setState(() {
+                        if (value) {
+                          _brightness = Brightness.dark;
+                        } else {
+                          _brightness = Brightness.light;
+                        }
+                      });
+                    }),
+                RootNavigator(),
+              ],
+            )),
         routes: {
           'plugin': (context) => PluginUse(),
           'less': (context) => LessGroupPage(),
