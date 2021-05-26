@@ -3,6 +3,7 @@ import 'package:flutter_app/app_lifecycle.dart';
 import 'package:flutter_app/gesture_page.dart';
 import 'package:flutter_app/launch_page.dart';
 import 'package:flutter_app/less_group_page.dart';
+import 'package:flutter_app/photo_app_page.dart';
 import 'package:flutter_app/plguin_use.dart';
 import 'package:flutter_app/res_page.dart';
 import 'package:flutter_app/stateful_group_page.dart';
@@ -63,6 +64,7 @@ class _DynamicThemeState extends State<DynamicTheme> {
           'launch': (context) => LaunchPage(),
           'lifecycle': (context) => FlutterWidgetLifecycle(),
           'applifecycle': (context) => AppLifecycle(),
+          'photoapp': (context) => PhotoAppPage(),
         });
   }
 }
@@ -96,6 +98,7 @@ class _RootNavigatorState extends State<RootNavigator> {
           _item('如何打開第三方應用？', LaunchPage(), 'launch'),
           _item('Flutter頁面生命週期', FlutterWidgetLifecycle(), 'lifecycle'),
           _item('Flutter應用生命週期', AppLifecycle(), 'applifecycle'),
+          _item('拍照APP開發', PhotoAppPage(), 'photoapp'),
         ],
       ),
     );
