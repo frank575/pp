@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_color/flutter_color.dart';
 
 //如何導入和使用Flutter的資源文件？
 class ResPage extends StatelessWidget {
@@ -24,18 +22,6 @@ class ResPage extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  _text(String text) {
-    return Column(
-      children: [
-        Text(
-          text,
-          style: TextStyle(color: HexColor('#ff0000')),
-        ),
-        Padding(padding: EdgeInsets.only(top: 5)),
-      ],
     );
   }
 }

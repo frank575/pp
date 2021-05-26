@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FlutterLayoutPage extends StatefulWidget {
@@ -18,7 +17,6 @@ class _FlutterLayoutPageState extends State<FlutterLayoutPage> {
 
   @override
   Widget build(BuildContext context) {
-    var textStyle = TextStyle(fontSize: 20);
     var chiwawa =
         'https://chiwawadog.com/wp-content/uploads/2019/06/6E1AB3A9-8597-4077-BAF4-E27FC3424278-1024x1013.jpeg';
     var chiwawa2 =
