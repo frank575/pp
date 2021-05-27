@@ -21,8 +21,8 @@ class DynamicTheme extends StatefulWidget {
 class _DynamicThemeState extends State<DynamicTheme> {
   var _brightness = Brightness.light;
 
-  // 字體下載地址：https://fonts.google.com/specimen/Noto+Sans+TC
-  // 字體設定參考：https://flutter.dev/docs/cookbook/design/fonts
+  //字體下載地址：https://fonts.google.com/specimen/Noto+Sans+TC
+  //字體設定參考：https://flutter.dev/docs/cookbook/design/fonts
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
