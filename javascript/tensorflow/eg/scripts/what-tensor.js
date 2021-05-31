@@ -35,6 +35,7 @@ for (let i = 0; i < w.length; i++) {
 }
 console.log(output)
 
+// tensor
 tf.tensor(w)
   .dot(tf.tensor(input))
   .print()
