@@ -1,0 +1,17 @@
+{
+  "name": "eg2",
+  "version": "1.0.0",
+  "main": "eg2/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:tf.linear-regression": "parcel ./linear-regression/index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@tensorflow/tfjs": "^3.6.0",
+    "@tensorflow/tfjs-vis": "^1.5.1"
+  }
+}
