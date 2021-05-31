@@ -6,6 +6,7 @@ window.onload = () => {
   const ys = [1, 3, 5, 7]
   tfvis.render.scatterplot(
     {name: '線性回歸訓練集'},
-    {values: xs.map((x,i)=>({x,y:ys[i]}))}
+    {values: xs.map((x,i)=>({x,y:ys[i]}))},
+    {xAxisDomain: [0, 5], yAxisDomain: [0, 8]}
   )
 }
