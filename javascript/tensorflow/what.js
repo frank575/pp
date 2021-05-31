@@ -55,7 +55,11 @@ Tensorflow.js 是什麼
     重新訓練現有模型
     使用js開發機器學習模型
 
-
+安裝
+  瀏覽器
+    1.script
+    
+  nodejs
 
 ---
 
