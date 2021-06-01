@@ -15,4 +15,5 @@ window.onload = () => {
   const model = tf.sequential()
   // units神經元個數
   model.add(tf.layers.dense({units:1, inputShape:[1]}))
+  model.compile({loss: tf.losses.meanSquaredError})
 }
