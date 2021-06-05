@@ -106,7 +106,33 @@ tensor和機器學習有什麼關係
   用來修正AI的預測錯誤(全數平方(或絕對值)相加除總)
 
 操作步驟
-  跟著Google機器學習速成教程理解損失函數與均方誤差(https://developers.google.com/machine-learning/crash-course/descending-into-ml/training-and-loss?hl=zh-cn)
+  跟著Google機器學習速成教程理解(https://developers.google.com/machine-learning/crash-course/descending-into-ml/training-and-loss?hl=zh-cn)
   在tensorflow.js中設置損失函數
   
+  
+---
+
+
+優化器：隨機梯度下降(SGD)
+  可以通過優化器找到改進的"方向"及"幅度"
+  
+操作步驟
+  跟著Google機器學習速成教程理解(https://developers.google.com/machine-learning/crash-course/reducing-loss/an-iterative-approach?hl=zh-cn)
+  在tensorflow.js中設置優化器
 `
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

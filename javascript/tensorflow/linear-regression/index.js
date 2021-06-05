@@ -13,7 +13,7 @@ window.onload = () => {
 
   // sequential 創造連續模型
   const model = tf.sequential()
-  // units神經元個數
+  // units神經元個數, loss 損失函數, optimizer 優化器
   model.add(tf.layers.dense({units:1, inputShape:[1]}))
-  model.compile({loss: tf.losses.meanSquaredError})
+  model.compile({loss: tf.losses.meanSquaredError, optimizer: tf.train.sgd(0.1)})
 }
