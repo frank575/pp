@@ -2,6 +2,7 @@ import { Wrap } from '@/pages/account/components/wrap'
 import { Button, Form, Input } from 'antd'
 import { useRegisterService } from '@/pages/account/register/useRegisterService'
 import { Link } from 'react-router-dom'
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 
 export default () => {
 	const registerService = useRegisterService()
@@ -34,7 +35,12 @@ export default () => {
 					]}
 					validateTrigger={['onChange', 'onBlur']}
 				>
-					<Input placeholder={'4-20位字元'} type={'password'} />
+					<Input.Password
+						placeholder={'4-20位字元'}
+						iconRender={visible =>
+							visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+						}
+					/>
 				</Form.Item>
 				<Form.Item
 					label={'確認密碼'}
@@ -47,13 +53,22 @@ export default () => {
 					]}
 					validateTrigger={['onChange', 'onBlur']}
 				>
-					<Input placeholder={'4-20位字元'} type={'password'} />
+					<Input.Password
+						placeholder={'請與密碼保持一致'}
+						iconRender={visible =>
+							visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+						}
+					/>
 				</Form.Item>
 				<div className={'text-right'}>
 					<Link to={'/login'}>
 						<Button className={'mr-2'}>返回登入</Button>
 					</Link>
-					<Button type={'primary'} htmlType={'submit'}>
+					<Button
+						type={'primary'}
+						htmlType={'submit'}
+						loading={registerService.submitLoading}
+					>
 						註冊
 					</Button>
 				</div>

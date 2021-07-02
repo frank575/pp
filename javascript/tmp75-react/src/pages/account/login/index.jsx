@@ -1,4 +1,5 @@
 import { Button, Form, Input } from 'antd'
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { useLoginService } from '@/pages/account/login/useLoginService'
 import { Link } from 'react-router-dom'
 import { Wrap } from '@/pages/account/components/wrap'
@@ -32,13 +33,22 @@ export default () => {
 					]}
 					validateTrigger={['onChange', 'onBlur']}
 				>
-					<Input placeholder={'0000'} type={'password'} />
+					<Input.Password
+						placeholder={'0000'}
+						iconRender={visible =>
+							visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+						}
+					/>
 				</Form.Item>
 				<div className="text-right">
 					<Link to={'/register'}>
 						<Button className="mr-2">註冊</Button>
 					</Link>
-					<Button type="primary" htmlType="submit">
+					<Button
+						type="primary"
+						htmlType="submit"
+						loading={loginService.submitLoading}
+					>
 						登入
 					</Button>
 				</div>

@@ -2,8 +2,10 @@ import { message } from 'antd'
 import { useStore } from '@/core/store'
 import { callNoAuthFakeApi } from '@/core/api-service'
 import { useHistory } from 'react-router'
+import { useState } from 'react'
 
 export const useLoginService = () => {
+	const [submitLoading, setSubmitLoading] = useState(false)
 	const history = useHistory()
 	const setStorage = useStore('setStorage')
 	const initialUsername = import.meta.env.VITE_USERNAME
@@ -25,9 +27,12 @@ export const useLoginService = () => {
 		return Promise.resolve()
 	}
 	const onLogin = async data => {
+		console.log(data)
+
 		const { username, password } = data
-		console.log({ username, password })
+		setSubmitLoading(true)
 		const { success } = await callNoAuthFakeApi()
+		setSubmitLoading(false)
 		if (success) {
 			setStorage(e => ({ ...e, token: 'just token' }))
 			message.success('登入成功')
@@ -35,6 +40,8 @@ export const useLoginService = () => {
 		}
 	}
 	return {
+		submitLoading,
+		setSubmitLoading,
 		initialUsername,
 		initialPassword,
 		usernameValidator,
