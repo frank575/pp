@@ -1,10 +1,8 @@
 import { lazy } from 'react'
-import { createBrowserHistory } from 'history'
 import { createRoutes } from '@jsl-react/lib'
 import { notFoundRoute, toNotFound } from '@/components/not-found'
 import { LazyLoading } from '@/components/lazy-loading'
 
-const history = createBrowserHistory()
 const routes = [
 	{
 		path: '/',
@@ -44,4 +42,4 @@ const routes = [
 ]
 
 const { Routes } = createRoutes(routes, LazyLoading)
-export { history, Routes }
+export { Routes }
