@@ -1,3 +1,10 @@
 @import 'reset.css';
 @import 'antd/dist/antd.css';
-@import 'main.css';
+/*! @import */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}

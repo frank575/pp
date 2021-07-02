@@ -1,9 +1,9 @@
 import ReactDOM from 'react-dom'
 import '@/core/style/index.css'
-import { Routes } from '@/core/app/routes'
+import { Routes } from '@/core/routes'
 import { StoreProvider } from '@/core/store'
-import '@/core/app/dev-log'
-import { AppVersion } from '@/core/app/components/version'
+import '@/core/lib/dev-log'
+import { AppVersion } from '@/core/components/version'
 
 export const App = () => {
 	return (
