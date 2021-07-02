@@ -1,4 +1,3 @@
-import { timeout } from '@jsl'
 import { message } from 'antd'
 import { useStore } from '@/core/store'
 import { callNoAuthFakeApi } from '@/core/api-service'
