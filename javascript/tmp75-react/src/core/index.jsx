@@ -4,13 +4,18 @@ import { Routes } from '@/core/routes'
 import { StoreProvider } from '@/core/store'
 import '@/core/lib/dev-log'
 import { AppVersion } from '@/core/components/version'
+import { HashRouter } from 'react-router-dom'
 
 export const App = () => {
 	return (
-		<StoreProvider>
-			<Routes />
+		<>
+			<HashRouter>
+				<StoreProvider>
+					<Routes />
+				</StoreProvider>
+			</HashRouter>
 			<AppVersion />
-		</StoreProvider>
+		</>
 	)
 }
 

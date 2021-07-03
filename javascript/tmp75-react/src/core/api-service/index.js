@@ -14,9 +14,8 @@ export const callNoAuthFakeApi = async () => {
 }
 export const callAuthFakeApi = async () => {
 	await timeout().startSync(_none, 500)
-	const stringStore = localStorage.getItem('tmp75_store')
-	const store = stringStore ? JSON.parse(stringStore) : null
-	if (store.token) {
+	const token = localStorage.getItem('tmp75_token')
+	if (token) {
 		return {
 			success: true,
 			status: 200,

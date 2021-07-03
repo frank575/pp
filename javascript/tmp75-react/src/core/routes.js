@@ -1,29 +1,32 @@
 import { lazy } from 'react'
 import { createRoutes } from '@jsl-react/lib'
 import { notFoundRoute, toNotFound } from '@/core/components/not-found'
+import { Layout } from '@/core/components/layout'
 import { LazyLoading } from '@/core/components/lazy-loading'
 
 const routes = [
 	{
+		path: '/login',
+		component: lazy(() =>
+			import(
+				/*webpackChunkName:"login"*/ /*webpackMode:"account/login"*/ '@/pages/account/login'
+			),
+		),
+	},
+	{
+		path: '/register',
+		component: lazy(() =>
+			import(
+				/*webpackChunkName:"register"*/ /*webpackMode:"account/register"*/ '@/pages/account/register'
+			),
+		),
+	},
+	notFoundRoute,
+	{
 		path: '/',
-		redirect: '/login',
+		redirect: '/task',
+		component: Layout,
 		children: [
-			{
-				path: 'login',
-				component: lazy(() =>
-					import(
-						/*webpackChunkName:"not-found"*/ /*webpackMode:"account/login"*/ '@/pages/account/login'
-					),
-				),
-			},
-			{
-				path: 'register',
-				component: lazy(() =>
-					import(
-						/*webpackChunkName:"not-found"*/ /*webpackMode:"account/register"*/ '@/pages/account/register'
-					),
-				),
-			},
 			{
 				path: 'task',
 				redirect: '/task/list',
@@ -32,7 +35,7 @@ const routes = [
 						path: 'list',
 						component: lazy(() =>
 							import(
-								/*webpackChunkName:"not-found"*/ /*webpackMode:"task/list"*/ '@/pages/task/list'
+								/*webpackChunkName:"task-list"*/ /*webpackMode:"task/list"*/ '@/pages/task/list'
 							),
 						),
 					},
@@ -40,7 +43,7 @@ const routes = [
 						path: 'detail',
 						component: lazy(() =>
 							import(
-								/*webpackChunkName:"not-found"*/ /*webpackMode:"task/detail"*/ '@/pages/task/detail'
+								/*webpackChunkName:"task-detail"*/ /*webpackMode:"task/detail"*/ '@/pages/task/detail'
 							),
 						),
 					},
@@ -51,11 +54,10 @@ const routes = [
 				path: 'news',
 				component: lazy(() =>
 					import(
-						/*webpackChunkName:"not-found"*/ /*webpackMode:"news"*/ '@/pages/news'
+						/*webpackChunkName:"news"*/ /*webpackMode:"news"*/ '@/pages/news'
 					),
 				),
 			},
-			notFoundRoute,
 			toNotFound,
 		],
 	},
