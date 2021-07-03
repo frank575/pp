@@ -1,12 +1,11 @@
 /// 路由生成器
 /// author frank575
-/// v1 加入 SuspenseFallback 功能
+/// v2 [broken] 把 <Router /> 使用權轉移給使用者
+/// v1 [broken] 加入 SuspenseFallback 功能
 /// v0
 
-
 import { ReactElement, Suspense } from 'react'
-import { HashRouter, Redirect, Route, Router, Switch } from 'react-router-dom'
-import {createBrowserHistory} from "history";
+import { Redirect, Route, Switch } from 'react-router-dom'
 
 /**
  * @typedef {Object} Route
@@ -17,27 +16,20 @@ import {createBrowserHistory} from "history";
  *
  * @param {Route[]} routes
  * @param {null | ReactElement} SuspenseFallback
- * @param {Boolean} isHash
- * @returns {{Routes: ReactElement[], history: null | history.History}}
+ * @returns {{Routes: ReactElement[]}}
  */
-export const createRoutes = (routes, SuspenseFallback = null, isHash = true) => {
-	const history = isHash ? null : createBrowserHistory()
+export const createRoutes = (routes, SuspenseFallback = null) => {
 	const Redirects = []
 	const Routes = []
 	const recurMap = (
 		parentChildren,
-		{path: parentPath, component: ParentComponent},
+		{ path: parentPath, component: ParentComponent },
 		prefix,
 	) => {
 		const Children = (
 			<Switch>
-				{parentChildren.map((e) => {
-					const {
-						path,
-						redirect,
-						children,
-						component: Component,
-					} = e
+				{parentChildren.map(e => {
+					const { path, redirect, children, component: Component } = e
 					const concatPath = `${prefix}${path}`
 					if (redirect) {
 						Redirects.push(
@@ -53,14 +45,16 @@ export const createRoutes = (routes, SuspenseFallback = null, isHash = true) => 
 						const nextPath = concatPath === '/' ? concatPath : concatPath + '/'
 						return recurMap(children, e, nextPath)
 					} else {
-						const RRoute = path
-							? <Route
+						const RRoute = path ? (
+							<Route
 								key={concatPath}
 								path={concatPath}
 								exact
 								component={Component}
 							/>
-							: <Route key={`${concatPath}--404`} component={Component} />
+						) : (
+							<Route key={`${concatPath}--404`} component={Component} />
+						)
 						return [RRoute]
 					}
 				})}
@@ -81,37 +75,28 @@ export const createRoutes = (routes, SuspenseFallback = null, isHash = true) => 
 
 	for (let i = 0; i < routes.length; i++) {
 		const e = routes[i]
-		const {
-			redirect,
-			path,
-			children,
-			component: Component,
-		} = e
+		const { redirect, path, children, component: Component } = e
 		if (redirect) {
-			Redirects.push(<Redirect key={path} path={path} to={redirect} exact/>)
+			Redirects.push(<Redirect key={path} path={path} to={redirect} exact />)
 		}
 		if (children) {
 			const nextPath = path === '/' ? path : path + '/'
 			Routes.push(recurMap(children, e, nextPath))
 		} else {
-			if (path) Routes.push(<Route key={path} path={path} exact component={Component}/>)
-			else Routes.push(<Route key={`404`} component={Component}/>)
+			if (path)
+				Routes.push(
+					<Route key={path} path={path} exact component={Component} />,
+				)
+			else Routes.push(<Route key={`404`} component={Component} />)
 		}
 	}
 
-	const RRouter = ({children}) => isHash
-		? <HashRouter>{children}</HashRouter>
-		: <Router history={history}>{children}</Router>
-
 	return {
-		Routes: () => <RRouter>
+		Routes: () => (
 			<Suspense fallback={<SuspenseFallback />}>
-				<Switch>
-					{Redirects.concat(Routes)}
-				</Switch>
+				<Switch>{Redirects.concat(Routes)}</Switch>
 			</Suspense>
-		</RRouter>,
-		history,
+		),
 	}
 }
 /*
@@ -172,36 +157,40 @@ export const createRoutes = (routes, SuspenseFallback = null, isHash = true) => 
 	前↑  前↑  前↑  前↑  前↑  前↑  前↑  前↑  前↑  前↑
 	編譯結果大致如下：
 	後↓  後↓  後↓  後↓  後↓  後↓  後↓  後↓  後↓  後↓
-	<Redirect path={'/a'} to={'/a/a'} exact />
-	<Redirect path={'/a/a'} to={'/a/a/a'} exact />
-	<Redirect path={'/b'} to={'/b/a'} exact />
-	<Route path={'/'} exact component={Home} />
-	<Route path={'/a'}>
-		{props =>
-			<Wrap1 {...props}>
-				<Switch>
-					<Route path={'/a/a'}>
-						{props =>
-							<Wrap2 {...props}>
-								<Switch>
-									<Route path={'/a/a/a'} exact component={AAA} />
-									<Route path={'/a/a/b'} exact component={AAB} />
-                  <Route component={NotFound3} />
-								</Switch>
-							</Wrap2>
-						}
-					</Route>
-					<Route path={'/a/b'} exact component={AB} />
-          <Route component={NotFound2} />
-				</Switch>
-			</Wrap1>
-		}
-	</Route>
-	<Route path={'/b'}>
+	<Suspense fallback={<SuspenseFallback />}>
 		<Switch>
-			<Route path={'/b/a'} exact component={BA} />
-      <Route component={NotFound2} />
+			<Redirect path={'/a'} to={'/a/a'} exact />
+			<Redirect path={'/a/a'} to={'/a/a/a'} exact />
+			<Redirect path={'/b'} to={'/b/a'} exact />
+			<Route path={'/'} exact component={Home} />
+			<Route path={'/a'}>
+				{props =>
+					<Wrap1 {...props}>
+						<Switch>
+							<Route path={'/a/a'}>
+								{props =>
+									<Wrap2 {...props}>
+										<Switch>
+											<Route path={'/a/a/a'} exact component={AAA} />
+											<Route path={'/a/a/b'} exact component={AAB} />
+											<Route component={NotFound3} />
+										</Switch>
+									</Wrap2>
+								}
+							</Route>
+							<Route path={'/a/b'} exact component={AB} />
+							<Route component={NotFound2} />
+						</Switch>
+					</Wrap1>
+				}
+			</Route>
+			<Route path={'/b'}>
+				<Switch>
+					<Route path={'/b/a'} exact component={BA} />
+					<Route component={NotFound2} />
+				</Switch>
+			</Route>
+			<Route component={NotFound1}/>
 		</Switch>
-	</Route>
-  <Route component={NotFound1}/>
+	</Suspense>
 */
