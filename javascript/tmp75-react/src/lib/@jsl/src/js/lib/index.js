@@ -1,6 +1,5 @@
-import { ClassName } from './class-name'
-import { Arr } from './arr'
-import { Enum } from './enum'
+import { createClassName } from './create-class-name'
+import { createEnum } from './create-enum'
 import { stepPrice } from './step-price'
 import { copyText } from './copy-text'
 import { checkMobile } from './check-mobile'
@@ -19,9 +18,8 @@ import { interval } from './timer/interval'
 import { aniFrame } from './timer/ani-frame'
 
 export {
-	ClassName,
-	Arr,
-	Enum,
+	createClassName,
+	createEnum,
 	stepPrice,
 	copyText,
 	checkMobile,
