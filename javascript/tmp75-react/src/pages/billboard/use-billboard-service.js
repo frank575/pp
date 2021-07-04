@@ -81,30 +81,17 @@ const useList = () => {
 		[getList],
 	)
 
-	const onDelete = useCallback(
-		async id => {
-			const { success, message: resMessage } = await fetchDeleteBillboardPost(
-				id,
-			)
-			if (success) {
-				message.success(resMessage)
-				getList()
-			}
-		},
-		[getList],
-	)
-
 	useEffect(getList, [search])
 
 	return {
 		loading,
 		data,
 		search,
+		getList,
 		onChangeSearch,
 		onDebounceChangeSearch,
 		onChangeTable,
 		onLike,
-		onDelete,
 	}
 }
 

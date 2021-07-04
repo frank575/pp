@@ -131,9 +131,13 @@ export const fetchEditBillboardPost = async ({ id, name }) => {
 
 export const fetchDeleteBillboardPost = async id => {
 	await timeout().startSync(none, 500)
-	const index = BILLBOARD.findIndex(e => e.id === id)
-	if (index !== -1) {
-		BILLBOARD.splice(index, 1)
+	const postIndex = BILLBOARD.findIndex(e => e.id === id)
+	const likeIndex = BILLBOARD_LIKE.findIndex(e => e.postId === id)
+	if (postIndex !== -1) {
+		BILLBOARD.splice(postIndex, 1)
+	}
+	if (likeIndex !== -1) {
+		BILLBOARD_LIKE.splice(likeIndex, 1)
 	}
 	return {
 		success: true,

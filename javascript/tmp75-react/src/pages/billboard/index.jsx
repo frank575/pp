@@ -4,6 +4,8 @@ import {
 	Button,
 	Form,
 	Input,
+	message,
+	Modal,
 	Select,
 	Table,
 	Tag,
@@ -12,14 +14,16 @@ import {
 } from 'antd'
 import { EBillboardStatus } from '@/core/api-service/_fake-table'
 import {
+	ExclamationCircleOutlined,
 	DeleteOutlined,
 	DislikeTwoTone,
 	EditOutlined,
 	LikeTwoTone,
 	OrderedListOutlined,
 } from '@ant-design/icons'
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { MyTitle } from '@/components/my-title'
+import { fetchDeleteBillboardPost } from '@/core/api-service'
 
 const { Option } = Select
 const { Paragraph, Text } = Typography
@@ -117,7 +121,7 @@ export default () => {
 								<EditOutlined className={'mr-2'} />
 							</Tooltip>
 							<Tooltip title={'刪除'}>
-								<DeleteOutlined onClick={() => billboardService.onDelete(id)} />
+								<DeleteOutlined onClick={() => onDelete(e)} />
 							</Tooltip>
 						</div>
 					)
@@ -129,6 +133,29 @@ export default () => {
 			billboardService.search.number,
 			billboardService.search.size,
 		],
+	)
+
+	const onDelete = useCallback(
+		e => {
+			Modal.confirm({
+				title: '確認刪除該消息？',
+				icon: <ExclamationCircleOutlined />,
+				content: (
+					<div>
+						您將要刪除的消息是<Text code>{e.name}</Text>
+					</div>
+				),
+				async onOk() {
+					const { success, message: resMessage } =
+						await fetchDeleteBillboardPost(e.id)
+					if (success) {
+						message.success(resMessage)
+						billboardService.getList()
+					}
+				},
+			})
+		},
+		[billboardService.getList],
 	)
 
 	return (
