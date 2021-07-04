@@ -28,7 +28,6 @@ export const callNoAuthFakeApi = async () => {
 export const callNoAuthRandomSuccessFakeApi = async () => {
 	await timeout().startSync(none, 1500)
 	const random = Math.random()
-	console.log({ random })
 	console.log(
 		`random: ${random}
 random > 0.1 表示身分驗證成功, 目前結果為: 驗證${
