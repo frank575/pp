@@ -1,3 +1,7 @@
+import { useTaskListService } from '@/pages/task/list/useTaskListService'
+
 export default () => {
-  return <div>task/list</div>
+	const taskListService = useTaskListService()
+
+	return <div>task/list</div>
 }

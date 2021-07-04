@@ -1,3 +1,6 @@
+import { useTaskDetailService } from '@/pages/task/detail/useTaskDetailService'
+
 export default () => {
-  return <div>task/detail</div>
+	const taskDetailService = useTaskDetailService()
+	return <div>task/detail</div>
 }
