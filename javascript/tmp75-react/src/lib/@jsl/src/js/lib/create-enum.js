@@ -1,14 +1,14 @@
 /// enum 實用的狀態轉換器
 /// author frank575
+/// v1 [broken] Enum 改名為 createEnum
 /// v0
-
 
 /**
  * @template T
  * @param {T} obj
  * @return {T & {t(val: any): string, key(val: any): string, keys: string[], map: function(callback?: function(v: [any, any], k: string)): any[]}}
  */
-export const Enum = obj => {
+export const createEnum = obj => {
 	const translation = {}
 	const reverseEnum = {}
 	const $enum = {}
