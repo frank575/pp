@@ -1,7 +1,7 @@
 import { useProvider } from '@jsl-react/hooks'
-import { useAuth } from '@/core/store/useAuth'
-import { useLayout } from '@/core/store/useLayout'
-import { useRoute } from '@/core/store/useRoute'
+import { useAuth } from '@/core/store/use-auth'
+import { useLayout } from '@/core/store/use-layout'
+import { useRoute } from '@/core/store/use-route'
 
 const store = () => {
 	const auth = useAuth()

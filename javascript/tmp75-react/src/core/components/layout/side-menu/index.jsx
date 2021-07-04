@@ -1,5 +1,5 @@
 import { Menu } from 'antd'
-import { userSideMenuService } from '@/core/components/layout/side-menu/userSideMenuService'
+import { userSideMenuService } from '@/core/components/layout/side-menu/user-side-menu-service'
 import { useMemo } from 'react'
 import { OrderedListOutlined, ScheduleOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'

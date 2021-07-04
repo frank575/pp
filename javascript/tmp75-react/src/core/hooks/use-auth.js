@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useStore } from '@/core/store'
-import { EAuthCode } from '@/core/store/useAuth'
+import { EAuthCode } from '@/core/store/use-auth'
 
 export const useAuth = () => {
 	const checkAuth = useStore(e => e.checkAuth)

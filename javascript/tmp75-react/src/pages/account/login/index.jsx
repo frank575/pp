@@ -1,6 +1,6 @@
 import { Button, Form, Input } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
-import { useLoginService } from '@/pages/account/login/useLoginService'
+import { useLoginService } from '@/pages/account/login/use-login-service'
 import { Link } from 'react-router-dom'
 import { Wrap } from '@/pages/account/components/wrap'
 

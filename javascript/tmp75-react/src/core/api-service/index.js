@@ -1,6 +1,11 @@
 import service from './service'
 import { timeout } from '@jsl'
-import { BILL_BOARD, BILL_BOARD_LIKE } from '@/core/api-service/_fake-table'
+import {
+	BILLBOARD,
+	BILLBOARD_LIKE,
+	EBillboardStatus,
+	getNewId,
+} from '@/core/api-service/_fake-table'
 
 export const fetchLogin = params => service.post('login', params)
 
@@ -18,6 +23,7 @@ export const callNoAuthFakeApi = async () => {
 		message: '成功',
 	}
 }
+
 // 用在身分驗證上
 export const callNoAuthRandomSuccessFakeApi = async () => {
 	await timeout().startSync(none, 1500)
@@ -43,12 +49,12 @@ random > 0.1 表示身分驗證成功, 目前結果為: 驗證${
 		}
 	}
 }
-// 假裝搓了需要token的API
+
 export const fetchBillboard = async req => {
 	const { size, number, sort, order, status, keyword } = req
 	await timeout().startSync(none, 500)
 	const excludeContent = []
-	BILL_BOARD.forEach(e => {
+	BILLBOARD.forEach(e => {
 		let pass = true
 		if (status != null && !e.status.includes(status)) pass = false
 		if (
@@ -71,14 +77,11 @@ export const fetchBillboard = async req => {
 		.slice(number * size, number * size + size)
 		.map(e => ({ ...e, isLike: false, isDislike: false }))
 
-	BILL_BOARD_LIKE.forEach(e => {
+	BILLBOARD_LIKE.forEach(e => {
 		content.some(f => {
 			if (f.id === e.postId) {
-				if (e.like) {
-					f.isLike = true
-				} else {
-					f.isDislike = true
-				}
+				f.isLike = e.like
+				f.isDislike = e.dislike
 				return true
 			}
 		})
@@ -92,5 +95,116 @@ export const fetchBillboard = async req => {
 			content,
 			total: excludeContent.length,
 		},
+	}
+}
+
+export const fetchAddBillboardPost = async ({ name }) => {
+	await timeout().startSync(none, 500)
+	BILLBOARD.append({
+		id: getNewId(BILLBOARD),
+		name,
+		like: 0,
+		status: [EBillboardStatus],
+	})
+	return {
+		success: true,
+		status: 200,
+		message: '新增消息成功',
+	}
+}
+
+export const fetchEditBillboardPost = async ({ id, name }) => {
+	await timeout().startSync(none, 500)
+	const index = BILLBOARD.findIndex(e => e.id === id)
+	if (index !== -1) {
+		BILLBOARD[index] = {
+			...BILLBOARD[index],
+			name,
+		}
+	}
+	return {
+		success: true,
+		status: 200,
+		message: '編輯消息成功',
+	}
+}
+
+export const fetchDeleteBillboardPost = async id => {
+	await timeout().startSync(none, 500)
+	const index = BILLBOARD.findIndex(e => e.id === id)
+	if (index !== -1) {
+		BILLBOARD.splice(index, 1)
+	}
+	return {
+		success: true,
+		status: 200,
+		message: '刪除消息成功',
+	}
+}
+
+export const fetchLikeBillboardPost = async ({ id, like, dislike }) => {
+	await timeout().startSync(none, 500)
+	const likeIndex = BILLBOARD_LIKE.findIndex(e => e.postId === id)
+	const postIndex = BILLBOARD.findIndex(e => e.id === id)
+	if (likeIndex !== -1) {
+		const likeEl = BILLBOARD_LIKE[likeIndex]
+		const billboardEl = BILLBOARD[postIndex]
+		if (like != null) {
+			if (like) {
+				if (likeEl.dislike) {
+					likeEl.like = true
+					likeEl.dislike = false
+					billboardEl.like += 2
+				} else {
+					likeEl.like = true
+					billboardEl.like++
+				}
+			} else {
+				if (likeEl.like) {
+					likeEl.like = false
+					billboardEl.like--
+				}
+			}
+		} else if (dislike != null) {
+			if (dislike) {
+				if (likeEl.like) {
+					likeEl.like = false
+					likeEl.dislike = true
+					billboardEl.like -= 2
+				} else {
+					likeEl.dislike = true
+					billboardEl.like--
+				}
+			} else {
+				if (likeEl.dislike) {
+					likeEl.dislike = false
+					billboardEl.like++
+				}
+			}
+		}
+	} else {
+		const billboardEl = BILLBOARD[postIndex]
+		if (like != null) {
+			BILLBOARD_LIKE.push({
+				id: getNewId(BILLBOARD_LIKE),
+				like: true,
+				dislike: false,
+				postId: id,
+			})
+			billboardEl.like++
+		} else if (dislike != null) {
+			BILLBOARD_LIKE.push({
+				id: getNewId(BILLBOARD_LIKE),
+				like: false,
+				dislike: true,
+				postId: id,
+			})
+			billboardEl.like--
+		}
+	}
+	return {
+		success: true,
+		status: 200,
+		message: `按消息${dislike ? '倒' : ''}讚成功`,
 	}
 }

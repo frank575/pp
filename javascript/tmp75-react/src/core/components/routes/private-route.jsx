@@ -1,4 +1,4 @@
-import { useAuth } from '@/core/hooks/useAuth'
+import { useAuth } from '@/core/hooks/use-auth'
 import { Redirect, Route } from 'react-router'
 import { MyAppContent } from '@/components/my-app-content'
 import { LoadingOutlined } from '@ant-design/icons'

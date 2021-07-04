@@ -1,6 +1,6 @@
 import { Button } from 'antd'
 import { MenuOutlined, LogoutOutlined } from '@ant-design/icons'
-import { useHeaderService } from '@/core/components/layout/header/useHeaderService'
+import { useHeaderService } from '@/core/components/layout/header/use-header-service'
 
 export const Header = () => {
 	const headerService = useHeaderService()

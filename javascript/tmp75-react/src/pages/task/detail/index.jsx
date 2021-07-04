@@ -1,4 +1,4 @@
-import { useTaskDetailService } from '@/pages/task/detail/useTaskDetailService'
+import { useTaskDetailService } from '@/pages/task/detail/use-task-detail-service'
 import { MyAppContent } from '@/components/my-app-content'
 
 export default () => {

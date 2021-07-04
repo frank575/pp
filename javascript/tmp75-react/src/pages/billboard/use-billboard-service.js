@@ -1,6 +1,11 @@
+import { message } from 'antd'
 import { useStore } from '@/core/store'
 import { useCallback, useEffect, useState } from 'react'
-import { fetchBillboard } from '@/core/api-service'
+import {
+	fetchBillboard,
+	fetchDeleteBillboardPost,
+	fetchLikeBillboardPost,
+} from '@/core/api-service'
 import useDebounce from '../../lib/@jsl/src/js/react/hooks/use-debounce'
 
 const useList = () => {
@@ -16,12 +21,15 @@ const useList = () => {
 		keyword: '',
 	})
 	const [loading, setLoading] = useState(true)
+
 	const onChangeSearch = (key, value) => {
 		setSearch(e => ({ ...e, number: 1, [key]: value }))
 	}
+
 	const onDebounceChangeSearch = useDebounce((key, value) => {
 		setSearch(e => ({ ...e, number: 1, [key]: value }))
 	}, 1000)
+
 	const onChangeTable = (pagination, filters, sorter) => {
 		if (
 			pagination.current !== search.number ||
@@ -43,6 +51,7 @@ const useList = () => {
 			}))
 		}
 	}
+
 	const getList = useCallback(async () => {
 		setLoading(true)
 		const res = await fetchBillboard({
@@ -58,6 +67,33 @@ const useList = () => {
 		console.log('取得公佈欄列表完成')
 	}, [search])
 
+	const onLike = useCallback(
+		async (id, key = 'like', value = true) => {
+			const { success, message: resMessage } = await fetchLikeBillboardPost({
+				id,
+				[key]: value,
+			})
+			if (success) {
+				message.success(resMessage)
+				getList()
+			}
+		},
+		[getList],
+	)
+
+	const onDelete = useCallback(
+		async id => {
+			const { success, message: resMessage } = await fetchDeleteBillboardPost(
+				id,
+			)
+			if (success) {
+				message.success(resMessage)
+				getList()
+			}
+		},
+		[getList],
+	)
+
 	useEffect(getList, [search])
 
 	return {
@@ -67,6 +103,8 @@ const useList = () => {
 		onChangeSearch,
 		onDebounceChangeSearch,
 		onChangeTable,
+		onLike,
+		onDelete,
 	}
 }
 

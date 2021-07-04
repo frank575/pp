@@ -1,9 +1,8 @@
-import { useBillboardService } from '@/pages/billboard/useBillboardService'
+import { useBillboardService } from '@/pages/billboard/use-billboard-service'
 import { MyAppContent } from '@/components/my-app-content'
 import {
-	Form,
 	Button,
-	Divider,
+	Form,
 	Input,
 	Select,
 	Table,
@@ -11,7 +10,7 @@ import {
 	Tooltip,
 	Typography,
 } from 'antd'
-import { EBillBoardStatus } from '@/core/api-service/_fake-table'
+import { EBillboardStatus } from '@/core/api-service/_fake-table'
 import {
 	DeleteOutlined,
 	DislikeTwoTone,
@@ -32,7 +31,11 @@ export default () => {
 			{
 				title: '編號',
 				render(v, e, i) {
-					return i + 1
+					return (
+						(billboardService.search.number - 1) *
+							billboardService.search.size +
+						(i + 1)
+					)
 				},
 			},
 			{
@@ -48,11 +51,11 @@ export default () => {
 							allowClear
 							onChange={v => billboardService.onChangeSearch('status', v)}
 						>
-							<Option value={EBillBoardStatus.new}>
-								{EBillBoardStatus.t(EBillBoardStatus.new)}
+							<Option value={EBillboardStatus.new}>
+								{EBillboardStatus.t(EBillboardStatus.new)}
 							</Option>
-							<Option value={EBillBoardStatus.hot}>
-								{EBillBoardStatus.t(EBillBoardStatus.hot)}
+							<Option value={EBillboardStatus.hot}>
+								{EBillboardStatus.t(EBillboardStatus.hot)}
 							</Option>
 						</Select>
 					)
@@ -60,12 +63,12 @@ export default () => {
 				dataIndex: 'status',
 				render(v) {
 					return v.map(e =>
-						e === EBillBoardStatus.normal ? null : (
+						e === EBillboardStatus.normal ? null : (
 							<Tag
 								key={e}
-								color={e === EBillBoardStatus.hot ? 'magenta' : 'green'}
+								color={e === EBillboardStatus.hot ? 'magenta' : 'green'}
 							>
-								{EBillBoardStatus.t(e)}
+								{EBillboardStatus.t(e)}
 							</Tag>
 						),
 					)
@@ -79,22 +82,34 @@ export default () => {
 			{
 				title: '操作',
 				render(_, e) {
-					const { isLike, isDislike } = e
+					const { id, isLike, isDislike } = e
 					return (
 						<div className={'flex items-center'}>
-							<Tooltip title={isLike ? '你已按過讚' : '按讚'}>
-								<div className={'flex items-center cursor-pointer mr-2'}>
-									<LikeTwoTone twoToneColor={isLike ? null : '#aaaaaa'} />
-									<span className="text-xs ml-1">{isLike ? '+1' : null}</span>
-								</div>
-							</Tooltip>
-							<Tooltip title={isDislike ? '你已倒過讚' : '倒讚'}>
-								<div className={'flex items-center cursor-pointer mr-2'}>
-									<DislikeTwoTone
-										twoToneColor={isDislike ? '#eb2f96' : '#aaaaaa'}
+							<Tooltip title={isLike === true ? '你已按過讚' : '按讚'}>
+								<div
+									className={'flex items-center cursor-pointer mr-2'}
+									onClick={() => billboardService.onLike(id, 'like', !isLike)}
+								>
+									<LikeTwoTone
+										twoToneColor={isLike === true ? null : '#aaaaaa'}
 									/>
 									<span className="text-xs ml-1">
-										{isDislike ? '+1' : null}
+										{isLike === true ? '+1' : null}
+									</span>
+								</div>
+							</Tooltip>
+							<Tooltip title={isDislike === true ? '你已倒過讚' : '倒讚'}>
+								<div
+									className={'flex items-center cursor-pointer mr-2'}
+									onClick={() =>
+										billboardService.onLike(id, 'dislike', !isDislike)
+									}
+								>
+									<DislikeTwoTone
+										twoToneColor={isDislike === true ? '#eb2f96' : '#aaaaaa'}
+									/>
+									<span className="text-xs ml-1">
+										{isDislike === true ? '+1' : null}
 									</span>
 								</div>
 							</Tooltip>
@@ -102,14 +117,18 @@ export default () => {
 								<EditOutlined className={'mr-2'} />
 							</Tooltip>
 							<Tooltip title={'刪除'}>
-								<DeleteOutlined />
+								<DeleteOutlined onClick={() => billboardService.onDelete(id)} />
 							</Tooltip>
 						</div>
 					)
 				},
 			},
 		],
-		[billboardService.search.status],
+		[
+			billboardService.search.status,
+			billboardService.search.number,
+			billboardService.search.size,
+		],
 	)
 
 	return (

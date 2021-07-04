@@ -94,23 +94,23 @@ const cool = [
 	'玉膚玉骨',
 	'哥笑傾城',
 ]
-export const BILL_BOARD_LIKE = [
-	{ id: 1, like: true, postId: 1 },
-	{ id: 2, dislike: true, postId: 2 },
+export const BILLBOARD_LIKE = [
+	{ id: 1, like: true, dislike: false, postId: 1 },
+	{ id: 2, like: false, dislike: true, postId: 2 },
 ]
-export const EBillBoardStatus = createEnum({
+export const EBillboardStatus = createEnum({
 	new: [1, '最新'],
 	hot: [2, '熱門'],
 	normal: [3, '一般'],
 })
-export const BILL_BOARD = Array.from(new Array(cool.length), (_, i) => {
+export const BILLBOARD = Array.from(new Array(cool.length), (_, i) => {
 	const like = ~~(Math.random() * 1000)
-	const status = [EBillBoardStatus.normal]
+	const status = [EBillboardStatus.normal]
 	if (i < 5) {
-		status.push(EBillBoardStatus.new)
+		status.push(EBillboardStatus.new)
 	}
 	if (like > 500) {
-		status.push(EBillBoardStatus.hot)
+		status.push(EBillboardStatus.hot)
 	}
 	return {
 		id: i + 1,
