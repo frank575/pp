@@ -3,7 +3,6 @@
 /// v1 [broken] 改名為 createClassName
 /// v0
 
-
 /**
  * @param {Object.<string, boolean>} obj
  * @param {...string} classNames
