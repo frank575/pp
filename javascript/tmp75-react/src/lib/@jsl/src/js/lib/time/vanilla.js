@@ -1,6 +1,5 @@
 /// 時間處理函數(香草)
-/// author frank575
-/// v0
+/// v0 {author: frank575}
 
 
 const SECOND_MS = 1000

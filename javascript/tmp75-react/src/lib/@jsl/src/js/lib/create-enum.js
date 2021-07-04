@@ -1,7 +1,6 @@
 /// enum 實用的狀態轉換器
-/// author frank575
-/// v1 [broken] Enum 改名為 createEnum
-/// v0
+/// v1 {author: frank575} [broken] Enum 改名為 createEnum
+/// v0 {author: frank575}
 
 /**
  * @template T

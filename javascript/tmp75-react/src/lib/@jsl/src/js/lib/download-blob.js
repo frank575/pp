@@ -1,6 +1,5 @@
 /// 下載 blob File
-/// author frank575
-/// v0
+/// v0 {author: frank575}
 
 
 /**

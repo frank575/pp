@@ -1,6 +1,5 @@
 /// 防抖鉤子
-/// author frank575
-/// v0
+/// v0 {author: frank575}
 
 import { useRef, useCallback } from 'react'
 import { timeout } from '../../lib/timer/timeout'

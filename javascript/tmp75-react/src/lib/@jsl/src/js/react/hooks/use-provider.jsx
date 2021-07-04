@@ -1,7 +1,6 @@
 /// 提供者&供給者
-/// author frank575
-/// v1 [broken] 移除inject傳入字串的使用方式
-/// v0
+/// v1 {author: frank575} [broken] 移除inject傳入字串的使用方式
+/// v0 {author: frank575}
 
 import { createContext, useContextSelector } from 'use-context-selector'
 

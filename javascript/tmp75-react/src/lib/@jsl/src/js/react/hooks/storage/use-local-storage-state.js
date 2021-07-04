@@ -1,6 +1,5 @@
 /// 自動存到 localStorage 的 useState
-/// author frank575
-/// v0
+/// v0 {author: frank575}
 
 import { useState, Dispatch } from 'react'
 import { getStorageItem, useUpdateStorage } from './util'

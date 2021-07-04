@@ -1,7 +1,5 @@
 /// 封裝鉤子用方法
-/// author frank575
-/// v0
-
+/// v0 {author: frank575}
 
 import { useMemo, useState } from 'react'
 

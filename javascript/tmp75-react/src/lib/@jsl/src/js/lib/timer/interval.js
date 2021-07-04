@@ -1,6 +1,5 @@
 /// setInterval 封裝
-/// author frank575
-/// v0
+/// v0 {author: frank575}
 
 
 const start = state => (fun, delay = 0) => {
