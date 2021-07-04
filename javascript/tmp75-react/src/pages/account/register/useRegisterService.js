@@ -7,6 +7,7 @@ import { useState } from 'react'
 export const useRegisterService = () => {
 	const [submitLoading, setSubmitLoading] = useState(false)
 	const history = useHistory()
+	const setAuth = useStore(e => e.setAuth)
 	const setToken = useStore(e => e.setToken)
 	const password2Validator = getFieldValue => (_, value) => {
 		const password = getFieldValue('password')
@@ -28,7 +29,8 @@ export const useRegisterService = () => {
 		const { success } = await callNoAuthFakeApi()
 		setSubmitLoading(false)
 		if (success) {
-			setToken(e => 'just token')
+			setAuth({ id: 1, account: initialUsername, name: 'frank' })
+			setToken('just token')
 			message.success('登入成功')
 			history.replace('/task')
 		}

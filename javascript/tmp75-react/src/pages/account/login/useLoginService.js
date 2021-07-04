@@ -7,6 +7,7 @@ import { useState } from 'react'
 export const useLoginService = () => {
 	const [submitLoading, setSubmitLoading] = useState(false)
 	const history = useHistory()
+	const setAuth = useStore(e => e.setAuth)
 	const setToken = useStore(e => e.setToken)
 	const initialUsername = import.meta.env.VITE_USERNAME
 	const initialPassword = import.meta.env.VITE_PASSWORD
@@ -34,6 +35,7 @@ export const useLoginService = () => {
 		const { success } = await callNoAuthFakeApi()
 		setSubmitLoading(false)
 		if (success) {
+			setAuth({ id: 1, account: initialUsername, name: 'frank' })
 			setToken('just token')
 			message.success('登入成功')
 			history.replace('/task')
