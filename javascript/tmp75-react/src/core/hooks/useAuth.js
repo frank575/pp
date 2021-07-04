@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useStore } from '@/core/store'
-import { authCode } from '@/core/store/useAuth'
+import { EAuthCode } from '@/core/store/useAuth'
 
 export const useAuth = () => {
 	const checkAuth = useStore(e => e.checkAuth)
@@ -13,18 +13,18 @@ export const useAuth = () => {
 		;(async () => {
 			const { code } = await checkAuth()
 			console.log({
-				'checkAuth.code': authCode.t(code),
+				'checkAuth.code': EAuthCode.t(code),
 			})
 			switch (code) {
-				case authCode.authSuccess:
-				case authCode.hasAuth:
+				case EAuthCode.authSuccess:
+				case EAuthCode.hasAuth:
 					setState({
 						loading: false,
 						success: true,
 					})
 					break
-				case authCode.authError:
-				case authCode.notLogin:
+				case EAuthCode.authError:
+				case EAuthCode.notLogin:
 					clearAuthState()
 					setState({
 						loading: false,

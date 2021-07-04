@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Redirect } from 'react-router'
 import { useStore } from '@/core/store'
-import { authCode } from '@/core/store/useAuth'
+import { EAuthCode } from '@/core/store/useAuth'
 
 export const withAuth = Component => {
 	// const checkAuth = useStore(e => e.checkAuth)

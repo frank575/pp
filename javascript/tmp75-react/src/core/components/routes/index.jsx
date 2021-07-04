@@ -14,7 +14,7 @@ const RoutesContent = () => {
 					<Switch>
 						<Redirect path="/" to="/task" exact />
 						{/*登入後主APP頁面 START*/}
-						<Route path={['/task', '/task/detail/:id', '/news']} exact>
+						<Route path={['/task', '/task/detail/:id', '/billboard']} exact>
 							<Layout>
 								{/*任務管理 START*/}
 								<Switch>
@@ -33,9 +33,9 @@ const RoutesContent = () => {
 									</Route>
 									{/*任務管理 END*/}
 									<PrivateRoute
-										path={'/news'}
+										path={'/billboard'}
 										exact
-										component={lazy(() => import('@/pages/news'))}
+										component={lazy(() => import('@/pages/billboard'))}
 									/>
 								</Switch>
 							</Layout>

@@ -20,8 +20,8 @@ export const SideMenu = () => {
 				<Item key={'task'} icon={<ScheduleOutlined />}>
 					<Link to={'/task'}>任務管理</Link>
 				</Item>
-				<Item key={'news'} icon={<OrderedListOutlined />}>
-					<Link to={'/news'}>最新消息</Link>
+				<Item key={'billboard'} icon={<OrderedListOutlined />}>
+					<Link to={'/billboard'}>公佈欄</Link>
 				</Item>
 				<SubMenu key={'nesting'} title={'嵌套選單'}>
 					<SubMenu key={'nesting-1'} title={'第二層'}>
@@ -29,8 +29,8 @@ export const SideMenu = () => {
 							<Link to={'/task'}>任務管理(第三層)</Link>
 						</Item>
 					</SubMenu>
-					<Item key={'news'} icon={<OrderedListOutlined />}>
-						<Link to={'/news'}>最新消息(第二層)</Link>
+					<Item key={'billboard'} icon={<OrderedListOutlined />}>
+						<Link to={'/billboard'}>公佈欄(第二層)</Link>
 					</Item>
 				</SubMenu>
 			</Menu>

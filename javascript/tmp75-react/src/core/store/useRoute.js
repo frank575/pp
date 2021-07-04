@@ -4,8 +4,8 @@ import { useLocation } from 'react-router'
 export const useRoute = () => {
 	const location = useLocation()
 	const [pathnameHistory, setPathnameHistory] = useState({
-		previous: null, // null | string
-		current: null, // null | string
+		previous: '/',
+		current: '/',
 	})
 	const previousPathname = useMemo(
 		() => pathnameHistory.previous,

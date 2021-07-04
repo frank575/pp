@@ -1,6 +1,6 @@
 import { createClassName } from '@jsl'
 
-export const AppContent = ({ className, children }) => {
+export const MyAppContent = ({ className, children }) => {
 	return (
 		<main
 			className={createClassName(

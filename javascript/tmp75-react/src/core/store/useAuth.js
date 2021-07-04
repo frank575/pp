@@ -5,7 +5,7 @@ import { message } from 'antd'
 import { createEnum } from '@jsl'
 import { useCallback, useState } from 'react'
 
-export const authCode = createEnum({
+export const EAuthCode = createEnum({
 	authSuccess: [1, '身分驗證成功'],
 	authError: [2, '身分驗證失敗(喔天哪，你這個傢伙可真壞耶！)'],
 	notLogin: [3, '尚未登入'],
@@ -37,27 +37,27 @@ export const useAuth = () => {
 						account: import.meta.env.VITE_USERNAME,
 						name: 'frank',
 					})
-					message.success(authCode.t(authCode.authSuccess))
+					message.success(EAuthCode.t(EAuthCode.authSuccess))
 					return {
-						code: authCode.authSuccess,
-						message: authCode.t(authCode.authSuccess),
+						code: EAuthCode.authSuccess,
+						message: EAuthCode.t(EAuthCode.authSuccess),
 					}
 				}
 			} else {
 				return {
-					code: authCode.hasAuth,
-					message: authCode.t(authCode.hasAuth),
+					code: EAuthCode.hasAuth,
+					message: EAuthCode.t(EAuthCode.hasAuth),
 				}
 			}
-			message.error(authCode.t(authCode.authError))
+			message.error(EAuthCode.t(EAuthCode.authError))
 			return {
-				code: authCode.authError,
-				message: authCode.t(authCode.authError),
+				code: EAuthCode.authError,
+				message: EAuthCode.t(EAuthCode.authError),
 			}
 		}
 		return {
-			code: authCode.notLogin,
-			message: authCode.t(authCode.notLogin),
+			code: EAuthCode.notLogin,
+			message: EAuthCode.t(EAuthCode.notLogin),
 		}
 	}, [auth, token])
 

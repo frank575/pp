@@ -1,8 +1,8 @@
 import { useTaskDetailService } from '@/pages/task/detail/useTaskDetailService'
-import { AppContent } from '@/components/app-content'
+import { MyAppContent } from '@/components/my-app-content'
 
 export default () => {
 	const taskDetailService = useTaskDetailService()
 
-	return <AppContent>task/detail</AppContent>
+	return <MyAppContent>task/detail</MyAppContent>
 }
