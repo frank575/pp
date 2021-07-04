@@ -44,12 +44,33 @@ random > 0.1 表示身分驗證成功, 目前結果為: 驗證${
 	}
 }
 // 假裝搓了需要token的API
-export const fetchNews = async req => {
-	const { size, number } = req
+export const fetchBillboard = async req => {
+	const { size, number, sort, order, status, keyword } = req
 	await timeout().startSync(none, 500)
-	const content = BILL_BOARD.slice(number * size, number * size + size).map(
-		e => ({ ...e, isLike: false, isDislike: false }),
+	const excludeContent = []
+	BILL_BOARD.forEach(e => {
+		let pass = true
+		if (status != null && !e.status.includes(status)) pass = false
+		if (
+			keyword != null &&
+			typeof keyword === 'string' &&
+			keyword.trim().length
+		) {
+			if (e.name.includes(keyword)) pass = true
+			else pass = false
+		}
+		if (pass) excludeContent.push({ ...e, isLike: false, isDislike: false })
+	})
+	const content = (
+		sort != null && order != null
+			? excludeContent.sort((a, b) =>
+					order === 'descend' ? b[sort] - a[sort] : a[sort] - b[sort],
+			  )
+			: excludeContent
 	)
+		.slice(number * size, number * size + size)
+		.map(e => ({ ...e, isLike: false, isDislike: false }))
+
 	BILL_BOARD_LIKE.forEach(e => {
 		content.some(f => {
 			if (f.id === e.postId) {
@@ -62,13 +83,14 @@ export const fetchNews = async req => {
 			}
 		})
 	})
+
 	return {
 		success: true,
 		status: 200,
 		message: '成功',
 		data: {
 			content,
-			total: BILL_BOARD.length,
+			total: excludeContent.length,
 		},
 	}
 }

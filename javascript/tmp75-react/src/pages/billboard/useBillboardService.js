@@ -1,46 +1,78 @@
 import { useStore } from '@/core/store'
-import { useEffect, useState } from 'react'
-import { fetchNews } from '@/core/api-service'
-import { EBillBoardStatus } from '@/core/api-service/_fake-table'
+import { useCallback, useEffect, useState } from 'react'
+import { fetchBillboard } from '@/core/api-service'
+import useDebounce from '../../lib/@jsl/src/js/react/hooks/use-debounce'
 
-export const useBillboardService = () => {
+const useList = () => {
 	const useSideSelectedKeys = useStore(e => e.useSideSelectedKeys)
 	useSideSelectedKeys('billboard')
-	const [data, setData] = useState([])
+	const [data, setData] = useState({ content: [], total: 0 })
 	const [search, setSearch] = useState({
-		pageSize: 10,
-		current: 1,
-		total: 0,
+		size: 10,
+		number: 1,
 		status: undefined,
+		sort: undefined,
+		order: undefined,
+		keyword: '',
 	})
 	const [loading, setLoading] = useState(true)
-	useEffect(() => {
-		;(async () => {
-			setLoading(true)
-			const res = await fetchNews({
-				size: search.pageSize,
-				number: search.current - 1,
-			})
-			setLoading(false)
-			if (res.success) {
-				setSearch(e => ({
-					...e,
-					current: 1,
-					total: res.data.total,
-				}))
-				setData(res.data.content)
-				return
-			}
+	const onChangeSearch = (key, value) => {
+		setSearch(e => ({ ...e, number: 1, [key]: value }))
+	}
+	const onDebounceChangeSearch = useDebounce((key, value) => {
+		setSearch(e => ({ ...e, number: 1, [key]: value }))
+	}, 1000)
+	const onChangeTable = (pagination, filters, sorter) => {
+		if (
+			pagination.current !== search.number ||
+			pagination.pageSize !== search.size
+		) {
 			setSearch(e => ({
 				...e,
-				total: 0,
+				number: pagination.current,
+				size: pagination.pageSize,
 			}))
-			setData([])
-		})()
-	}, [])
+			return
+		}
+		if (sorter.field !== search.sort || sorter.order !== search.order) {
+			setSearch(e => ({
+				...e,
+				number: 1,
+				sort: sorter.field,
+				order: sorter.order,
+			}))
+		}
+	}
+	const getList = useCallback(async () => {
+		setLoading(true)
+		const res = await fetchBillboard({
+			...search,
+			number: search.number - 1,
+		})
+		setLoading(false)
+		if (res.success) {
+			setData({ total: res.data.total, content: res.data.content })
+			return
+		}
+		setData({ total: 0, content: [] })
+		console.log('取得公佈欄列表完成')
+	}, [search])
+
+	useEffect(getList, [search])
+
 	return {
 		loading,
 		data,
 		search,
+		onChangeSearch,
+		onDebounceChangeSearch,
+		onChangeTable,
+	}
+}
+
+export const useBillboardService = () => {
+	const list = useList()
+	return {
+		...list,
 	}
 }

@@ -105,7 +105,7 @@ export const EBillBoardStatus = createEnum({
 })
 export const BILL_BOARD = Array.from(new Array(cool.length), (_, i) => {
 	const like = ~~(Math.random() * 1000)
-	const status = []
+	const status = [EBillBoardStatus.normal]
 	if (i < 5) {
 		status.push(EBillBoardStatus.new)
 	}

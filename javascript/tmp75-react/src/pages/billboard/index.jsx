@@ -46,10 +46,8 @@ export default () => {
 							placeholder={'篩選狀態'}
 							value={billboardService.search.status}
 							allowClear
+							onChange={v => billboardService.onChangeSearch('status', v)}
 						>
-							<Option value={EBillBoardStatus.normal}>
-								{EBillBoardStatus.t(EBillBoardStatus.normal)}
-							</Option>
 							<Option value={EBillBoardStatus.new}>
 								{EBillBoardStatus.t(EBillBoardStatus.new)}
 							</Option>
@@ -123,7 +121,17 @@ export default () => {
 				</Paragraph>
 				<div className="flex items-center justify-end">
 					<Form.Item label={'搜尋'} className={'mr-2 mb-0'}>
-						<Input className={'w-auto'} placeholder={'請輸入名稱(模糊查詢)'} />
+						<Input
+							className={'w-auto'}
+							placeholder={'請輸入名稱(模糊查詢)'}
+							allowClear
+							onChange={ev =>
+								billboardService.onDebounceChangeSearch(
+									'keyword',
+									ev.target.value,
+								)
+							}
+						/>
 					</Form.Item>
 					<Button type={'primary'}>新增消息</Button>
 				</div>
@@ -131,13 +139,15 @@ export default () => {
 			<Table
 				rowKey={'id'}
 				loading={billboardService.loading}
-				dataSource={billboardService.data}
+				dataSource={billboardService.data.content}
 				pagination={{
-					total: billboardService.search.total,
-					current: billboardService.search.current,
+					total: billboardService.data.total,
+					current: billboardService.search.number,
 					pageSize: billboardService.search.size,
+					showSizeChanger: true,
 				}}
 				columns={columns}
+				onChange={billboardService.onChangeTable}
 			/>
 		</MyAppContent>
 	)
