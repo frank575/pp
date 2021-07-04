@@ -1,7 +1,6 @@
 /// 複製文字
 /// v0 {author: frank575}
 
-
 /**
  * @param {number | string} value
  * @return {string} 拷貝的值

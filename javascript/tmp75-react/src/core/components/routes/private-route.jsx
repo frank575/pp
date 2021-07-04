@@ -4,7 +4,7 @@ import { MyAppContent } from '@/components/my-app-content'
 import { LoadingOutlined } from '@ant-design/icons'
 
 export const PrivateRoute = props => {
-	const [loading, success] = useAuth()
+	const { loading, success } = useAuth()
 	return loading ? (
 		<MyAppContent className="flex items-center">
 			<LoadingOutlined className="mr-2" />

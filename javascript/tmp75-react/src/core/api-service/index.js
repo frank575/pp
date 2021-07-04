@@ -86,6 +86,7 @@ export const fetchBillboard = async req => {
 		})
 	})
 
+	console.log('[GET] fetchBillboard finished')
 	return {
 		success: true,
 		status: 200,
@@ -105,6 +106,8 @@ export const fetchAddBillboardPost = async ({ name }) => {
 		like: 0,
 		status: [EBillboardStatus.new],
 	})
+
+	console.log('[POST] fetchAddBillboardPost finished')
 	return {
 		success: true,
 		status: 200,
@@ -121,6 +124,8 @@ export const fetchEditBillboardPost = async ({ id, name }) => {
 			name,
 		}
 	}
+
+	console.log('[PUT] fetchEditBillboardPost finished')
 	return {
 		success: true,
 		status: 200,
@@ -138,6 +143,8 @@ export const fetchDeleteBillboardPost = async id => {
 	if (likeIndex !== -1) {
 		BILLBOARD_LIKE.splice(likeIndex, 1)
 	}
+
+	console.log('[DELETE] fetchDeleteBillboardPost finished')
 	return {
 		success: true,
 		status: 200,
@@ -205,6 +212,8 @@ export const fetchLikeBillboardPost = async ({ id, like, dislike }) => {
 			billboardEl.like--
 		}
 	}
+
+	console.log('[PUT] fetchLikeBillboardPost finished')
 	return {
 		success: true,
 		status: 200,

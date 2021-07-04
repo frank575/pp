@@ -1,28 +1,31 @@
 /// setTimeout 封裝
 /// v0 {author: frank575}
 
-
-const start = state => (fun, delay = 0) => {
-	stop(state)()
-	state.timer = setTimeout(() => fun(), delay)
-}
-
-const startSync = state => (promiseFun, delay = 0) => {
-	return new Promise((resolve, reject) => {
+const start =
+	state =>
+	(fun, delay = 0) => {
 		stop(state)()
-		state.timer = setTimeout(async () => {
-			try {
-				const res = await promiseFun()
-				state.timer = null
-				resolve(res)
-			} catch (err) {
-				console.error(err)
-				state.timer = null
-				reject(err)
-			}
-		}, delay)
-	})
-}
+		state.timer = setTimeout(() => fun(), delay)
+	}
+
+const startSync =
+	state =>
+	(promiseFun, delay = 0) => {
+		return new Promise((resolve, reject) => {
+			stop(state)()
+			state.timer = setTimeout(async () => {
+				try {
+					const res = await promiseFun()
+					state.timer = null
+					resolve(res)
+				} catch (err) {
+					console.error(err)
+					state.timer = null
+					reject(err)
+				}
+			}, delay)
+		})
+	}
 
 const stop = state => () => {
 	if (state.timer != null) {

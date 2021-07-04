@@ -1,11 +1,12 @@
 /// setInterval 封裝
 /// v0 {author: frank575}
 
-
-const start = state => (fun, delay = 0) => {
-	stop(state)()
-	state.timer = setInterval(() => fun(), delay)
-}
+const start =
+	state =>
+	(fun, delay = 0) => {
+		stop(state)()
+		state.timer = setInterval(() => fun(), delay)
+	}
 
 const stop = state => () => {
 	if (state.timer != null) {

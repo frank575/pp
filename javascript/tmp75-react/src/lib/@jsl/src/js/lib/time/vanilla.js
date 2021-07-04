@@ -1,7 +1,6 @@
 /// 時間處理函數(香草)
 /// v0 {author: frank575}
 
-
 const SECOND_MS = 1000
 const MINUTE_MS = SECOND_MS * 60
 const HOUR_MS = MINUTE_MS * 60

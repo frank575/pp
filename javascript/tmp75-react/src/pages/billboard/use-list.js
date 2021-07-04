@@ -3,11 +3,12 @@ import { useCallback, useEffect, useState } from 'react'
 import useDebounce from '../../lib/@jsl/src/js/react/hooks/use-debounce'
 import { fetchBillboard, fetchLikeBillboardPost } from '@/core/api-service'
 import { message } from 'antd'
+import { useSafeState } from '@jsl-react/hooks/use-safe-state'
 
 export const useList = () => {
 	const useSideSelectedKeys = useStore(e => e.useSideSelectedKeys)
 	useSideSelectedKeys('billboard')
-	const [data, setData] = useState({ content: [], total: 0 })
+	const [data, setData] = useSafeState({ content: [], total: 0 })
 	const [search, setSearch] = useState({
 		size: 10,
 		number: 1,
@@ -16,7 +17,7 @@ export const useList = () => {
 		order: undefined,
 		keyword: '',
 	})
-	const [loading, setLoading] = useState(true)
+	const [loading, setLoading] = useSafeState(true)
 
 	const onChangeSearch = (key, value) => {
 		setSearch(e => ({ ...e, number: 1, [key]: value }))
@@ -60,11 +61,11 @@ export const useList = () => {
 			return
 		}
 		setData({ total: 0, content: [] })
-		console.log('取得公佈欄列表完成')
 	}, [search])
 
 	const onLike = useCallback(
 		async (id, key = 'like', value = true) => {
+			setLoading(true)
 			const { success, message: resMessage } = await fetchLikeBillboardPost({
 				id,
 				[key]: value,

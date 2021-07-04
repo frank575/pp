@@ -1,7 +1,6 @@
 /// requestAnimationFrame 封裝
 /// v0 {author: frank575}
 
-
 const start = state => fun => {
 	function run() {
 		fun()

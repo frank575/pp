@@ -9,31 +9,32 @@ export const useAuth = () => {
 		loading: true,
 		success: false,
 	})
-	useEffect(() => {
-		;(async () => {
-			const { code } = await checkAuth()
-			console.log({
-				'checkAuth.code': EAuthCode.t(code),
-			})
-			switch (code) {
-				case EAuthCode.authSuccess:
-				case EAuthCode.hasAuth:
-					setState({
-						loading: false,
-						success: true,
-					})
-					break
-				case EAuthCode.authError:
-				case EAuthCode.notLogin:
-					clearAuthState()
-					setState({
-						loading: false,
-						success: false,
-					})
-					break
-			}
-		})()
-	}, [])
 
-	return [state.loading, state.success]
+	const initAuth = async () => {
+		const { code } = await checkAuth()
+		console.log({
+			'checkAuth.code': EAuthCode.t(code),
+		})
+		switch (code) {
+			case EAuthCode.authSuccess:
+			case EAuthCode.hasAuth:
+				setState({
+					loading: false,
+					success: true,
+				})
+				break
+			case EAuthCode.authError:
+			case EAuthCode.notLogin:
+				clearAuthState()
+				setState({
+					loading: false,
+					success: false,
+				})
+				break
+		}
+	}
+
+	useEffect(initAuth, [])
+
+	return state
 }

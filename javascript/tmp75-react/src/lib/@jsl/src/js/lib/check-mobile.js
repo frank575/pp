@@ -1,7 +1,6 @@
 /// 檢測是否是 Mobile
 /// v0 {author: frank575}
 
-
 /**
  * @returns {boolean}
  */

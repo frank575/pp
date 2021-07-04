@@ -1,7 +1,6 @@
 /// 簡繁翻譯
 /// v0 {author: frank575}
 
-
 // [simple][traditional]...
 const stObj = {
 	s万: '萬',
