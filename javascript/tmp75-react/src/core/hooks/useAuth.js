@@ -5,8 +5,10 @@ import { authCode } from '@/core/store/useAuth'
 export const useAuth = () => {
 	const checkAuth = useStore(e => e.checkAuth)
 	const clearAuthState = useStore(e => e.clearAuthState)
-	const [loading, setLoading] = useState(true)
-	const [success, setSuccess] = useState(false)
+	const [state, setState] = useState({
+		loading: true,
+		success: false,
+	})
 	useEffect(() => {
 		;(async () => {
 			const { code } = await checkAuth()
@@ -16,17 +18,22 @@ export const useAuth = () => {
 			switch (code) {
 				case authCode.authSuccess:
 				case authCode.hasAuth:
-					setSuccess(true)
+					setState({
+						loading: false,
+						success: true,
+					})
 					break
 				case authCode.authError:
 				case authCode.notLogin:
 					clearAuthState()
-					setSuccess(false)
+					setState({
+						loading: false,
+						success: false,
+					})
 					break
 			}
-			setLoading(false)
 		})()
 	}, [])
 
-	return [loading, success]
+	return [state.loading, state.success]
 }

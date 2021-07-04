@@ -21,10 +21,10 @@ export const callNoAuthRandomSuccessFakeApi = async () => {
 	console.log(
 		`random: ${random}
 random > 0.3 表示身分驗證成功, 目前結果為: 驗證${
-			random > 0.4 ? '成功' : '失敗'
+			random > 0.3 ? '成功' : '失敗'
 		}`,
 	)
-	if (random > 0) {
+	if (random > 0.3) {
 		return {
 			success: true,
 			status: 200,

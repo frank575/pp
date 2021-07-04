@@ -23,8 +23,7 @@ export const useAuth = () => {
 	}, [])
 
 	const onLogout = useCallback(() => {
-		setAuth({})
-		setToken(null)
+		clearAuthState()
 		history.replace('/login')
 	}, [])
 

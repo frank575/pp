@@ -5,7 +5,7 @@ import { useHeaderService } from '@/core/components/layout/header/useHeaderServi
 export const Header = () => {
 	const headerService = useHeaderService()
 	return (
-		<div className="bg-white flex justify-between items-center py-1 px-2">
+		<div className="bg-white flex justify-between items-center py-1 px-2 shadow-md">
 			<Button
 				className="flex justify-center items-center"
 				icon={<AppstoreOutlined />}

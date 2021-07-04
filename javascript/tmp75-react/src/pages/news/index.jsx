@@ -1,6 +1,8 @@
 import { useNewsService } from '@/pages/news/useNewsService'
+import { AppContent } from '@/components/app-content'
 
 export default () => {
 	const newsService = useNewsService()
-	return <div>news</div>
+
+	return <AppContent>news</AppContent>
 }

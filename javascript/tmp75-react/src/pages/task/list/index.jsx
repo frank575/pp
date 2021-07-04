@@ -1,7 +1,8 @@
 import { useTaskListService } from '@/pages/task/list/useTaskListService'
+import { AppContent } from '@/components/app-content'
 
 export default () => {
 	const taskListService = useTaskListService()
 
-	return <div>task/list</div>
+	return <AppContent>task/list</AppContent>
 }
