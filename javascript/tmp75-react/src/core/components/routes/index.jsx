@@ -2,21 +2,22 @@ import { lazy, Suspense } from 'react'
 import { Redirect, Route, Switch } from 'react-router'
 import { HashRouter } from 'react-router-dom'
 import { StoreProvider } from '@/core/store'
-import { LazyLoading } from '@/core/components/lazy-loading'
+import { NoLayoutFallback } from '@/core/components/fallback/no-layout-fallback'
 import { Layout } from '@/core/components/layout'
 import { PrivateRoute } from '@/core/components/routes/private-route'
+import { LayoutFallback } from '@/core/components/fallback/layout-fallback'
 
 const RoutesContent = () => {
 	return (
 		<HashRouter>
 			<StoreProvider>
-				<Suspense fallback={<LazyLoading />}>
-					<Switch>
-						<Redirect path="/" to="/task" exact />
-						{/*登入後主APP頁面 START*/}
-						<Route path={['/task', '/task/detail/:id', '/billboard']} exact>
-							<Layout>
-								{/*任務管理 START*/}
+				<Switch>
+					<Redirect path="/" to="/task" exact />
+					{/*登入後主APP頁面 START*/}
+					<Route path={['/task', '/task/detail/:id', '/billboard']} exact>
+						<Layout>
+							{/*任務管理 START*/}
+							<Suspense fallback={<LayoutFallback />}>
 								<Switch>
 									<Route path="/task">
 										<Switch>
@@ -38,24 +39,28 @@ const RoutesContent = () => {
 										component={lazy(() => import('@/pages/billboard'))}
 									/>
 								</Switch>
-							</Layout>
-						</Route>
-						{/*登入後主APP頁面 END*/}
-						<Route
-							path={'/login'}
-							exact
-							component={lazy(() => import('@/pages/account/login'))}
-						/>
-						<Route
-							path={'/register'}
-							exact
-							component={lazy(() => import('@/pages/account/register'))}
-						/>
-						<Route
-							component={lazy(() => import('@/core/components/not-found'))}
-						/>
-					</Switch>
-				</Suspense>
+							</Suspense>
+						</Layout>
+					</Route>
+					{/*登入後主APP頁面 END*/}
+					<Suspense fallback={<NoLayoutFallback />}>
+						<Switch>
+							<Route
+								path={'/login'}
+								exact
+								component={lazy(() => import('@/pages/account/login'))}
+							/>
+							<Route
+								path={'/register'}
+								exact
+								component={lazy(() => import('@/pages/account/register'))}
+							/>
+							<Route
+								component={lazy(() => import('@/core/components/not-found'))}
+							/>
+						</Switch>
+					</Suspense>
+				</Switch>
 			</StoreProvider>
 		</HashRouter>
 	)
