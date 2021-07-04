@@ -4,12 +4,15 @@ import zhTW from 'antd/lib/locale/zh_TW'
 import '@/core/style/index.css'
 import '@/core/lib/dev-log'
 import { Routes } from '@/core/components/routes'
+import { MittProvider } from 'react-mitt'
 
 export const App = () => {
 	return (
-		<ConfigProvider locale={zhTW}>
-			<Routes />
-		</ConfigProvider>
+		<MittProvider>
+			<ConfigProvider locale={zhTW}>
+				<Routes />
+			</ConfigProvider>
+		</MittProvider>
 	)
 }
 

@@ -1,7 +1,10 @@
 import { createEnum } from '@jsl'
 
 export const getNewId = list =>
-	list.reduce((p, e, i) => (e > p ? e : p) + (i === list.length - 1 ? 1 : 0), 0)
+	list.reduce(
+		(p, e, i) => (e.id > p ? e.id : p) + (i === list.length - 1 ? 1 : 0),
+		0,
+	)
 export const TASK_LIST = [
 	{
 		id: 1,

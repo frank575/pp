@@ -100,11 +100,11 @@ export const fetchBillboard = async req => {
 
 export const fetchAddBillboardPost = async ({ name }) => {
 	await timeout().startSync(none, 500)
-	BILLBOARD.append({
+	BILLBOARD.push({
 		id: getNewId(BILLBOARD),
 		name,
 		like: 0,
-		status: [EBillboardStatus],
+		status: [EBillboardStatus.new],
 	})
 	return {
 		success: true,

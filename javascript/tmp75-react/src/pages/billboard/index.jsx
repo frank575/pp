@@ -1,4 +1,7 @@
-import { useBillboardService } from '@/pages/billboard/use-billboard-service'
+import {
+	BillboardProvider,
+	useBillboardService,
+} from '@/pages/billboard/use-billboard-service'
 import { MyAppContent } from '@/components/my-app-content'
 import {
 	Button,
@@ -24,22 +27,62 @@ import {
 import { useCallback, useMemo } from 'react'
 import { MyTitle } from '@/components/my-title'
 import { fetchDeleteBillboardPost } from '@/core/api-service'
+import { EditorDialog } from '@/pages/billboard/editor-dialog'
+import { EEditorStatus } from '@/enums/e-editor-status'
 
 const { Option } = Select
 const { Paragraph, Text } = Typography
 
 export default () => {
-	const billboardService = useBillboardService()
+	return (
+		<BillboardProvider>
+			<Content />
+		</BillboardProvider>
+	)
+}
+
+const Content = () => {
+	const search = useBillboardService(e => e.search)
+	const loading = useBillboardService(e => e.loading)
+	const data = useBillboardService(e => e.data)
+	const onChangeSearch = useBillboardService(e => e.onChangeSearch)
+	const onLike = useBillboardService(e => e.onLike)
+	const getList = useBillboardService(e => e.getList)
+	const onDebounceChangeSearch = useBillboardService(
+		e => e.onDebounceChangeSearch,
+	)
+	const onChangeTable = useBillboardService(e => e.onChangeTable)
+	const onOpenEditorDialog = useBillboardService(e => e.onOpenEditorDialog)
+
+	const onDelete = useCallback(
+		e => {
+			Modal.confirm({
+				title: '確認刪除該消息？',
+				icon: <ExclamationCircleOutlined />,
+				content: (
+					<div>
+						您將要刪除的消息是<Text code>{e.name}</Text>
+					</div>
+				),
+				async onOk() {
+					const { success, message: resMessage } =
+						await fetchDeleteBillboardPost(e.id)
+					if (success) {
+						message.success(resMessage)
+						getList()
+					}
+				},
+			})
+		},
+		[getList],
+	)
+
 	const columns = useMemo(
 		() => [
 			{
 				title: '編號',
 				render(v, e, i) {
-					return (
-						(billboardService.search.number - 1) *
-							billboardService.search.size +
-						(i + 1)
-					)
+					return (search.number - 1) * search.size + (i + 1)
 				},
 			},
 			{
@@ -51,9 +94,9 @@ export default () => {
 					return (
 						<Select
 							placeholder={'篩選狀態'}
-							value={billboardService.search.status}
+							value={search.status}
 							allowClear
-							onChange={v => billboardService.onChangeSearch('status', v)}
+							onChange={v => onChangeSearch('status', v)}
 						>
 							<Option value={EBillboardStatus.new}>
 								{EBillboardStatus.t(EBillboardStatus.new)}
@@ -92,7 +135,7 @@ export default () => {
 							<Tooltip title={isLike === true ? '你已按過讚' : '按讚'}>
 								<div
 									className={'flex items-center cursor-pointer mr-2'}
-									onClick={() => billboardService.onLike(id, 'like', !isLike)}
+									onClick={() => onLike(id, 'like', !isLike)}
 								>
 									<LikeTwoTone
 										twoToneColor={isLike === true ? null : '#aaaaaa'}
@@ -105,9 +148,7 @@ export default () => {
 							<Tooltip title={isDislike === true ? '你已倒過讚' : '倒讚'}>
 								<div
 									className={'flex items-center cursor-pointer mr-2'}
-									onClick={() =>
-										billboardService.onLike(id, 'dislike', !isDislike)
-									}
+									onClick={() => onLike(id, 'dislike', !isDislike)}
 								>
 									<DislikeTwoTone
 										twoToneColor={isDislike === true ? '#eb2f96' : '#aaaaaa'}
@@ -118,7 +159,10 @@ export default () => {
 								</div>
 							</Tooltip>
 							<Tooltip title={'編輯'}>
-								<EditOutlined className={'mr-2'} />
+								<EditOutlined
+									className={'mr-2'}
+									onClick={() => onOpenEditorDialog(EEditorStatus.edit, e)}
+								/>
 							</Tooltip>
 							<Tooltip title={'刪除'}>
 								<DeleteOutlined onClick={() => onDelete(e)} />
@@ -128,34 +172,7 @@ export default () => {
 				},
 			},
 		],
-		[
-			billboardService.search.status,
-			billboardService.search.number,
-			billboardService.search.size,
-		],
-	)
-
-	const onDelete = useCallback(
-		e => {
-			Modal.confirm({
-				title: '確認刪除該消息？',
-				icon: <ExclamationCircleOutlined />,
-				content: (
-					<div>
-						您將要刪除的消息是<Text code>{e.name}</Text>
-					</div>
-				),
-				async onOk() {
-					const { success, message: resMessage } =
-						await fetchDeleteBillboardPost(e.id)
-					if (success) {
-						message.success(resMessage)
-						billboardService.getList()
-					}
-				},
-			})
-		},
-		[billboardService.getList],
+		[search.status, search.number, search.size],
 	)
 
 	return (
@@ -172,29 +189,32 @@ export default () => {
 							placeholder={'請輸入名稱(模糊查詢)'}
 							allowClear
 							onChange={ev =>
-								billboardService.onDebounceChangeSearch(
-									'keyword',
-									ev.target.value,
-								)
+								onDebounceChangeSearch('keyword', ev.target.value)
 							}
 						/>
 					</Form.Item>
-					<Button type={'primary'}>新增消息</Button>
+					<Button
+						type={'primary'}
+						onClick={() => onOpenEditorDialog(EEditorStatus.create)}
+					>
+						新增消息
+					</Button>
 				</div>
 			</div>
 			<Table
 				rowKey={'id'}
-				loading={billboardService.loading}
-				dataSource={billboardService.data.content}
+				loading={loading}
+				dataSource={data.content}
 				pagination={{
-					total: billboardService.data.total,
-					current: billboardService.search.number,
-					pageSize: billboardService.search.size,
+					total: data.total,
+					current: search.number,
+					pageSize: search.size,
 					showSizeChanger: true,
 				}}
 				columns={columns}
-				onChange={billboardService.onChangeTable}
+				onChange={onChangeTable}
 			/>
+			<EditorDialog />
 		</MyAppContent>
 	)
 }

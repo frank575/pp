@@ -17,6 +17,10 @@ axios.interceptors.response.use(
 	},
 	error => {
 		const res = error.response
+		// TODO false 改成 401 驗證
+		if (false) {
+			// 使用 react-mitt 發布到 store/useAuth 模塊的訂閱裡
+		}
 		return Promise.resolve(res)
 	},
 )
