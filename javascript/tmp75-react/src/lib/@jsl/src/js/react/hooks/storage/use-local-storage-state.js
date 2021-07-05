@@ -1,8 +1,10 @@
 /// 自動存到 localStorage 的 useState
+/// v1 {author: frank575} useState改成useSafeState
 /// v0 {author: frank575}
 
-import { useState, Dispatch } from 'react'
+import { Dispatch } from 'react'
 import { getStorageItem, useUpdateStorage } from './util'
+import { useSafeState } from '../use-safe-state'
 
 /**
  * @template T
@@ -11,7 +13,7 @@ import { getStorageItem, useUpdateStorage } from './util'
  * @returns {[T, Dispatch<T>]}
  */
 const useLocalStorageState = (key, initialValue) => {
-	const [state, setState] = useState(
+	const [state, setState] = useSafeState(
 		getStorageItem(key, initialValue, localStorage),
 	)
 	useUpdateStorage(key, state, localStorage)
