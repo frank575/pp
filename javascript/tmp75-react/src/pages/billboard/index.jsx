@@ -188,6 +188,7 @@ const Content = () => {
 							className={'w-auto'}
 							placeholder={'請輸入名稱(模糊查詢)'}
 							allowClear
+							defaultValue={search.keyword}
 							onChange={ev =>
 								onDebounceChangeSearch('keyword', ev.target.value)
 							}
