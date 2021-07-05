@@ -1,5 +1,8 @@
-# ReactjsTemplate
+# TMP75-REACT
 
-`reactjs` + `vite2` 構建，`main` 分支將永為最新版
+基於`reactjs`, `antd`, `tailwind`, `vite2`構建的`react`後端模板，`master`分支將永為最新版
 
-* [Doc](https://hackmd.io/E4ttHA9CQ-6iLzsbX8V0DQ)
+## 文檔
+
+* [@jsl(基礎庫)](./docs/@jsl/README.md)
+* [專案結構](./docs/project/README.md)
