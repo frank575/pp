@@ -1,4 +1,3 @@
-import { useStore } from '@/core/store'
 import { useCallback, useEffect, useState } from 'react'
 import useDebounce from '../../lib/@jsl/src/js/react/hooks/use-debounce'
 import { fetchBillboard, fetchLikeBillboardPost } from '@/core/api-service'
@@ -6,8 +5,6 @@ import { message } from 'antd'
 import { useSafeState } from '@jsl-react/hooks/use-safe-state'
 
 export const useList = () => {
-	const useSideSelectedKeys = useStore(e => e.useSideSelectedKeys)
-	useSideSelectedKeys('billboard')
 	const [data, setData] = useSafeState({ content: [], total: 0 })
 	const [search, setSearch] = useState({
 		size: 10,

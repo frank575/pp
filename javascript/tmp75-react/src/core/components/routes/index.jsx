@@ -4,8 +4,9 @@ import { HashRouter } from 'react-router-dom'
 import { StoreProvider } from '@/core/store'
 import { NoLayoutFallback } from '@/core/components/fallback/no-layout-fallback'
 import { Layout } from '@/core/components/layout'
-import { PrivateRoute } from '@/core/components/routes/private-route'
 import { LayoutFallback } from '@/core/components/fallback/layout-fallback'
+import { WithTitleSideKeyPrivateRoute } from '@/core/components/routes/with-title-side-key-private-route'
+import { WithTitleRoute } from '@/core/components/routes/with-title-route'
 
 const RoutesContent = () => {
 	return (
@@ -21,11 +22,15 @@ const RoutesContent = () => {
 								<Switch>
 									<Route path="/task">
 										<Switch>
-											<PrivateRoute
+											<WithTitleSideKeyPrivateRoute
+												title={'任務管理'}
+												sideKey={'task'}
 												exact
 												component={lazy(() => import('@/pages/task/list'))}
 											/>
-											<PrivateRoute
+											<WithTitleSideKeyPrivateRoute
+												title={'任務詳情'}
+												sideKey={'task'}
 												path="detail/:id"
 												exact
 												component={lazy(() => import('@/pages/task/detail'))}
@@ -33,7 +38,9 @@ const RoutesContent = () => {
 										</Switch>
 									</Route>
 									{/*任務管理 END*/}
-									<PrivateRoute
+									<WithTitleSideKeyPrivateRoute
+										title={'公佈欄'}
+										sideKey={'billboard'}
 										path={'/billboard'}
 										exact
 										component={lazy(() => import('@/pages/billboard'))}
@@ -45,17 +52,20 @@ const RoutesContent = () => {
 					{/*登入後主APP頁面 END*/}
 					<Suspense fallback={<NoLayoutFallback />}>
 						<Switch>
-							<Route
+							<WithTitleRoute
+								title={'登入'}
 								path={'/login'}
 								exact
 								component={lazy(() => import('@/pages/account/login'))}
 							/>
-							<Route
+							<WithTitleRoute
+								title={'註冊'}
 								path={'/register'}
 								exact
 								component={lazy(() => import('@/pages/account/register'))}
 							/>
-							<Route
+							<WithTitleRoute
+								title={'找不到頁面'}
 								component={lazy(() => import('@/core/components/not-found'))}
 							/>
 						</Switch>
