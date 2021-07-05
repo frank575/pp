@@ -1,5 +1,5 @@
 import { useStore } from '@/core/store'
-import { useTitle } from '@jsl-react/hooks/use-title'
+import { useTitle } from '@jsl-hooks'
 import { PrivateRoute } from '@/core/components/routes/private-route'
 
 export const WithTitleSideKeyPrivateRoute = props => {

@@ -1,4 +1,4 @@
-import { useProvider } from '@jsl-react/hooks'
+import { useProvider } from '@jsl-hooks'
 import { useAuth } from '@/core/store/use-auth'
 import { useLayout } from '@/core/store/use-layout'
 import { useRoute } from '@/core/store/use-route'

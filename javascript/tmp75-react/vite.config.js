@@ -13,7 +13,7 @@ export default defineConfig({
 		alias: {
 			'@': path.resolve(__dirname, 'src'),
 			'@jsl': path.resolve(__dirname, 'src/lib/@jsl/src/js/lib'),
-			'@jsl-react': path.resolve(__dirname, 'src/lib/@jsl/src/js/react'),
+			'@jsl-hooks': path.resolve(__dirname, 'src/lib/@jsl/src/js/react/hooks'),
 		},
 	},
 	server: {

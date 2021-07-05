@@ -7,6 +7,7 @@ import {
 	fetchEditBillboardPost,
 } from '@/core/api-service'
 import { useMitt } from 'react-mitt'
+import { EMittType } from '@/enums/e-mitt-type'
 
 const initialState = () => ({
 	id: undefined, // number | undefined
@@ -27,7 +28,7 @@ export const userEditorDialogService = () => {
 	)
 
 	useEffect(() => {
-		emitter.on('foo', onOpen)
+		emitter.on(EMittType.billboardEditorDialog, onOpen)
 	}, [])
 
 	const onOpen = e => {

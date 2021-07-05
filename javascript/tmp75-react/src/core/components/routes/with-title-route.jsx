@@ -1,4 +1,4 @@
-import { useTitle } from '@jsl-react/hooks/use-title'
+import { useTitle } from '@jsl-hooks'
 import { PrivateRoute } from '@/core/components/routes/private-route'
 import { Route } from 'react-router'
 

@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
-import useDebounce from '../../lib/@jsl/src/js/react/hooks/use-debounce'
+import { useDebounce } from '@jsl-hooks'
 import { fetchBillboard, fetchLikeBillboardPost } from '@/core/api-service'
 import { message } from 'antd'
-import { useSafeState } from '@jsl-react/hooks/use-safe-state'
+import { useSafeState } from '@jsl-hooks'
 
 export const useList = () => {
 	const [data, setData] = useSafeState({ content: [], total: 0 })

@@ -1,4 +1,4 @@
-import { useLocalStorageState } from '@jsl-react/hooks'
+import { useLocalStorageState } from '@jsl-hooks'
 import { useCallback, useEffect, useState } from 'react'
 
 export const useLayout = () => {
