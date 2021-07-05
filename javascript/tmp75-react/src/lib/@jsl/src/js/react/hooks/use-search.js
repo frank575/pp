@@ -1,7 +1,8 @@
 /// 自動綁定querystring的useState
+/// v1 {author: frank575} fix: 修正路由未正確帶參及parse壞掉的問題還有二次初始化的錯誤
 /// v0 {author: frank575}
 
-import { useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { useHistory, useLocation } from 'react-router'
 import { useSafeState } from './use-safe-state'
 
@@ -33,7 +34,11 @@ const initState = (initialState, location) => {
 						_state[k] = JSON.parse(strArrSearchEl)
 						break
 					default:
-						_state[k] = JSON.parse(searchEl)
+						if (/^([0-9]+|true|false)$/.test(searchEl)) {
+							_state[k] = JSON.parse(searchEl)
+						} else {
+							_state[k] = searchEl
+						}
 						break
 				}
 			}
@@ -65,16 +70,34 @@ const transformState = state => {
 export const useSearch = (initialState = {}) => {
 	const location = useLocation()
 	const history = useHistory()
-	const [state, setState] = useSafeState(() =>
-		initState(initialState, location),
-	)
-	const queryState = useMemo(() => transformState(state), [state])
+	const [state, setState] = useSafeState(initialState)
+	const isLock = useRef(true) // 防止 watch location 導致二次初始化
 
-	useEffect(() => {
+	const checkThenPushHistory = useCallback(state => {
+		const queryState = transformState(state)
 		if (queryState != null) {
 			history.push(transformQueryMapToString(queryState))
 		}
-	}, [state])
+	}, [])
 
-	return [state, setState]
+	const updateState = useCallback(
+		cb => {
+			const _state = typeof cb === 'function' ? cb(state) : cb
+			if (isLock.current) isLock.current = false
+			checkThenPushHistory(_state)
+		},
+		[state],
+	)
+
+	useEffect(() => {
+		if (!location.search) {
+			checkThenPushHistory(initialState)
+		} else {
+			if (!isLock.current) {
+				setState(initState(initialState, location))
+			}
+		}
+	}, [location])
+
+	return [state, updateState]
 }
