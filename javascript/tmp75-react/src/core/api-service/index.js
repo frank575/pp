@@ -58,8 +58,7 @@ export const fetchBillboard = async req => {
 		if (status != null && !e.status.includes(status)) pass = false
 		if (
 			keyword != null &&
-			typeof keyword === 'string' &&
-			keyword.trim().length
+			(typeof keyword === 'string' ? keyword.trim().length : true)
 		) {
 			if (e.name.includes(keyword)) pass = true
 			else pass = false
