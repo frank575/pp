@@ -1,12 +1,12 @@
-import { useLocalStorageState } from '@jsl-hooks'
-import { useCallback, useEffect, useState } from 'react'
+import { useLocalStorageState, useSafeState } from '@jsl-hooks'
+import { useCallback, useEffect } from 'react'
 
 export const useLayout = () => {
 	const [menuCollapsed, setMenuCollapsed] = useLocalStorageState(
 		'tmp75_menu-collapsed',
 		false,
 	)
-	const [sideSelectedKeys, setSideSelectedKeys] = useState([])
+	const [sideSelectedKeys, setSideSelectedKeys] = useSafeState([])
 	const useSideSelectedKeys = useCallback((keys = []) => {
 		useEffect(() => {
 			setSideSelectedKeys(keys)

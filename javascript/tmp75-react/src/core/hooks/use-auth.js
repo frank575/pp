@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useStore } from '@/core/store'
 import { EAuthCode } from '@/core/store/use-auth'
+import { useSafeState } from '@jsl-hooks'
 
 export const useAuth = () => {
 	const checkAuth = useStore(e => e.checkAuth)
 	const clearAuthState = useStore(e => e.clearAuthState)
-	const [state, setState] = useState({
+	const [state, setState] = useSafeState({
 		loading: true,
 		success: false,
 	})
