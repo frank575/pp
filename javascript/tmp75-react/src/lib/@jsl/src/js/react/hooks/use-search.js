@@ -1,4 +1,5 @@
 /// 自動綁定querystring的useState
+/// v3 {author: frank575} 使用replace防止某些情況下導致瀏覽器歷史上一步卡死
 /// v2 {author: frank575} refactor: 移除冗餘代碼
 /// v1 {author: frank575} fix: 修正路由未正確帶參及parse壞掉的問題還有二次初始化的錯誤
 /// v0 {author: frank575}
@@ -11,7 +12,7 @@ const getValue = (search, param) => new URLSearchParams(search).get(param)
 const isNone = e => e == null || (typeof e === 'string' && e.trim() === '')
 const transformQueryMapToString = (queryMap = {}) => {
 	let first = true
-	return Object.entries(queryMap).reduce((p, [k, e], i) => {
+	return Object.entries(queryMap).reduce((p, [k, e]) => {
 		if (isNone(e)) {
 			return p
 		} else {
@@ -71,28 +72,35 @@ const transformState = state => {
 export const useSearch = (initialState = {}) => {
 	const location = useLocation()
 	const history = useHistory()
-	const [state, setState] = useSafeState(initialState)
+	const [state, setState] = useSafeState(() =>
+		initState(initialState, location),
+	)
 	const isLock = useRef(true) // 防止 watch location 導致二次初始化
 
-	const checkThenPushHistory = useCallback(state => {
-		const queryState = transformState(state)
-		if (queryState != null) {
-			history.push(transformQueryMapToString(queryState))
-		}
-	}, [])
+	const checkThenUpdateHistory = useCallback(
+		(state, historyFuncKey = 'push') => {
+			const queryState = transformState(state)
+			if (queryState != null) {
+				history[historyFuncKey](
+					encodeURI(transformQueryMapToString(queryState)),
+				)
+			}
+		},
+		[],
+	)
 
 	const updateState = useCallback(
 		cb => {
 			const _state = typeof cb === 'function' ? cb(state) : cb
 			if (isLock.current) isLock.current = false
-			checkThenPushHistory(_state)
+			checkThenUpdateHistory(_state)
 		},
 		[state],
 	)
 
 	useEffect(() => {
 		if (!location.search) {
-			checkThenPushHistory(initialState)
+			checkThenUpdateHistory(initialState, 'replace')
 		} else {
 			if (!isLock.current) {
 				setState(initState(initialState, location))
