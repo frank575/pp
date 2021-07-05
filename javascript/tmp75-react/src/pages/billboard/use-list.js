@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useState } from 'react'
-import { useDebounce } from '@jsl-hooks'
+import { useCallback, useEffect } from 'react'
+import { useDebounce, useSearch } from '@jsl-hooks'
 import { fetchBillboard, fetchLikeBillboardPost } from '@/core/api-service'
 import { message } from 'antd'
 import { useSafeState } from '@jsl-hooks'
 
 export const useList = () => {
 	const [data, setData] = useSafeState({ content: [], total: 0 })
-	const [search, setSearch] = useState({
+	const [search, setSearch] = useSearch({
 		size: 10,
 		number: 1,
 		status: undefined,
