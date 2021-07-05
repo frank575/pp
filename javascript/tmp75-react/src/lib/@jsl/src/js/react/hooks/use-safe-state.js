@@ -1,4 +1,5 @@
 /// 防止內存洩漏的 useState
+/// v2 {author: frank575} 調整JSDOC類型
 /// v1 {author: frank575} parameter改名_state->initialState
 /// v0 {author: frank575}
 
@@ -7,7 +8,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 /**
  * @template T
  * @param {T} initialState
- * @returns [T, function(T | function(T): *): void]
+ * @returns [T, function(T | function(T): T): void]
  */
 export const useSafeState = initialState => {
 	const _isMounted = useRef(true)
