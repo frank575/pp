@@ -1,8 +1,9 @@
 /// 自動綁定querystring的useState
+/// v2 {author: frank575} refactor: 移除冗餘代碼
 /// v1 {author: frank575} fix: 修正路由未正確帶參及parse壞掉的問題還有二次初始化的錯誤
 /// v0 {author: frank575}
 
-import { useCallback, useEffect, useMemo, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { useHistory, useLocation } from 'react-router'
 import { useSafeState } from './use-safe-state'
 
