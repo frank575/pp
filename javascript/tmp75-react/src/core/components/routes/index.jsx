@@ -5,8 +5,8 @@ import { StoreProvider } from '@/core/store'
 import { NoLayoutFallback } from '@/core/components/fallback/no-layout-fallback'
 import { Layout } from '@/core/components/layout'
 import { LayoutFallback } from '@/core/components/fallback/layout-fallback'
-import { WithTitleSideKeyPrivateRoute } from '@/core/components/routes/with-title-side-key-private-route'
-import { WithTitleRoute } from '@/core/components/routes/with-title-route'
+import { WithTitleSideKeyPrivateRoute } from '@/core/components/routes/components/with-title-side-key-private-route'
+import { WithTitleRoute } from '@/core/components/routes/components/with-title-route'
 
 const RoutesContent = () => {
 	return (
@@ -15,11 +15,11 @@ const RoutesContent = () => {
 				<Switch>
 					<Redirect path="/" to="/task" exact />
 					{/*登入後主APP頁面 START*/}
-					<Route path={['/task', '/task/detail/:id', '/billboard']} exact>
+					<Route path={['/task', '/task/detail/:id', '/billboard', '/colorful']} exact>
 						<Layout>
-							{/*任務管理 START*/}
 							<Suspense fallback={<LayoutFallback />}>
 								<Switch>
+									{/*任務管理 START*/}
 									<Route path="/task">
 										<Switch>
 											<WithTitleSideKeyPrivateRoute
@@ -44,6 +44,13 @@ const RoutesContent = () => {
 										path={'/billboard'}
 										exact
 										component={lazy(() => import('@/pages/billboard'))}
+									/>
+									<WithTitleSideKeyPrivateRoute
+										title={'多主題色'}
+										sideKey={'colorful'}
+										path={'/colorful'}
+										exact
+										component={lazy(() => import('@/pages/colorful'))}
 									/>
 								</Switch>
 							</Suspense>
