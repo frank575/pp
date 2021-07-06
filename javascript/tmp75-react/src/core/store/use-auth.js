@@ -6,6 +6,7 @@ import { createEnum } from '@jsl'
 import { useCallback, useState } from 'react'
 
 export const EAuthCode = createEnum({
+	validating: [0, '驗證中'],
 	authSuccess: [1, '身分驗證成功'],
 	authError: [2, '身分驗證失敗(喔天哪，你這個傢伙可真壞耶！)'],
 	notLogin: [3, '尚未登入'],
@@ -14,11 +15,11 @@ export const EAuthCode = createEnum({
 
 export const useAuth = () => {
 	const history = useHistory()
-	const [auth, setAuth] = useState({})
+	const [auth, setAuth] = useState(null) // Object | null
 	const [token, setToken] = useLocalStorageState('tmp75_token', null)
 
 	const clearAuthState = useCallback(() => {
-		setAuth({})
+		setAuth(null)
 		setToken(null)
 	}, [])
 
@@ -29,7 +30,7 @@ export const useAuth = () => {
 
 	const checkAuth = useCallback(async () => {
 		if (token) {
-			if (!Object.keys(auth).length) {
+			if (auth == null) {
 				const { success } = await callNoAuthRandomSuccessFakeApi()
 				if (success) {
 					setAuth({

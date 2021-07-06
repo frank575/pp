@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useStore } from '@/core/store'
 import { EAuthCode } from '@/core/store/use-auth'
 import { useSafeState } from '@jsl-hooks'
 
 export const useAuth = () => {
+	const auth = useStore(e => e.auth)
 	const checkAuth = useStore(e => e.checkAuth)
 	const clearAuthState = useStore(e => e.clearAuthState)
-	const [state, setState] = useSafeState({
-		loading: true,
-		success: false,
-	})
+	const [code, setCode] = useSafeState(
+		auth == null ? EAuthCode.validating : EAuthCode.authSuccess,
+	)
 
 	const initAuth = async () => {
 		const { code } = await checkAuth()
@@ -17,25 +17,15 @@ export const useAuth = () => {
 			'checkAuth.code': EAuthCode.t(code),
 		})
 		switch (code) {
-			case EAuthCode.authSuccess:
-			case EAuthCode.hasAuth:
-				setState({
-					loading: false,
-					success: true,
-				})
-				break
 			case EAuthCode.authError:
 			case EAuthCode.notLogin:
 				clearAuthState()
-				setState({
-					loading: false,
-					success: false,
-				})
 				break
 		}
+		setCode(code)
 	}
 
 	useEffect(initAuth, [])
 
-	return state
+	return code
 }

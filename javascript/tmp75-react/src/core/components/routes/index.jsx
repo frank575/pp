@@ -15,7 +15,10 @@ const RoutesContent = () => {
 				<Switch>
 					<Redirect path="/" to="/task" exact />
 					{/*登入後主APP頁面 START*/}
-					<Route path={['/task', '/task/detail/:id', '/billboard', '/colorful']} exact>
+					<Route
+						path={['/task', '/task/detail/:id', '/billboard', '/colorful']}
+						exact
+					>
 						<Layout>
 							<Suspense fallback={<LayoutFallback />}>
 								<Switch>
@@ -25,13 +28,14 @@ const RoutesContent = () => {
 											<WithTitleSideKeyPrivateRoute
 												title={'任務管理'}
 												sideKey={'task'}
+												path={'/task'}
 												exact
 												component={lazy(() => import('@/pages/task/list'))}
 											/>
 											<WithTitleSideKeyPrivateRoute
 												title={'任務詳情'}
 												sideKey={'task'}
-												path="detail/:id"
+												path="/task/detail/:id"
 												exact
 												component={lazy(() => import('@/pages/task/detail'))}
 											/>
@@ -57,6 +61,7 @@ const RoutesContent = () => {
 						</Layout>
 					</Route>
 					{/*登入後主APP頁面 END*/}
+					{/*無Layout路由 START*/}
 					<Suspense fallback={<NoLayoutFallback />}>
 						<Switch>
 							<WithTitleRoute
@@ -77,6 +82,7 @@ const RoutesContent = () => {
 							/>
 						</Switch>
 					</Suspense>
+					{/*無Layout路由 END*/}
 				</Switch>
 			</StoreProvider>
 		</HashRouter>
