@@ -37,19 +37,19 @@ class Vector {
 	}
 
 	// 向量加法
-	add(v) {
-		if (v.len() !== this.len()) {
+	add(vec) {
+		if (vec.len() !== this.len()) {
 			return console.error('向量維度不一致')
 		}
-		this._v = this._v.map((e, i) => e + v.getitem(i))
+		this._v = this._v.map((e, i) => e + vec.getitem(i))
 	}
 
 	// 向量減法
-	sub(v) {
-		if (v.len() !== this.len()) {
+	sub(vec) {
+		if (vec.len() !== this.len()) {
 			return console.error('向量維度不一致')
 		}
-		this._v = this._v.map((e, i) => e - v.getitem(i))
+		this._v = this._v.map((e, i) => e - vec.getitem(i))
 	}
 
 	// 向量乘法
@@ -58,7 +58,17 @@ class Vector {
 	}
 
 	// 點乘又稱內積
-	// sum(un * vn) === ||u|| * ||v|| * cosθ
+	// sum(un * vn) === ||u|| * ||v|| * cosθ (轉成同方向乘積)
+	dot(vec) {
+		if (vec.len() !== this.len()) {
+			return console.error('向量維度不一致')
+		}
+		let sum = 0
+		for (let i = 0; i < this.len(); i++) {
+			sum += this.getitem(i) * vec.getitem(i)
+		}
+		return sum
+	}
 }
 
 const vec = new Vector([2, 5])
@@ -75,3 +85,5 @@ console.log(`vec${vec} * 2 = ${(vec.mul(2), vec)}`)
 console.log(`vec${vec}.norm = ${vec.norm()}`)
 console.log(`vec${vec}.normalize = ${vec.normalize()}`)
 console.log(vec.normalize().norm())
+
+console.log(`vec${vec}.dot(vec2${vec2} = ${vec.dot(vec2)})`)
