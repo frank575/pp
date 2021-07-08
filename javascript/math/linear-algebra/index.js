@@ -22,12 +22,17 @@ class Vector {
 		return new Vector(Array.from(new Array(n), () => 0))
 	}
 
-	// 返回向量模(長度)
+	// 返回向量模(長度) ||U||
 	norm() {
 		return Math.sqrt(this._v.reduce((p, e) => p + e ** 2, 0))
 	}
 
-	// 返回單位向量
+	// 返回單位向量 (uni vector)
+	// U hat = 1 / ||U|| * U = (U1 / ||U||, Un / ||U||)
+	// 單位向量的長永遠為 1，所以只關注在方向
+	// 根據模取U hat，該行為又稱規範化(normalize)
+	// 指向坐標軸的正方向單位向量又稱"標準單位向量(Standard Unit Vector)"用小e表示
+	// -e1=(1, 0) -e2=(0, 1), -en=(0, 0, ..., 1)
 	normalize() {
 		const norm = this.norm()
 		if (norm === 0) {
