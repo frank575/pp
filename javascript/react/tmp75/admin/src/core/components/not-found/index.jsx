@@ -1,3 +1,4 @@
+import React from 'react'
 import { Redirect } from 'react-router'
 import { routerConfig } from '@/core/lib/config'
 

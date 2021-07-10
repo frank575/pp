@@ -1,5 +1,6 @@
+import React from 'react'
 import { Button } from 'antd'
-import { MenuOutlined, LogoutOutlined } from '@ant-design/icons'
+import { LogoutOutlined, MenuOutlined } from '@ant-design/icons'
 import { useHeaderService } from '@/core/components/layout/header/use-header-service'
 
 export const Header = () => {

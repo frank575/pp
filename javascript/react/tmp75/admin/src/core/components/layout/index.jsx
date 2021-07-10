@@ -1,3 +1,4 @@
+import React from 'react'
 import { Header } from '@/core/components/layout/header'
 import { SideMenu } from '@/core/components/layout/side-menu'
 import { Version } from '@/core/components/layout/version'

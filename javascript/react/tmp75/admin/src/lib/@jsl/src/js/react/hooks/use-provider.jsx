@@ -2,6 +2,7 @@
 /// v1 {author: frank575} [broken] 移除inject傳入字串的使用方式
 /// v0 {author: frank575}
 
+import React from 'react'
 import { createContext, useContextSelector } from 'use-context-selector'
 
 /**

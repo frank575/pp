@@ -1,3 +1,4 @@
+import React from 'react'
 import { MyAppContent } from '@/components/my-app-content'
 
 export default () => {

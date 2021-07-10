@@ -1,4 +1,6 @@
+import React from 'react'
 import ReactDOM from 'react-dom'
+import 'antd/dist/antd.css'
 import { ConfigProvider } from 'antd'
 import zhTW from 'antd/lib/locale/zh_TW'
 import '@/core/style/index.css'

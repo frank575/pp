@@ -1,3 +1,4 @@
+import React from 'react'
 import { Wrap } from '@/pages/account/components/wrap'
 import { Button, Form, Input } from 'antd'
 import { useRegisterService } from '@/pages/account/register/use-register-service'

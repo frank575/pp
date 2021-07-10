@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react'
+import React, { lazy, Suspense } from 'react'
 import { Redirect, Route, Switch } from 'react-router'
 import { HashRouter } from 'react-router-dom'
 import { StoreProvider } from '@/core/store'

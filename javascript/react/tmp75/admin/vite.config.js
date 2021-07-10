@@ -6,9 +6,9 @@ require('./ci/index')
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [reactRefresh()],
-	esbuild: {
-		jsxInject: `import React from 'react'`,
-	},
+	// esbuild: {
+	// 	jsxInject: `import React from 'react'`,
+	// },
 	resolve: {
 		alias: {
 			'@': path.resolve(__dirname, 'src'),

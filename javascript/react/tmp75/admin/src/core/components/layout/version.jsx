@@ -1,3 +1,5 @@
+import React from 'react'
+
 export const Version = () => {
 	return (
 		<div className="px-4 text-right select-none">

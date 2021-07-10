@@ -1,3 +1,4 @@
+import React from 'react'
 import { useAuth } from '@/core/hooks/use-auth'
 import { Redirect, Route } from 'react-router'
 import { MyAppContent } from '@/components/my-app-content'

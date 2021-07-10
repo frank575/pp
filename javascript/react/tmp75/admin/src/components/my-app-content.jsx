@@ -1,3 +1,4 @@
+import React from 'react'
 import { createClassName } from '@jsl'
 
 export const MyAppContent = ({ className, children }) => {

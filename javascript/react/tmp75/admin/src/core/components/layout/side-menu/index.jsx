@@ -1,7 +1,11 @@
+import React, { useMemo } from 'react'
 import { Menu } from 'antd'
 import { userSideMenuService } from '@/core/components/layout/side-menu/user-side-menu-service'
-import { useMemo } from 'react'
-import { OrderedListOutlined, ScheduleOutlined, BgColorsOutlined } from '@ant-design/icons'
+import {
+	BgColorsOutlined,
+	OrderedListOutlined,
+	ScheduleOutlined,
+} from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 
 const { SubMenu, Item } = Menu
