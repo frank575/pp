@@ -1,12 +1,13 @@
 import React from 'react'
-import { useAuth } from '@/core/hooks/use-auth'
-import { Redirect, Route } from 'react-router'
+import { Redirect } from 'react-router'
+import { EAuthCode } from '@/core/store/use-auth'
 import { MyAppContent } from '@/components/my-app-content'
 import { LoadingOutlined } from '@ant-design/icons'
-import { EAuthCode } from '@/core/store/use-auth'
+import { useAuth } from '@/core/hooks/use-auth'
 
-const WithPrivateRoute = ({ children }) => {
+export const AuthScreen = ({ children }) => {
 	const code = useAuth()
+
 	return code === EAuthCode.validating ? (
 		<MyAppContent className="flex items-center">
 			<LoadingOutlined className="mr-2" />
@@ -16,19 +17,5 @@ const WithPrivateRoute = ({ children }) => {
 		<Redirect to={'/login'} />
 	) : (
 		children
-	)
-}
-
-export const PrivateRoute = props => {
-	return (
-		<Route
-			{...props}
-			component={null}
-			render={() => (
-				<WithPrivateRoute>
-					<props.component />
-				</WithPrivateRoute>
-			)}
-		/>
 	)
 }

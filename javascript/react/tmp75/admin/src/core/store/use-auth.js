@@ -1,9 +1,9 @@
+import { useCallback, useState } from 'react'
 import { useHistory } from 'react-router'
+import { message } from 'antd'
 import { useLocalStorageState } from '@jsl-hooks'
 import { callNoAuthRandomSuccessFakeApi } from '@/core/api-service'
-import { message } from 'antd'
 import { createEnum } from '@jsl'
-import { useCallback, useState } from 'react'
 
 export const EAuthCode = createEnum({
 	validating: [0, '驗證中'],

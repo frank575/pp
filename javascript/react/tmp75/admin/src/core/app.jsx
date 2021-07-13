@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import 'antd/dist/antd.css'
+import { MittProvider } from 'react-mitt'
 import { ConfigProvider } from 'antd'
 import zhTW from 'antd/lib/locale/zh_TW'
+import 'antd/dist/antd.css'
 import '@/core/style/index.css'
 import '@/core/lib/dev-log'
-import { Routes } from '@/core/components/routes'
-import { MittProvider } from 'react-mitt'
+import { Routes } from '@/core/routes'
 
 export const App = () => {
 	return (
