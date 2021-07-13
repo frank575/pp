@@ -32,7 +32,7 @@ export const useRegisterService = () => {
 			setAuth({ id: 1, account: initialUsername, name: 'frank' })
 			setToken('just token')
 			message.success('登入成功')
-			history.replace('/task')
+			history.replace('/billboard')
 		}
 	}
 
