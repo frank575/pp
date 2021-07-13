@@ -23,7 +23,7 @@ export const createI18n = ({ locale, messages } = {}) => {
 	 * @return {string} 翻譯結果
 	 */
 	const t = nestedKey => {
-		return message[locale][nestedKey]
+		return messages[locale][nestedKey]
 	}
 	return { t, ...useProvider(service({ locale })) }
 }
