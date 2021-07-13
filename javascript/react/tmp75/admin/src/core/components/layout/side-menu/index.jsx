@@ -1,16 +1,17 @@
 import React, { useMemo } from 'react'
 import { Menu } from 'antd'
-import { userSideMenuService } from '@/core/components/layout/side-menu/user-side-menu-service'
 import {
 	BgColorsOutlined,
 	OrderedListOutlined,
 	ScheduleOutlined,
 } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
+import { useStore } from '@/core/store'
 
 const { SubMenu, Item } = Menu
 export const SideMenu = () => {
-	const sideMenuService = userSideMenuService()
+	const menuCollapsed = useStore(e => e.menuCollapsed)
+	const selectedKeys = useStore(e => e.sideSelectedKeys)
 
 	return useMemo(
 		() => (
@@ -18,8 +19,8 @@ export const SideMenu = () => {
 				className="max-w-side-menu"
 				mode="inline"
 				theme={'dark'}
-				inlineCollapsed={sideMenuService.menuCollapsed}
-				selectedKeys={sideMenuService.selectedKeys}
+				inlineCollapsed={menuCollapsed}
+				selectedKeys={selectedKeys}
 			>
 				<Item key={'billboard'} icon={<OrderedListOutlined />}>
 					<Link to={'/billboard'}>公佈欄</Link>
@@ -39,6 +40,6 @@ export const SideMenu = () => {
 				</SubMenu>
 			</Menu>
 		),
-		[sideMenuService.menuCollapsed, sideMenuService.selectedKeys],
+		[menuCollapsed, selectedKeys],
 	)
 }

@@ -1,7 +1,7 @@
 import {
 	BillboardProvider,
 	useBillboardService,
-} from '@/pages/billboard/use-billboard-service'
+} from '@/pages/billboard/service'
 import { MyAppContent } from '@/components/my-app-content'
 import {
 	Button,
@@ -27,7 +27,7 @@ import {
 import React, { useCallback, useMemo } from 'react'
 import { MyTitle } from '@/components/my-title'
 import { fetchDeleteBillboardPost } from '@/core/api-service'
-import { EditorDialog } from '@/pages/billboard/editor-dialog'
+import { EditorModal } from '@/pages/billboard/editor-modal'
 import { EEditorStatus } from '@/enums/e-editor-status'
 
 const { Option } = Select
@@ -42,17 +42,17 @@ export default () => {
 }
 
 const Content = () => {
-	const search = useBillboardService(e => e.search)
-	const loading = useBillboardService(e => e.loading)
-	const data = useBillboardService(e => e.data)
-	const onChangeSearch = useBillboardService(e => e.onChangeSearch)
-	const onLike = useBillboardService(e => e.onLike)
-	const getList = useBillboardService(e => e.getList)
-	const onDebounceChangeSearch = useBillboardService(
-		e => e.onDebounceChangeSearch,
-	)
-	const onChangeTable = useBillboardService(e => e.onChangeTable)
-	const onOpenEditorDialog = useBillboardService(e => e.onOpenEditorDialog)
+	const {
+		search,
+		loading,
+		data,
+		onChangeSearch,
+		onLike,
+		getList,
+		onDebounceChangeSearch,
+		onChangeTable,
+	} = useBillboardService(e => e.list)
+	const onOpenEditorDialog = useBillboardService(e => e.editorDialog.onOpen)
 
 	const onDelete = useCallback(
 		e => {
@@ -215,7 +215,7 @@ const Content = () => {
 				columns={columns}
 				onChange={onChangeTable}
 			/>
-			<EditorDialog />
+			<EditorModal />
 		</MyAppContent>
 	)
 }

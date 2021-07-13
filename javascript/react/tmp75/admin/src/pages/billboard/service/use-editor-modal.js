@@ -1,13 +1,10 @@
-import { useEffect, useMemo, useState } from 'react'
 import { Form, message } from 'antd'
-import { useBillboardService } from '@/pages/billboard/use-billboard-service'
+import { useMemo, useState } from 'react'
 import { EEditorStatus } from '@/enums/e-editor-status'
 import {
 	fetchAddBillboardPost,
 	fetchEditBillboardPost,
 } from '@/core/api-service'
-import { useMitt } from 'react-mitt'
-import { BILLBOARD_EDITOR_DIALOG } from '@/enums/e-mitt-type'
 
 const initialState = () => ({
 	id: undefined, // number | undefined
@@ -16,9 +13,7 @@ const initialState = () => ({
 	_visible: false,
 })
 
-export const userEditorDialogService = () => {
-	const { emitter } = useMitt()
-	const getList = useBillboardService(e => e.getList)
+export const useEditorModal = ({ getList }) => {
 	const [form] = Form.useForm()
 	const [loading, setLoading] = useState(false)
 	const [state, setState] = useState(initialState())
@@ -27,12 +22,7 @@ export const userEditorDialogService = () => {
 		[state._status],
 	)
 
-	useEffect(() => {
-		emitter.on(BILLBOARD_EDITOR_DIALOG, onOpen)
-	}, [])
-
-	const onOpen = e => {
-		const { status, data } = e
+	const onOpen = (status, data) => {
 		if (status === EEditorStatus.create) {
 			const _data = initialState()
 			setState({ ..._data, _status: status, _visible: true })
@@ -43,15 +33,15 @@ export const userEditorDialogService = () => {
 		}
 	}
 
-	const onClose = () => {
+	const onHide = () => {
 		setState(e => ({ ...e, _visible: false }))
 	}
 
-	const onOk = () => {
+	const onSubmit = () => {
 		form.submit()
 	}
 
-	const onFinish = async data => {
+	const onAdd = async data => {
 		setLoading(true)
 		const { success, message: resMessage } = await (state._status ===
 		EEditorStatus.create
@@ -66,12 +56,13 @@ export const userEditorDialogService = () => {
 	}
 
 	return {
+		onOpen,
 		form,
 		title,
 		state,
-		onOk,
-		onClose,
-		onFinish,
+		onSubmit,
+		onHide,
+		onAdd,
 		loading,
 	}
 }

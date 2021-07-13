@@ -10,9 +10,16 @@ import {
 export const fetchLogin = params => service.post('login', params)
 
 /*
- 下面都是假的，都是幻象，一切皆空(_fake-table.js皆是用來服務以下代碼)
-*/
 
+
+
+
+
+
+
+
+
+*/
 const none = () => {}
 // 假搓搓了API
 export const callNoAuthFakeApi = async () => {
@@ -23,6 +30,10 @@ export const callNoAuthFakeApi = async () => {
 		message: '成功',
 	}
 }
+
+/*
+	none 開始到以下都是假的，不過 callNoAuthFakeApi 可以在開發時假裝搓 api (_fake-table.js皆是用來服務以下代碼)
+*/
 
 // 用在身分驗證上
 export const callNoAuthRandomSuccessFakeApi = async () => {

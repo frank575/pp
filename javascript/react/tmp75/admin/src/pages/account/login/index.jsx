@@ -1,22 +1,60 @@
-import React from 'react'
-import { Button, Form, Input } from 'antd'
+import React, { useState } from 'react'
+import { Button, Form, Input, message } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
-import { useLoginService } from '@/pages/account/login/use-login-service'
 import { Link } from 'react-router-dom'
-import { Wrap } from '@/pages/account/components/wrap'
+import { Wrap } from '@/pages/account/wrap'
+import { useHistory } from 'react-router'
+import { useStore } from '@/core/store'
+import { callNoAuthFakeApi } from '@/core/api-service'
 
 export default () => {
-	const loginService = useLoginService()
+	const [submitLoading, setSubmitLoading] = useState(false)
+	const history = useHistory()
+	const setAuth = useStore(e => e.setAuth)
+	const setToken = useStore(e => e.setToken)
+	const initialUsername = import.meta.env.VITE_USERNAME
+	const initialPassword = import.meta.env.VITE_PASSWORD
+	const usernameValidator = (_, value) => {
+		if (!value) {
+			return Promise.reject(new Error('必填'))
+		} else if (value !== initialUsername) {
+			return Promise.reject(new Error('帳號錯誤'))
+		}
+		return Promise.resolve()
+	}
+	const passwordValidator = (_, value) => {
+		if (!value) {
+			return Promise.reject(new Error('必填'))
+		} else if (value !== initialPassword) {
+			return Promise.reject(new Error('密碼錯誤'))
+		}
+		return Promise.resolve()
+	}
+	const onLogin = async data => {
+		console.log(data)
+
+		const { username, password } = data
+		setSubmitLoading(true)
+		const { success } = await callNoAuthFakeApi()
+		setSubmitLoading(false)
+		if (success) {
+			setAuth({ id: 1, account: initialUsername, name: 'frank' })
+			setToken('just token')
+			message.success('登入成功')
+			history.replace('/billboard')
+		}
+	}
+
 	return (
 		<Wrap title={'登入'}>
-			<Form name={'login-form'} onFinish={loginService.onLogin}>
+			<Form name={'login-form'} onFinish={onLogin}>
 				<Form.Item
 					label={'帳號'}
 					name={'username'}
-					initialValue={loginService.initialUsername}
+					initialValue={initialUsername}
 					rules={[
 						{
-							validator: loginService.usernameValidator,
+							validator: usernameValidator,
 						},
 					]}
 					validateTrigger={['onChange', 'onBlur']}
@@ -26,10 +64,10 @@ export default () => {
 				<Form.Item
 					label={'密碼'}
 					name={'password'}
-					initialValue={loginService.initialPassword}
+					initialValue={initialPassword}
 					rules={[
 						{
-							validator: loginService.passwordValidator,
+							validator: passwordValidator,
 						},
 					]}
 					validateTrigger={['onChange', 'onBlur']}
@@ -45,11 +83,7 @@ export default () => {
 					<Link to={'/register'}>
 						<Button className="mr-2">註冊</Button>
 					</Link>
-					<Button
-						type="primary"
-						htmlType="submit"
-						loading={loginService.submitLoading}
-					>
+					<Button type="primary" htmlType="submit" loading={submitLoading}>
 						登入
 					</Button>
 				</div>
