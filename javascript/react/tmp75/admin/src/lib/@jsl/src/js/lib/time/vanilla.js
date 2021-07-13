@@ -1,4 +1,5 @@
 /// 時間處理函數(香草)
+/// v1 {author: frank575} api名稱調整last->past, jsdoc ft 類型新增null
 /// v0 {author: frank575}
 
 const SECOND_MS = 1000
@@ -328,54 +329,57 @@ const monthResult = (last, ft) => {
 
 /**
  * 取得今天日期
- * @param {string} ft 格式化
+ * @param {string|null} ft [ft=null] 格式化
  * @param {boolean} start [start=false] true 為 00:00:00, false 為 23:59:59
  * @returns {Date|string}
  */
-const today = (ft, start = false) => {
+const today = (ft = null, start = false) => {
 	const result = start ? createStartDate() : createEndDate()
 	return !ft ? result : format(result, ft)
 }
 
 /**
  * 取得明天日期
- * @param {string} ft 格式化
+ * @param {string|null} ft [ft=null] 格式化
  * @param {boolean} start [start=false] true 為 00:00:00, false 為 23:59:59
  * @returns {Date|string}
  */
-const tomorrow = (ft, start = false) => recentDateResult(DAY_MS, ft, start)
+const tomorrow = (ft = null, start = false) =>
+	recentDateResult(DAY_MS, ft, start)
 
 /**
  * 取得後天日期
- * @param {string} ft 格式化
+ * @param {string|null} ft [ft=null] 格式化
  * @param {boolean} start [start=false] true 為 00:00:00, false 為 23:59:59
  * @returns {Date|string}
  */
-const acquired = (ft, start = false) => recentDateResult(DAY_MS * 2, ft, start)
+const acquired = (ft = null, start = false) =>
+	recentDateResult(DAY_MS * 2, ft, start)
 
 /**
  * 取得昨天日期
- * @param {string} ft 格式化
+ * @param {string|null} ft [ft=null] 格式化
  * @param {boolean} start [start=false] true 為 00:00:00, false 為 23:59:59
  * @returns {Date|string}
  */
-const yesterday = (ft, start = false) => recentDateResult(-DAY_MS, ft, start)
+const yesterday = (ft = null, start = false) =>
+	recentDateResult(-DAY_MS, ft, start)
 
 /**
  * 取得前天日期
- * @param {string} ft 格式化
+ * @param {string|null} ft [ft=null] 格式化
  * @param {boolean} start [start=false] true 為 00:00:00, false 為 23:59:59
  * @returns {Date|string}
  */
-const theDayBeforeYesterday = (ft, start = false) =>
+const theDayBeforeYesterday = (ft = null, start = false) =>
 	recentDateResult(-DAY_MS * 2, ft, start)
 
 /**
  * 取得近七天(今天到本周星期日)
- * @param {string} ft 格式化
+ * @param {string|null} ft [ft=null] 格式化
  * @returns {Date[]|string[]}
  */
-const nearlySevenDays = ft => {
+const nearlySevenDays = (ft = null) => {
 	const date = new Date()
 	const time = date.getTime()
 	const minusDay = 7 - date.getDay()
@@ -388,31 +392,31 @@ const nearlySevenDays = ft => {
 
 /**
  * 取得本周日期(星期一到日)
- * @param {string} ft 格式化
+ * @param {string|null} ft [ft=null] 格式化
  * @returns {Date[]|string[]}
  */
-const thisWeek = ft => weekResult(0, ft)
+const thisWeek = (ft = null) => weekResult(0, ft)
 
 /**
  * 取得上周日期(星期一到日)
- * @param {string} ft 格式化
+ * @param {string|null} ft [ft=null] 格式化
  * @returns {Date[]|string[]}
  */
-const lastWeek = ft => weekResult(7, ft)
+const pastWeek = (ft = null) => weekResult(7, ft)
 
 /**
  * 取得本月日期(1 - 28 | 29 | 30 | 31)
- * @param {string} ft 格式化
+ * @param {string|null} ft [ft=null] 格式化
  * @returns {Date[]|string[]}
  */
-const thisMonth = ft => monthResult(false, ft)
+const thisMonth = (ft = null) => monthResult(false, ft)
 
 /**
  * 取得上個月日期(1 - 28 | 29 | 30 | 31)
- * @param {string} ft 格式化
+ * @param {string|null} ft [ft=null] 格式化
  * @returns {Date[]|string[]}
  */
-const lastMonth = ft => monthResult(true, ft)
+const pastMonth = (ft = null) => monthResult(true, ft)
 
 export const vtime = {
 	format,
@@ -423,8 +427,8 @@ export const vtime = {
 	yesterday,
 	theDayBeforeYesterday,
 	thisWeek,
-	lastWeek,
+	pastWeek,
 	nearlySevenDays,
 	thisMonth,
-	lastMonth,
+	pastMonth,
 }
