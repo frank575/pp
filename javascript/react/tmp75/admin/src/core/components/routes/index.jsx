@@ -13,35 +13,32 @@ const RoutesContent = () => {
 		<HashRouter>
 			<StoreProvider>
 				<Switch>
-					<Redirect path="/" to="/task" exact />
+					<Redirect path="/" to="/billboard" exact />
 					{/*登入後主APP頁面 START*/}
-					<Route
-						path={['/task', '/task/detail/:id', '/billboard', '/colorful']}
-						exact
-					>
+					<Route path={['/billboard', '/colorful']} exact>
 						<Layout>
 							<Suspense fallback={<LayoutFallback />}>
 								<Switch>
-									{/*任務管理 START*/}
-									<Route path="/task">
-										<Switch>
-											<WithTitleSideKeyPrivateRoute
-												title={'任務管理'}
-												sideKey={'task'}
-												path={'/task'}
-												exact
-												component={lazy(() => import('@/pages/task/list'))}
-											/>
-											<WithTitleSideKeyPrivateRoute
-												title={'任務詳情'}
-												sideKey={'task'}
-												path="/task/detail/:id"
-												exact
-												component={lazy(() => import('@/pages/task/detail'))}
-											/>
-										</Switch>
-									</Route>
-									{/*任務管理 END*/}
+									{/*巢狀路由範例 START*/}
+									{/*<Route path="/nesting">*/}
+									{/*	<Switch>*/}
+									{/*		<WithTitleSideKeyPrivateRoute*/}
+									{/*			title={'子層1'}*/}
+									{/*			sideKey={'nesting'}*/}
+									{/*			path={'/nesting'}*/}
+									{/*			exact*/}
+									{/*			component={lazy(() => import('@/pages/xxxx'))}*/}
+									{/*		/>*/}
+									{/*		<WithTitleSideKeyPrivateRoute*/}
+									{/*			title={'子層2'}*/}
+									{/*			sideKey={'nesting-detail'}*/}
+									{/*			path="/nesting/:id"*/}
+									{/*			exact*/}
+									{/*			component={lazy(() => import('@/pages/xxxx'))}*/}
+									{/*		/>*/}
+									{/*	</Switch>*/}
+									{/*</Route>*/}
+									{/*巢狀路由範例 END*/}
 									<WithTitleSideKeyPrivateRoute
 										title={'公佈欄'}
 										sideKey={'billboard'}

@@ -21,9 +21,6 @@ export const SideMenu = () => {
 				inlineCollapsed={sideMenuService.menuCollapsed}
 				selectedKeys={sideMenuService.selectedKeys}
 			>
-				<Item key={'task'} icon={<ScheduleOutlined />}>
-					<Link to={'/task'}>任務管理</Link>
-				</Item>
 				<Item key={'billboard'} icon={<OrderedListOutlined />}>
 					<Link to={'/billboard'}>公佈欄</Link>
 				</Item>
