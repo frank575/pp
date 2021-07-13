@@ -1,20 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { MittProvider } from 'react-mitt'
 import { ConfigProvider } from 'antd'
 import zhTW from 'antd/lib/locale/zh_TW'
 import 'antd/dist/antd.css'
 import '@/core/style/index.css'
 import '@/core/lib/dev-log'
 import { Routes } from '@/core/routes'
+import { I18nProvider } from '@i18n'
 
 export const App = () => {
 	return (
-		<MittProvider>
+		<I18nProvider>
 			<ConfigProvider locale={zhTW}>
 				<Routes />
 			</ConfigProvider>
-		</MittProvider>
+		</I18nProvider>
 	)
 }
 
