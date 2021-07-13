@@ -5,7 +5,6 @@ import { useBillboardService } from '@/pages/billboard/service'
 export const EditorModal = () => {
 	const { title, state, loading, onSubmit, onHide, form, onAdd } =
 		useBillboardService(e => e.editorDialog)
-
 	return (
 		<Modal
 			title={title}

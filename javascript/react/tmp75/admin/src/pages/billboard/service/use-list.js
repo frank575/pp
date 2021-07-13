@@ -1,8 +1,7 @@
-import { useCallback, useEffect } from 'react'
-import { useDebounce, useSearch } from '@jsl-hooks'
+import { useEffect } from 'react'
+import { useDebounce, useSafeState, useSearch } from '@jsl-hooks'
 import { fetchBillboard, fetchLikeBillboardPost } from '@/core/api-service'
 import { message } from 'antd'
-import { useSafeState } from '@jsl-hooks'
 
 export const useList = () => {
 	const [data, setData] = useSafeState({ content: [], total: 0 })
@@ -46,7 +45,7 @@ export const useList = () => {
 		}
 	}
 
-	const getList = useCallback(async () => {
+	const getList = async () => {
 		setLoading(true)
 		const res = await fetchBillboard({
 			...search,
@@ -58,22 +57,19 @@ export const useList = () => {
 			return
 		}
 		setData({ total: 0, content: [] })
-	}, [search])
+	}
 
-	const onLike = useCallback(
-		async (id, key = 'like', value = true) => {
-			setLoading(true)
-			const { success, message: resMessage } = await fetchLikeBillboardPost({
-				id,
-				[key]: value,
-			})
-			if (success) {
-				message.success(resMessage)
-				getList()
-			}
-		},
-		[getList],
-	)
+	const onLike = async (id, key = 'like', value = true) => {
+		setLoading(true)
+		const { success, message: resMessage } = await fetchLikeBillboardPost({
+			id,
+			[key]: value,
+		})
+		if (success) {
+			message.success(resMessage)
+			getList()
+		}
+	}
 
 	useEffect(getList, [search])
 
