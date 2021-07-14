@@ -1,15 +1,23 @@
 /// i18n 可以在任意地方翻譯(t)的國際化
+/// v2 {author: frank575} 新增存入緩存的功能
 /// v1 {author: frank575} 內部代碼調整
 /// v0 {author: frank575}
 
 import { useEffect, useState } from 'react'
+import { findNestedDynamicObj } from '../../lib/find-nested-dynamic-obj'
 import { useProvider } from '../hooks/use-provider'
-import { findNestedDynamicObj } from '@/lib/@jsl/src/js/lib/find-nested-dynamic-obj'
+import { useSessionStorageState } from '../hooks/storage/use-session-storage-state'
+import { useLocalStorageState } from '../hooks/storage/use-local-storage-state'
 
 const service =
-	({ locale: initialLocale, _setLocale }) =>
+	({ locale: initialLocale, _setLocale, storageName, storageKey }) =>
 	() => {
-		const [locale, changeLocale] = useState(initialLocale)
+		const [locale, changeLocale] =
+			storageName === 'sessionStorage'
+				? useSessionStorageState(storageKey, initialLocale)
+				: storageName === 'localStorage'
+				? useLocalStorageState(storageKey, initialLocale)
+				: useState(initialLocale)
 
 		useEffect(() => {
 			_setLocale(locale)
@@ -28,10 +36,17 @@ const service =
 /**
  * @template T
  * @param options 選項
- * @param {string} options.locale locale
+ * @param {*} options.locale locale
  * @param {Message} options.messages 翻譯的文字們
+ * @param [options.storageName=null: 'localStorage' | 'sessionStorage' | null] 是否要存到緩存裏，有名稱表示要存
+ * @param {string} options.storageKey 存到緩存的 key
  */
-export const createI18n = ({ locale, messages } = {}) => {
+export const createI18n = ({
+	locale,
+	messages,
+	storageName,
+	storageKey,
+} = {}) => {
 	let _locale = locale
 	const _setLocale = locale => (_locale = locale)
 
@@ -52,5 +67,8 @@ export const createI18n = ({ locale, messages } = {}) => {
 		return v
 	}
 
-	return { t, ...useProvider(service({ locale, _setLocale })) }
+	return {
+		t,
+		...useProvider(service({ locale, _setLocale, storageName, storageKey })),
+	}
 }
