@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Wrap } from '@/pages/account/wrap'
+import { NoLayoutWrap } from '@/components/no-layout-wrap'
 import { Button, Form, Input, message } from 'antd'
 import { Link } from 'react-router-dom'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
@@ -40,7 +40,7 @@ export default () => {
 	}
 
 	return (
-		<Wrap title={'註冊'}>
+		<NoLayoutWrap title={'註冊'}>
 			<Form
 				name={'register-form'}
 				onFinish={onRegister}
@@ -102,6 +102,6 @@ export default () => {
 					</Button>
 				</div>
 			</Form>
-		</Wrap>
+		</NoLayoutWrap>
 	)
 }

@@ -1,5 +1,11 @@
 import React from 'react'
+import { NoLayoutWrap } from '@/components/no-layout-wrap'
+import { Result, Spin } from 'antd'
 
 export const NoLayoutFallback = () => {
-	return <div>頁面加載中(這個先暫不優化)...</div>
+	return (
+		<NoLayoutWrap noTitle>
+			<Result icon={<Spin size="large" />} title={'頁面加載中...'} />
+		</NoLayoutWrap>
+	)
 }

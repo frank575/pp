@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, Form, Input, message } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
-import { Wrap } from '@/pages/account/wrap'
+import { NoLayoutWrap } from '@/components/no-layout-wrap'
 import { useHistory } from 'react-router'
 import { useStore } from '@/core/store'
 import { callNoAuthFakeApi } from '@/core/api-service'
@@ -46,7 +46,7 @@ export default () => {
 	}
 
 	return (
-		<Wrap title={'登入'}>
+		<NoLayoutWrap title={'登入'}>
 			<Form name={'login-form'} onFinish={onLogin}>
 				<Form.Item
 					label={'帳號'}
@@ -88,6 +88,6 @@ export default () => {
 					</Button>
 				</div>
 			</Form>
-		</Wrap>
+		</NoLayoutWrap>
 	)
 }
