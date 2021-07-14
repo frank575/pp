@@ -7,6 +7,12 @@ module.exports = {
 			maxWidth: {
 				'side-menu': '256px',
 			},
+			borderWidth: {
+				1: '1px',
+			},
+			screens: {
+				xs: '425px',
+			},
 		},
 	},
 	variants: {
