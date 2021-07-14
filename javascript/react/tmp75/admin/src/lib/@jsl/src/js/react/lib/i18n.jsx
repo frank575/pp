@@ -1,4 +1,5 @@
 /// i18n 可以在任意地方翻譯(t)的國際化
+/// v1 {author: frank575} 內部代碼調整
 /// v0 {author: frank575}
 
 import { useEffect, useState } from 'react'
@@ -6,12 +7,12 @@ import { useProvider } from '../hooks/use-provider'
 import { findNestedDynamicObj } from '@/lib/@jsl/src/js/lib/find-nested-dynamic-obj'
 
 const service =
-	({ locale: initialLocale, _updateLocale }) =>
+	({ locale: initialLocale, _setLocale }) =>
 	() => {
 		const [locale, changeLocale] = useState(initialLocale)
 
 		useEffect(() => {
-			_updateLocale(locale)
+			_setLocale(locale)
 		}, [locale])
 
 		return {
@@ -32,7 +33,7 @@ const service =
  */
 export const createI18n = ({ locale, messages } = {}) => {
 	let _locale = locale
-	const _updateLocale = locale => (_locale = locale)
+	const _setLocale = locale => (_locale = locale)
 
 	/**
 	 * @param {string} nestedKey 標題
@@ -51,5 +52,5 @@ export const createI18n = ({ locale, messages } = {}) => {
 		return v
 	}
 
-	return { t, ...useProvider(service({ locale, _updateLocale })) }
+	return { t, ...useProvider(service({ locale, _setLocale })) }
 }
