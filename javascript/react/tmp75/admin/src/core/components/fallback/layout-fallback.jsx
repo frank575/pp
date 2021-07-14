@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppContent } from '@/components/app-content'
+import { AppContent } from '@/components/app/content'
 import { LoadingOutlined } from '@ant-design/icons'
 
 export const LayoutFallback = () => {

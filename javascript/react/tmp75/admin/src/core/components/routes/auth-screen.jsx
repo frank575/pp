@@ -1,7 +1,7 @@
 import React from 'react'
 import { Redirect } from 'react-router'
 import { EAuthCode } from '@/core/store/use-auth'
-import { AppContent } from '@/components/app-content'
+import { AppContent } from '@/components/app/content'
 import { LoadingOutlined } from '@ant-design/icons'
 import { useAuth } from '@/core/hooks/use-auth'
 
