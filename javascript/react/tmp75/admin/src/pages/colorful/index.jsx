@@ -1,6 +1,6 @@
 import React from 'react'
-import { MyAppContent } from '@/components/my-app-content'
+import { AppContent } from '@/components/app-content'
 
 export default () => {
-	return <MyAppContent>多主題色</MyAppContent>
+	return <AppContent>多主題色</AppContent>
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { createClassName } from '@jsl'
 
-export const MyAppContent = ({ className, children }) => {
+export const AppContent = ({ className, children }) => {
 	return (
 		<main
 			className={createClassName(

@@ -5,7 +5,7 @@ import { createClassName } from '@jsl'
 import { Link } from 'react-router-dom'
 
 const { Item } = Breadcrumb
-export const MyTitle = ({ title, just, icon: Icon, className, children }) => {
+export const AppTitle = ({ title, just, icon: Icon, className, children }) => {
 	return (
 		<Typography>
 			<div className="flex items-center mb-2">
