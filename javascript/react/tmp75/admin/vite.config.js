@@ -1,11 +1,23 @@
 import { defineConfig } from 'vite'
 import reactRefresh from '@vitejs/plugin-react-refresh'
+import vitePluginImport from 'vite-plugin-babel-import'
 const path = require('path')
 require('./ci/index')
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [reactRefresh()],
+	plugins: [
+		reactRefresh(),
+		vitePluginImport([
+			{
+				libraryName: 'antd',
+				libraryDirectory: 'es',
+				style(name) {
+					return `antd/lib/${name}/style/index.css`
+				},
+			},
+		]),
+	],
 	// esbuild: {
 	// 	jsxInject: `import React from 'react'`,
 	// },
