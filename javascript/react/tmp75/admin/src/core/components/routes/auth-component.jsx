@@ -1,12 +1,12 @@
-import React from 'react'
 import { Redirect } from 'react-router'
+import React from 'react'
+import { LoadingOutlined } from '@ant-design/icons'
+import { useAsyncValidateAuth } from '@/core/hooks/use-async-validate-auth'
 import { EAuthCode } from '@/core/store/use-auth'
 import { AppContent } from '@/components/app/content'
-import { LoadingOutlined } from '@ant-design/icons'
-import { useAuth } from '@/core/hooks/use-auth'
 
-export const AuthScreen = ({ children }) => {
-	const code = useAuth()
+export const AuthComponent = ({ component: RouteComponent }) => {
+	const code = useAsyncValidateAuth()
 
 	return code === EAuthCode.validating ? (
 		<AppContent className="flex items-center">
@@ -16,6 +16,6 @@ export const AuthScreen = ({ children }) => {
 	) : code === EAuthCode.authError || code === EAuthCode.notLogin ? (
 		<Redirect to={'/login'} />
 	) : (
-		children
+		<RouteComponent />
 	)
 }

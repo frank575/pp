@@ -1,12 +1,15 @@
-import React, { lazy, Suspense } from 'react'
+import React, { lazy } from 'react'
 import { Redirect, Route, Switch } from 'react-router'
 import { HashRouter } from 'react-router-dom'
 import { StoreProvider } from '@/core/store'
 import { NoLayoutFallback } from '@/core/components/fallback/no-layout-fallback'
 import { Layout } from '@/core/components/layout'
 import { LayoutFallback } from '@/core/components/fallback/layout-fallback'
-import { WithTitleSideKeyPrivateRoute } from '@/core/components/routes/with-title-side-key-private-route'
-import { WithTitleRoute } from '@/core/components/routes/with-title-route'
+import { withTitle } from '@/core/components/routes/with-funcs/with-title'
+import { withSideKey } from '@/core/components/routes/with-funcs/with-side-key'
+import { RouteWrapper } from '@/core/components/routes/route-wrapper'
+import { withSuspenseRoute } from '@/core/components/routes/with-suspense-route'
+import { withSuspensePrivateRoute } from '@/core/components/routes/with-suspense-private-route'
 
 export const Routes = () => {
 	return (
@@ -14,76 +17,58 @@ export const Routes = () => {
 			<StoreProvider>
 				<Switch>
 					<Redirect path="/" to="/billboard" exact />
-					{/*登入後主APP頁面 START*/}
-					<Route path={['/billboard', '/colorful']} exact>
-						<Layout>
-							<Suspense fallback={<LayoutFallback />}>
-								<Switch>
-									{/*巢狀路由範例 START*/}
-									{/*<Route path="/nesting">*/}
-									{/*	<Switch>*/}
-									{/*		<WithTitleSideKeyPrivateRoute*/}
-									{/*			title={'子層1'}*/}
-									{/*			sideKey={'nesting'}*/}
-									{/*			path={'/nesting'}*/}
-									{/*			exact*/}
-									{/*			component={lazy(() => import('@/pages/xxxx'))}*/}
-									{/*		/>*/}
-									{/*		<WithTitleSideKeyPrivateRoute*/}
-									{/*			title={'子層2'}*/}
-									{/*			sideKey={'nesting-detail'}*/}
-									{/*			path="/nesting/:id"*/}
-									{/*			exact*/}
-									{/*			component={lazy(() => import('@/pages/xxxx'))}*/}
-									{/*		/>*/}
-									{/*	</Switch>*/}
-									{/*</Route>*/}
-									{/*巢狀路由範例 END*/}
 
-									<WithTitleSideKeyPrivateRoute
-										title={'公佈欄'}
-										sideKey={'billboard'}
-										path={'/billboard'}
-										exact
-										component={lazy(() => import('@/pages/billboard'))}
-									/>
+					<Route
+						path={'/login'}
+						exact
+						component={withSuspenseRoute(
+							lazy(() => import('@/pages/account/login')),
+							NoLayoutFallback,
+							withTitle('登入'),
+						)}
+					/>
 
-									<WithTitleSideKeyPrivateRoute
-										title={'多主題色'}
-										sideKey={'colorful'}
-										path={'/colorful'}
-										exact
-										component={lazy(() => import('@/pages/colorful'))}
-									/>
-								</Switch>
-							</Suspense>
-						</Layout>
-					</Route>
-					{/*登入後主APP頁面 END*/}
-					{/*無Layout路由 START*/}
-					<Suspense fallback={<NoLayoutFallback />}>
-						<Switch>
-							<WithTitleRoute
-								title={'登入'}
-								path={'/login'}
-								exact={true}
-								component={lazy(() => import('@/pages/account/login'))}
-							/>
+					<Route
+						path={'/register'}
+						exact
+						component={withSuspenseRoute(
+							lazy(() => import('@/pages/account/register')),
+							NoLayoutFallback,
+							withTitle('註冊'),
+						)}
+					/>
 
-							<WithTitleRoute
-								title={'註冊'}
-								path={'/register'}
-								exact={true}
-								component={lazy(() => import('@/pages/account/register'))}
-							/>
+					<RouteWrapper
+						path={'/billboard'}
+						exact
+						component={withSuspensePrivateRoute(
+							lazy(() => import('@/pages/billboard')),
+							LayoutFallback,
+							withTitle('公佈欄'),
+							withSideKey('billboard'),
+						)}
+						layout={Layout}
+					/>
 
-							<WithTitleRoute
-								title={'找不到頁面'}
-								component={lazy(() => import('@/core/components/not-found'))}
-							/>
-						</Switch>
-					</Suspense>
-					{/*無Layout路由 END*/}
+					<RouteWrapper
+						path={'/colorful'}
+						exact
+						component={withSuspensePrivateRoute(
+							lazy(() => import('@/pages/colorful')),
+							LayoutFallback,
+							withTitle('多主題色'),
+							withSideKey('colorful'),
+						)}
+						layout={Layout}
+					/>
+
+					<Route
+						component={withSuspenseRoute(
+							lazy(() => import('@/core/components/not-found')),
+							NoLayoutFallback,
+							withTitle('找不到頁面'),
+						)}
+					/>
 				</Switch>
 			</StoreProvider>
 		</HashRouter>
