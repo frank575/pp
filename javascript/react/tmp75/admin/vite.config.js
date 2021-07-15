@@ -13,11 +13,18 @@ export default defineConfig({
 				libraryName: 'antd',
 				libraryDirectory: 'es',
 				style(name) {
-					return `antd/lib/${name}/style/index.css`
+					return `antd/es/${name}/style`
 				},
 			},
 		]),
 	],
+	css: {
+		preprocessorOptions: {
+			less: {
+				javascriptEnabled: true,
+			},
+		},
+	},
 	// esbuild: {
 	// 	jsxInject: `import React from 'react'`,
 	// },
