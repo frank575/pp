@@ -26,6 +26,12 @@ module.exports = {
 			},
 			maxWidth: {
 				'side-menu': '256px',
+				// 'screen-2xl': '1536px',
+				// 'screen-xl': '1280px',
+				// 'screen-lg': '1024px',
+				'screen-md': '768px',
+				// 'screen-sm': '640px',
+				// 'screen-xs': '425px',
 			},
 		},
 	},
