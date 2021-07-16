@@ -42,7 +42,7 @@ export const callNoAuthRandomSuccessFakeApi = async () => {
 	const level = 0.1
 	console.log(
 		`random: ${random}
-random > 0.1 表示身分驗證成功, 目前結果為: 驗證${
+random > level(${level}) 表示身分驗證成功, 目前結果為: 驗證${
 			random > level ? '成功' : '失敗'
 		}`,
 	)
