@@ -31,8 +31,8 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			'@': path.resolve(__dirname, 'src'),
-			'@jsl': path.resolve(__dirname, 'src/lib/@jsl/src/js/lib'),
-			'@jsl-hooks': path.resolve(__dirname, 'src/lib/@jsl/src/js/react/hooks'),
+			'@jsl': path.resolve(__dirname, 'src/core/jsl/src/js/lib'),
+			'@jsl-hooks': path.resolve(__dirname, 'src/core/jsl/src/js/react/hooks'),
 			'@i18n': path.resolve(__dirname, 'src/core/i18n'),
 		},
 	},
