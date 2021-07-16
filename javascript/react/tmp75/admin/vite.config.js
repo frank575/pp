@@ -16,6 +16,13 @@ export default defineConfig({
 					return `antd/es/${name}/style`
 				},
 			},
+			// {
+			// 	libraryName: 'antd-mobile',
+			// 	libraryDirectory: 'es',
+			// 	style(name) {
+			// 		return `antd-mobile/es/${name}/style`
+			// 	},
+			// },
 		]),
 	],
 	css: {
