@@ -2,8 +2,8 @@
   "name": "tmp75-react-admin",
   "version": "0.0.0",
   "scripts": {
-    "dev": "cross-env APP_ENV=dev vite",
-    "build": "cross-env APP_ENV=prod vite build",
+    "dev": "vite",
+    "build": "vite build",
     "serve": "vite preview"
   },
   "dependencies": {
@@ -22,8 +22,6 @@
     "@types/react": "^17.0.2",
     "@vitejs/plugin-react-refresh": "^1.1.0",
     "autoprefixer": "^10.2.6",
-    "cross-env": "^7.0.3",
-    "dotenv": "^8.2.0",
     "less": "^4.1.1",
     "postcss": "^8.3.5",
     "prettier": "^2.2.1",
