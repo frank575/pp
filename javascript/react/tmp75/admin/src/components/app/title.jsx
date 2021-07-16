@@ -1,14 +1,31 @@
 import React from 'react'
 import { Breadcrumb, Typography } from 'antd'
-import { HomeOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined, HomeOutlined } from '@ant-design/icons'
 import { createClassName } from '@jsl'
 import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router'
 
 const { Item } = Breadcrumb
-export const AppTitle = ({ title, just, icon: Icon, className, children }) => {
+export const AppTitle = ({
+	title,
+	just = false,
+	back = false,
+	icon: Icon,
+	className,
+	children,
+}) => {
+	const history = useHistory()
+	const _onGoBack = () => history.goBack()
+
 	return (
 		<Typography>
 			<div className="flex items-center mb-2">
+				{back ? (
+					<ArrowLeftOutlined
+						className="text-base mr-3 flex items-center"
+						onClick={_onGoBack}
+					/>
+				) : null}
 				<Typography.Title level={3} style={{ marginBottom: 0 }}>
 					{title}
 				</Typography.Title>
