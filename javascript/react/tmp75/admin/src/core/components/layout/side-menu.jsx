@@ -26,22 +26,16 @@ export const SideMenu = () => {
 					<Link to={'/billboard'}>公佈欄</Link>
 				</Item>
 				<Item key={'colorful'} icon={<BgColorsOutlined />}>
-					<Link className="text-white" to={'/colorful'}>
-						多主題色
-					</Link>
+					<Link to={'/colorful'}>多主題色</Link>
 				</Item>
 				<SubMenu key={'nesting'} title={'嵌套選單'}>
 					<SubMenu key={'nesting-1'} title={'第二層'}>
 						<Item key={'billboard'} icon={<ScheduleOutlined />}>
-							<Link className="text-white" to={'/billboard'}>
-								公佈欄(第三層)
-							</Link>
+							<Link to={'/billboard'}>公佈欄(第三層)</Link>
 						</Item>
 					</SubMenu>
 					<Item key={'billboard'} icon={<OrderedListOutlined />}>
-						<Link className="text-white" to={'/billboard'}>
-							公佈欄(第二層)
-						</Link>
+						<Link to={'/billboard'}>公佈欄(第二層)</Link>
 					</Item>
 				</SubMenu>
 			</Menu>
