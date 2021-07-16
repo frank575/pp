@@ -37,6 +37,7 @@ export const Routes = () => {
 				)}
 			/>
 
+			{/* LayoutRoute START */}
 			<RouteWrapper
 				path={'/billboard'}
 				exact
@@ -60,6 +61,7 @@ export const Routes = () => {
 				)}
 				layout={Layout}
 			/>
+			{/* LayoutRoute END */}
 
 			<Route
 				component={withSuspenseRoute(
