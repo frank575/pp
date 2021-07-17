@@ -1,0 +1,17 @@
+html
+    head
+        title= title
+        link(href=css rel="stylesheet")
+    body
+        script.
+          window.$mes = '!{message}'
+
+        h1= message
+        #app
+        //開發用，該兩行能集成vite進來
+        //script(src="http://localhost:3001/@vite/client" type="module")
+        //script(src="http://localhost:3001/main.js" type="module")
+
+        //生產用
+        script(src=index)
+

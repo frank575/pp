@@ -13,8 +13,11 @@ worker.onmessage = (e) => {
 };
 
 export function render() {
+  // 這個來自後端server(hello pug template)
+  const {$mes} = window
   document.querySelector("#app").innerHTML = `
   <h1>Hello Vite!</h1>
+  <h2>${$mes || 'node server 未啟動'}</h2>
   <a href="https://vitejs.dev/guide/features.html" target="_blank">Documentation...</a>
 `;
 }
