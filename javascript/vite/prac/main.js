@@ -12,7 +12,19 @@ worker.onmessage = (e) => {
   console.log(`onmessage: ${e.data}`);
 };
 
-document.querySelector("#app").innerHTML = `
+function render() {
+  document.querySelector("#app").innerHTML = `
   <h1>Hello Vite!</h1>
   <a href="https://vitejs.dev/guide/features.html" target="_blank">Documentation</a>
 `;
+}
+
+render();
+
+// hmr-api 用來實現熱更新，原理是用socket通知
+// 當你調用hot.accept將會關閉vite自動重整的功能
+if (import.meta.hot) {
+  import.meta.hot.accept((newModule) => {
+    newModule.render();
+  });
+}
