@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 
 app.set('view engine', 'pug')
-app.use(express.static('dist'))
+app.use('/assets', express.static(__dirname + '/dist/assets'))
 
 app.get('/', (req, res) => {
   // 引入 vite build dist 的 manifest.json
