@@ -11,12 +11,12 @@ import { createContext, useContextSelector } from 'use-context-selector'
  * @return {{inject: (function(callback: function(state: S): T): T), Provider: function({children: *}): *}}
  */
 export const useProvider = providerService => {
-	const Context = createContext(null)
+	const context = createContext(null)
 	const Provider = ({ children }) => (
-		<Context.Provider value={providerService()}>{children}</Context.Provider>
+		<context.Provider value={providerService()}>{children}</context.Provider>
 	)
 	const inject = (getter = () => undefined) =>
-		useContextSelector(Context, getter)
+		useContextSelector(context, getter)
 
 	return {
 		Provider,
