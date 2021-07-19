@@ -1,4 +1,8 @@
-import { useLocalStorageState, useProvider, useSafeState } from '@jsl-react/hooks'
+import {
+	useLocalStorageState,
+	useProvider,
+	useSafeState,
+} from '@jsl-react/hooks'
 
 const service = () => {
 	const [menuCollapsed, setMenuCollapsed] = useLocalStorageState(
