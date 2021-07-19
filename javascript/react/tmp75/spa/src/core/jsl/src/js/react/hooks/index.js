@@ -7,6 +7,7 @@ import { useSafeState } from './use-safe-state'
 import { useSearch } from './use-search'
 import { useTitle } from './use-title'
 import { useCacheState } from './use-cache-state'
+import { useDebounceFunc } from './use-debounce-func'
 
 export {
 	useMethods,
@@ -14,6 +15,7 @@ export {
 	useLocalStorageState,
 	useSessionStorageState,
 	useDebounce,
+	useDebounceFunc,
 	useSafeState,
 	useSearch,
 	useTitle,
