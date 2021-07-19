@@ -9,11 +9,8 @@ import { RouteWrapper } from '@/core/components/routes/route-wrapper'
 import { withSuspenseRoute } from '@/core/components/routes/with-suspense-route'
 import { withSuspensePrivateRoute } from '@/core/components/routes/with-suspense-private-route'
 import { PathnameHistoriesProvider } from '@/core/service/use-pathname-histories'
-import { useI18n } from '@i18n'
 
 export const Routes = () => {
-	useI18n(e => e.locale)
-
 	return (
 		<PathnameHistoriesProvider>
 			<Switch>
