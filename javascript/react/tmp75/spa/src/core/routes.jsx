@@ -63,6 +63,18 @@ export const Routes = () => {
 					)}
 					layout={Layout}
 				/>
+
+				<RouteWrapper
+					path={'/language'}
+					exact
+					component={withSuspensePrivateRoute(
+						lazy(() => import('@/pages/language')),
+						LayoutFallback,
+						withTitle('多國語系'),
+						withSideKey('language'),
+					)}
+					layout={Layout}
+				/>
 				{/* LayoutRoute END */}
 
 				<Route

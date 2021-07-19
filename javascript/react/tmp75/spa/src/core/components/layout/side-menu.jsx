@@ -4,6 +4,7 @@ import {
 	BgColorsOutlined,
 	OrderedListOutlined,
 	ScheduleOutlined,
+	TranslationOutlined,
 } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { useLayout } from '@/core/components/layout/service'
@@ -27,6 +28,9 @@ export const SideMenu = () => {
 				</Item>
 				<Item key={'colorful'} icon={<BgColorsOutlined />}>
 					<Link to={'/colorful'}>多主題色</Link>
+				</Item>
+				<Item key={'language'} icon={<TranslationOutlined />}>
+					<Link to={'/language'}>多國語系</Link>
 				</Item>
 				<SubMenu key={'nesting'} title={'嵌套選單'}>
 					<SubMenu key={'nesting-1'} title={'第二層'}>
