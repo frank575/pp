@@ -39,7 +39,9 @@ export const AppTitle = ({
 				>
 					<Item>
 						<Link to={'/'}>
-							<HomeOutlined className={'inline-flex items-center'} />
+							<HomeOutlined
+								className={'inline-flex items-center fill-current text-primary'}
+							/>
 						</Link>
 					</Item>
 					{just ? (
