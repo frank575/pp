@@ -1,27 +1,18 @@
-/// 防抖鉤子
-/// v2 {author: frank575} 移除timeout函數，使用原生寫
-/// v1 {author: frank575} 改成export const
+/// 防抖Effect鉤子
 /// v0 {author: frank575}
 
-import { useCallback, useRef } from 'react'
+import { useEffect } from 'react'
 
 /**
  * @template T
- * @param {T} fun
- * @param {number} [ms=500] ms
+ * @param {T} effect
+ * @param {*[]} deps
+ * @param [delay=500]
  * @returns {T}
  */
-export const useDebounce = (fun, ms = 500) => {
-	const timeout = useRef(null)
-
-	return useCallback(
-		(...args) => {
-			if (timeout.current) clearTimeout(timeout.current)
-			timeout.current = setTimeout(() => {
-				fun(...args)
-				timeout.current = null
-			}, ms)
-		},
-		[fun, ms],
-	)
+export const useDebounce = (effect, deps, delay = 500) => {
+	useEffect(() => {
+		const handler = setTimeout(() => effect(), delay)
+		return () => clearTimeout(handler)
+	}, [...(deps ?? []), delay])
 }
