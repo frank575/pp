@@ -1,7 +1,8 @@
 /// create-i18n 可以在任意地方翻譯(t)的國際化
+/// v1 {author: frank575} useHook 提供 t 函數
 /// v0 {author: frank575}
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { findNestedDynamicObj } from '../../lib/find-nested-dynamic-obj'
 import { useProvider } from '../hooks/use-provider'
 import { useSessionStorageState } from '../hooks/storage/use-session-storage-state'
@@ -9,8 +10,26 @@ import { useLocalStorageState } from '../hooks/storage/use-local-storage-state'
 
 export { createI18n }
 
+const translate = (messages, nestedKey, replaceArrayStr = []) => {
+	let v = findNestedDynamicObj(messages, nestedKey)
+	if (v == null) return nestedKey
+	if (typeof v !== 'object') {
+		replaceArrayStr.forEach((e, i) => {
+			v = v.replace(new RegExp(`\\{${i}\\}`, 'g'), e)
+		})
+	}
+	return v
+}
+
 const service =
-	({ locale: initialLocale, _setLocale, storageName, storageKey }) =>
+	({
+		messages,
+		locale: initialLocale,
+		_setLocale,
+		storageName,
+		storageKey,
+		t: _t,
+	}) =>
 	() => {
 		const [locale, changeLocale] =
 			storageName === 'sessionStorage'
@@ -19,6 +38,17 @@ const service =
 				? useLocalStorageState(storageKey, initialLocale)
 				: useState(initialLocale)
 
+		/**
+		 * @param {string} nestedKey 標題
+		 * @param [replaceArrayStr=[]: string[]] 覆蓋的索引內容
+		 * @return {string} 翻譯結果
+		 */
+		const t = useCallback(
+			(nestedKey, replaceArrayStr = []) =>
+				translate(messages[locale], nestedKey, replaceArrayStr),
+			[locale],
+		)
+
 		useEffect(() => {
 			_setLocale(locale)
 		}, [locale])
@@ -26,6 +56,7 @@ const service =
 		return {
 			locale,
 			changeLocale,
+			t,
 		}
 	}
 
@@ -50,20 +81,13 @@ function createI18n({ locale, messages, storageName, storageKey } = {}) {
 	 * @param [replaceArrayStr=[]: string[]] 覆蓋的索引內容
 	 * @return {string} 翻譯結果
 	 */
-	const t = (nestedKey, replaceArrayStr = []) => {
-		const localeMessages = messages[_locale]
-		let v = findNestedDynamicObj(localeMessages, nestedKey)
-		if (v == null) return nestedKey
-		if (typeof v !== 'object') {
-			replaceArrayStr.forEach((e, i) => {
-				v = v.replace(new RegExp(`\\{${i}\\}`, 'g'), e)
-			})
-		}
-		return v
-	}
+	const t = (nestedKey, replaceArrayStr = []) =>
+		translate(messages[_locale], nestedKey, replaceArrayStr)
 
 	return {
 		t,
-		...useProvider(service({ locale, _setLocale, storageName, storageKey })),
+		...useProvider(
+			service({ locale, messages, _setLocale, storageName, storageKey }),
+		),
 	}
 }
