@@ -1,6 +1,4 @@
-/// i18n 可以在任意地方翻譯(t)的國際化
-/// v2 {author: frank575} 新增存入緩存的功能
-/// v1 {author: frank575} 內部代碼調整
+/// create-i18n 可以在任意地方翻譯(t)的國際化
 /// v0 {author: frank575}
 
 import { useEffect, useState } from 'react'
