@@ -16,7 +16,7 @@ export const Header = () => {
 				icon={<MenuOutlined />}
 				onClick={onToggleCollapsed}
 			/>
-			<div className="font-bold text-lg">TMP75-REACT-ADMIN</div>
+			<div className="font-bold text-lg">TMP75-REACT-SPA</div>
 			<Button
 				className="flex justify-center items-center"
 				icon={<LogoutOutlined />}
