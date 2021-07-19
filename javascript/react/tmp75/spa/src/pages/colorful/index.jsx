@@ -1,6 +1,12 @@
 import React from 'react'
 import { AppContent } from '@/components/app/content'
+import { AppTitle } from '@/components/app/title'
+import { BgColorsOutlined } from '@ant-design/icons'
 
 export default () => {
-	return <AppContent>多主題色</AppContent>
+	return (
+		<AppContent>
+			<AppTitle title={'多主題色'} icon={BgColorsOutlined} just />
+		</AppContent>
+	)
 }
