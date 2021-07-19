@@ -1,11 +1,12 @@
 import React from 'react'
 import { Button } from 'antd'
 import { LogoutOutlined, MenuOutlined } from '@ant-design/icons'
-import { useStore } from '@/core/store'
+import { useLayout } from '@/core/components/layout/service'
+import { useAuth } from '@/core/service/use-auth'
 
 export const Header = () => {
-	const setMenuCollapsed = useStore(e => e.setMenuCollapsed)
-	const onLogout = useStore(e => e.onLogout)
+	const setMenuCollapsed = useLayout(e => e.setMenuCollapsed)
+	const onLogout = useAuth(e => e.onLogout)
 	const onToggleCollapsed = () => setMenuCollapsed(e => !e)
 
 	return (

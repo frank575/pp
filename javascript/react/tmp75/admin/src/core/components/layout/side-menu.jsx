@@ -6,12 +6,12 @@ import {
 	ScheduleOutlined,
 } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
-import { useStore } from '@/core/store'
+import { useLayout } from '@/core/components/layout/service'
 
 const { SubMenu, Item } = Menu
 export const SideMenu = () => {
-	const menuCollapsed = useStore(e => e.menuCollapsed)
-	const selectedKeys = useStore(e => e.sideSelectedKeys)
+	const menuCollapsed = useLayout(e => e.menuCollapsed)
+	const selectedKeys = useLayout(e => e.sideSelectedKeys)
 
 	return useMemo(
 		() => (

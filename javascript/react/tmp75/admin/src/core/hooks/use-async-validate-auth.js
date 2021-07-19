@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
-import { useStore } from '@/core/store'
-import { EAuthCode } from '@/core/store/use-auth'
+import { EAuthCode } from '@/core/service/use-auth'
 import { useSafeState } from '@jsl-hooks'
+import { useAuth } from '@/core/service/use-auth'
 
 export const useAsyncValidateAuth = () => {
-	const auth = useStore(e => e.auth)
-	const checkAuth = useStore(e => e.checkAuth)
-	const clearAuthState = useStore(e => e.clearAuthState)
+	const auth = useAuth(e => e.auth)
+	const checkAuth = useAuth(e => e.checkAuth)
+	const clearAuthState = useAuth(e => e.clearAuthState)
 	const [code, setCode] = useSafeState(
 		auth == null ? EAuthCode.validating : EAuthCode.authSuccess,
 	)

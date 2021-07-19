@@ -8,68 +8,71 @@ import { withSideKey } from '@/core/components/routes/with-funcs/with-side-key'
 import { RouteWrapper } from '@/core/components/routes/route-wrapper'
 import { withSuspenseRoute } from '@/core/components/routes/with-suspense-route'
 import { withSuspensePrivateRoute } from '@/core/components/routes/with-suspense-private-route'
+import { PathnameHistoriesProvider } from '@/core/service/use-pathname-histories'
 import { useI18n } from '@i18n'
 
 export const Routes = () => {
 	useI18n(e => e.locale)
 
 	return (
-		<Switch>
-			<Redirect path="/" to="/billboard" exact />
+		<PathnameHistoriesProvider>
+			<Switch>
+				<Redirect path="/" to="/billboard" exact />
 
-			<Route
-				path={'/login'}
-				exact
-				component={withSuspenseRoute(
-					lazy(() => import('@/pages/account/login')),
-					NoLayoutFallback,
-					withTitle('登入'),
-				)}
-			/>
+				<Route
+					path={'/login'}
+					exact
+					component={withSuspenseRoute(
+						lazy(() => import('@/pages/account/login')),
+						NoLayoutFallback,
+						withTitle('登入'),
+					)}
+				/>
 
-			<Route
-				path={'/register'}
-				exact
-				component={withSuspenseRoute(
-					lazy(() => import('@/pages/account/register')),
-					NoLayoutFallback,
-					withTitle('註冊'),
-				)}
-			/>
+				<Route
+					path={'/register'}
+					exact
+					component={withSuspenseRoute(
+						lazy(() => import('@/pages/account/register')),
+						NoLayoutFallback,
+						withTitle('註冊'),
+					)}
+				/>
 
-			{/* LayoutRoute START */}
-			<RouteWrapper
-				path={'/billboard'}
-				exact
-				component={withSuspensePrivateRoute(
-					lazy(() => import('@/pages/billboard')),
-					LayoutFallback,
-					withTitle('公佈欄'),
-					withSideKey('billboard'),
-				)}
-				layout={Layout}
-			/>
+				{/* LayoutRoute START */}
+				<RouteWrapper
+					path={'/billboard'}
+					exact
+					component={withSuspensePrivateRoute(
+						lazy(() => import('@/pages/billboard')),
+						LayoutFallback,
+						withTitle('公佈欄'),
+						withSideKey('billboard'),
+					)}
+					layout={Layout}
+				/>
 
-			<RouteWrapper
-				path={'/colorful'}
-				exact
-				component={withSuspensePrivateRoute(
-					lazy(() => import('@/pages/colorful')),
-					LayoutFallback,
-					withTitle('多主題色'),
-					withSideKey('colorful'),
-				)}
-				layout={Layout}
-			/>
-			{/* LayoutRoute END */}
+				<RouteWrapper
+					path={'/colorful'}
+					exact
+					component={withSuspensePrivateRoute(
+						lazy(() => import('@/pages/colorful')),
+						LayoutFallback,
+						withTitle('多主題色'),
+						withSideKey('colorful'),
+					)}
+					layout={Layout}
+				/>
+				{/* LayoutRoute END */}
 
-			<Route
-				component={withSuspenseRoute(
-					lazy(() => import('@/core/components/not-found')),
-					NoLayoutFallback,
-					withTitle('找不到頁面'),
-				)}
-			/>
-		</Switch>
+				<Route
+					component={withSuspenseRoute(
+						lazy(() => import('@/core/components/not-found')),
+						NoLayoutFallback,
+						withTitle('找不到頁面'),
+					)}
+				/>
+			</Switch>
+		</PathnameHistoriesProvider>
 	)
 }

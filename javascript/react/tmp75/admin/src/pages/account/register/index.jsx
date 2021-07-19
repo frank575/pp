@@ -4,14 +4,14 @@ import { Button, Form, Input, message } from 'antd'
 import { Link } from 'react-router-dom'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { useHistory } from 'react-router'
-import { useStore } from '@/core/store'
 import { callNoAuthFakeApi } from '@/core/api-service'
+import { useAuth } from '@/core/service/use-auth'
 
 export default () => {
 	const [submitLoading, setSubmitLoading] = useState(false)
 	const history = useHistory()
-	const setAuth = useStore(e => e.setAuth)
-	const setToken = useStore(e => e.setToken)
+	const setAuth = useAuth(e => e.setAuth)
+	const setToken = useAuth(e => e.setToken)
 	const password2Validator = getFieldValue => (_, value) => {
 		const password = getFieldValue('password')
 		if (!value) {

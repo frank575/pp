@@ -4,14 +4,14 @@ import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { NoLayoutWrap } from '@/components/no-layout-wrap'
 import { useHistory } from 'react-router'
-import { useStore } from '@/core/store'
 import { callNoAuthFakeApi } from '@/core/api-service'
+import { useAuth } from '@/core/service/use-auth'
 
 export default () => {
 	const [submitLoading, setSubmitLoading] = useState(false)
 	const history = useHistory()
-	const setAuth = useStore(e => e.setAuth)
-	const setToken = useStore(e => e.setToken)
+	const setAuth = useAuth(e => e.setAuth)
+	const setToken = useAuth(e => e.setToken)
 	const initialUsername = import.meta.env.VITE_USERNAME
 	const initialPassword = import.meta.env.VITE_PASSWORD
 	const usernameValidator = (_, value) => {

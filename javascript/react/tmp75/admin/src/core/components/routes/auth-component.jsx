@@ -2,7 +2,7 @@ import { Redirect } from 'react-router'
 import React from 'react'
 import { LoadingOutlined } from '@ant-design/icons'
 import { useAsyncValidateAuth } from '@/core/hooks/use-async-validate-auth'
-import { EAuthCode } from '@/core/store/use-auth'
+import { EAuthCode } from '@/core/service/use-auth'
 import { AppContent } from '@/components/app/content'
 
 export const AuthComponent = ({ component: RouteComponent }) => {

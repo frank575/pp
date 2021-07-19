@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 import { useHistory } from 'react-router'
 import { message } from 'antd'
-import { useLocalStorageState } from '@jsl-hooks'
+import { useLocalStorageState, useProvider } from '@jsl-hooks'
 import { callNoAuthRandomSuccessFakeApi } from '@/core/api-service'
 import { createEnum } from '@jsl'
 
@@ -13,7 +13,9 @@ export const EAuthCode = createEnum({
 	hasAuth: [4, '已取得身分資訊'],
 })
 
-export const useAuth = () => {
+export const { Provider: AuthProvider, inject: useAuth } = useProvider(service)
+
+function service() {
 	const history = useHistory()
 	const [auth, setAuth] = useState(null) // Object | null
 	const [token, setToken] = useLocalStorageState('tmp75_token', null)

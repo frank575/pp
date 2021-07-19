@@ -1,6 +1,6 @@
-import { useLocalStorageState, useSafeState } from '@jsl-hooks'
+import { useLocalStorageState, useProvider, useSafeState } from '@jsl-hooks'
 
-export const useLayout = () => {
+const service = () => {
 	const [menuCollapsed, setMenuCollapsed] = useLocalStorageState(
 		'tmp75_menu-collapsed',
 		false,
@@ -13,3 +13,6 @@ export const useLayout = () => {
 		setSideSelectedKeys,
 	}
 }
+
+export const { Provider: LayoutProvider, inject: useLayout } =
+	useProvider(service)
