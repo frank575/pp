@@ -1,5 +1,5 @@
 import { useList } from '@/pages/billboard/service/use-list'
-import { useProvider } from '@jsl-hooks'
+import { useProvider } from '@jsl-react/hooks'
 import { useEditorModal } from '@/pages/billboard/service/use-editor-modal'
 
 const index = () => {

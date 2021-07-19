@@ -1,4 +1,4 @@
-import { useProvider } from '@jsl-hooks'
+import { useProvider } from '@jsl-react/hooks'
 import { useLocation } from 'react-router'
 import { useEffect, useMemo, useState } from 'react'
 

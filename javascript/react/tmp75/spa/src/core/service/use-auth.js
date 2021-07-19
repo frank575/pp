@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 import { useHistory } from 'react-router'
 import { message } from 'antd'
-import { useLocalStorageState, useProvider } from '@jsl-hooks'
+import { useLocalStorageState, useProvider } from '@jsl-react/hooks'
 import { callNoAuthRandomSuccessFakeApi } from '@/core/api-service'
 import { createEnum } from '@jsl'
 

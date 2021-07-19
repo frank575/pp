@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useDebounce, useSafeState, useSearch } from '@jsl-hooks'
+import { useDebounce, useSafeState, useSearch } from '@jsl-react/hooks'
 import { fetchBillboard, fetchLikeBillboardPost } from '@/core/api-service'
 import { message } from 'antd'
 

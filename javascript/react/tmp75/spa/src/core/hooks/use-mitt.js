@@ -1,3 +1,3 @@
-import { createMitt } from '@/core/jsl/src/js/react/lib/create-mitt'
+import { createMitt } from '@jsl-react/lib'
 
 export const { useMitt } = createMitt()
