@@ -6,10 +6,12 @@ import { NoLayoutWrap } from '@/components/no-layout-wrap'
 import { useHistory } from 'react-router'
 import { callNoAuthFakeApi } from '@/core/api-service'
 import { useAuth } from '@/core/service/use-auth'
+import { usePathnameHistories } from '@/core/service/use-pathname-histories'
 
 export default () => {
 	const [submitLoading, setSubmitLoading] = useState(false)
 	const history = useHistory()
+	const fromPathname = usePathnameHistories(e => e.previousPathname)
 	const setAuth = useAuth(e => e.setAuth)
 	const setToken = useAuth(e => e.setToken)
 	const initialUsername = import.meta.env.VITE_USERNAME
@@ -41,7 +43,11 @@ export default () => {
 			setAuth({ id: 1, account: initialUsername, name: 'frank' })
 			setToken('just token')
 			message.success('登入成功')
-			history.replace('/billboard')
+			if (fromPathname != null) {
+				history.replace(fromPathname)
+			} else {
+				history.replace('/billboard')
+			}
 		}
 	}
 
