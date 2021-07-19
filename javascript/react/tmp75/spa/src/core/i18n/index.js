@@ -1,4 +1,4 @@
-import { createI18n } from '@/core/jsl/src/js/react/lib/i18n'
+import { createI18n } from '@/core/jsl/src/js/react/lib/create-i18n'
 import zh_TW from '@/core/i18n/zh_TW.json'
 import zh_CN from '@/core/i18n/zh_CN.json'
 import { ELocale } from '@/enums/e-locale'

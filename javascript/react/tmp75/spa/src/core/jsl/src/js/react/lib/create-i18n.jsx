@@ -9,6 +9,8 @@ import { useProvider } from '../hooks/use-provider'
 import { useSessionStorageState } from '../hooks/storage/use-session-storage-state'
 import { useLocalStorageState } from '../hooks/storage/use-local-storage-state'
 
+export { createI18n }
+
 const service =
 	({ locale: initialLocale, _setLocale, storageName, storageKey }) =>
 	() => {
@@ -41,12 +43,7 @@ const service =
  * @param [options.storageName=null: 'localStorage' | 'sessionStorage' | null] 是否要存到緩存裏，有名稱表示要存
  * @param {string} options.storageKey 存到緩存的 key
  */
-export const createI18n = ({
-	locale,
-	messages,
-	storageName,
-	storageKey,
-} = {}) => {
+function createI18n({ locale, messages, storageName, storageKey } = {}) {
 	let _locale = locale
 	const _setLocale = locale => (_locale = locale)
 
