@@ -6,7 +6,7 @@ import { useAuth } from '@/core/hooks/use-auth'
 
 export const Header = () => {
 	const setMenuCollapsed = useLayout(e => e.setMenuCollapsed)
-	const onLogout = useAuth(e => e.onLogout)
+	const logout = useAuth(e => e.logout)
 	const onToggleCollapsed = () => setMenuCollapsed(e => !e)
 
 	return (
@@ -35,7 +35,7 @@ export const Header = () => {
 					className="flex items-center text-xs"
 					icon={<LogoutOutlined />}
 					size={'small'}
-					onClick={onLogout}
+					onClick={logout}
 				>
 					登出
 				</Button>
