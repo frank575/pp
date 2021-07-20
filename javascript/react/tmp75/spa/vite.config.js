@@ -41,7 +41,7 @@ export default ({ mode }) => {
 			alias: {
 				'@': path.resolve(__dirname, 'src'),
 				'@jsl': path.resolve(__dirname, 'src/core/jsl/src/js/lib'),
-				'@jsl-react': './src/core/jsl/src/js/react',
+				'@jsl-react': path.resolve(__dirname, 'src/core/jsl/src/js/react'),
 				'@i18n': path.resolve(__dirname, 'src/core/i18n'),
 			},
 		},
