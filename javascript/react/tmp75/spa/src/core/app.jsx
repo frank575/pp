@@ -6,10 +6,10 @@ import zhTW from 'antd/lib/locale/zh_TW'
 import { I18nProvider } from '@i18n'
 import { AuthProvider } from '@/core/hooks/use-auth'
 import { Routes } from '@/core/routes'
-import '@/core/style/index.css'
-import '@/core/lib/dev-log'
 import { AuthHttpProvider } from '@/core/hooks/http/use-auth-http'
 import { HttpProvider } from '@/core/hooks/http/use-http'
+import '@/core/style/index.css'
+import '@/core/lib/dev-log'
 
 export const App = () => {
 	return (
