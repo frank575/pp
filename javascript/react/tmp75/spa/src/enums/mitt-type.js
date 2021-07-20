@@ -1,1 +1,0 @@
-export const MITT_TYPE_NAME = 'MITT_TYPE_NAME'

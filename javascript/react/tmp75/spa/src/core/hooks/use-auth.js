@@ -4,6 +4,8 @@ import { message } from 'antd'
 import { useLocalStorageState, useProvider } from '@jsl-react/hooks'
 import { callNoAuthRandomSuccessFakeApi } from '@/core/api-service'
 import { createEnum } from '@jsl'
+import { useMitt } from '@/core/hooks/use-mitt'
+import { AUTHORIZATION_FAILED } from '@/core/mitt-type'
 
 export const EAuthCode = createEnum({
 	validating: [0, '驗證中'],
@@ -19,6 +21,7 @@ function service() {
 	const history = useHistory()
 	const [auth, setAuth] = useState(null) // Object | null
 	const [token, setToken] = useLocalStorageState('tmp75_token', null)
+	const { on } = useMitt()
 
 	const clearAuthState = useCallback(() => {
 		setAuth(null)
@@ -63,6 +66,10 @@ function service() {
 			message: EAuthCode.t(EAuthCode.notLogin),
 		}
 	}, [auth, token])
+
+	on(AUTHORIZATION_FAILED, () => {
+		onLogout()
+	})
 
 	return {
 		auth,

@@ -8,15 +8,21 @@ import { AuthProvider } from '@/core/hooks/use-auth'
 import { Routes } from '@/core/routes'
 import '@/core/style/index.css'
 import '@/core/lib/dev-log'
+import { AuthHttpProvider } from '@/core/hooks/http/use-auth-http'
+import { HttpProvider } from '@/core/hooks/http/use-http'
 
 export const App = () => {
 	return (
 		<Router>
 			<I18nProvider>
 				<ConfigProvider locale={zhTW}>
-					<AuthProvider>
-						<Routes />
-					</AuthProvider>
+					<HttpProvider>
+						<AuthProvider>
+							<AuthHttpProvider>
+								<Routes />
+							</AuthHttpProvider>
+						</AuthProvider>
+					</HttpProvider>
 				</ConfigProvider>
 			</I18nProvider>
 		</Router>
