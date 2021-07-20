@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { useHistory } from 'react-router'
 import { callNoAuthFakeApi } from '@/core/api-service'
-import { useAuth } from '@/core/service/use-auth'
+import { useAuth } from '@/core/hooks/use-auth'
 
 export default () => {
 	const [submitLoading, setSubmitLoading] = useState(false)

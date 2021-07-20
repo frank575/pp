@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from 'antd'
 import { LogoutOutlined, MenuOutlined } from '@ant-design/icons'
 import { useLayout } from '@/core/components/layout/service'
-import { useAuth } from '@/core/service/use-auth'
+import { useAuth } from '@/core/hooks/use-auth'
 
 export const Header = () => {
 	const setMenuCollapsed = useLayout(e => e.setMenuCollapsed)

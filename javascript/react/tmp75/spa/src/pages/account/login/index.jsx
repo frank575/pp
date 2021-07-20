@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom'
 import { NoLayoutWrap } from '@/components/no-layout-wrap'
 import { useHistory } from 'react-router'
 import { callNoAuthFakeApi } from '@/core/api-service'
-import { useAuth } from '@/core/service/use-auth'
-import { usePathnameHistories } from '@/core/service/use-pathname-histories'
+import { useAuth } from '@/core/hooks/use-auth'
+import { usePathnameHistories } from '@/core/hooks/use-pathname-histories'
 
 export default () => {
 	const [submitLoading, setSubmitLoading] = useState(false)

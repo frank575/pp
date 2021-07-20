@@ -8,7 +8,7 @@ import { withSideKey } from '@/core/components/routes/with-funcs/with-side-key'
 import { RouteWrapper } from '@/core/components/routes/route-wrapper'
 import { withSuspenseRoute } from '@/core/components/routes/with-suspense-route'
 import { withSuspensePrivateRoute } from '@/core/components/routes/with-suspense-private-route'
-import { PathnameHistoriesProvider } from '@/core/service/use-pathname-histories'
+import { PathnameHistoriesProvider } from '@/core/hooks/use-pathname-histories'
 
 export const Routes = () => {
 	return (
