@@ -32,9 +32,12 @@ function AuthHttpProvider({ children }) {
 			error => {
 				// 統一 try/catch
 				const res = error.response
-				if (true) {
-					emit(AUTHORIZATION_FAILED)
-				}
+				// if (res && res.data) {
+				// 	message.error(res.data.message)
+				// }
+				// if (res.status === 401) {
+				// 	emit(AUTHORIZATION_FAILED)
+				// }
 				return Promise.resolve(res)
 			},
 		)
