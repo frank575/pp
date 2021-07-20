@@ -17,9 +17,9 @@ function HttpProvider({ children }) {
 			error => {
 				// 統一 try/catch
 				const res = error.response
-				if (res && res.data) {
-					message.error(res.data.message)
-				}
+				// if (res && res.data) {
+				// 	message.error(res.data.message)
+				// }
 				return Promise.resolve(res)
 			},
 		)
