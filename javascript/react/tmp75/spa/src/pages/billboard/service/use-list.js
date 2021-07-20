@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useDebounce, useSafeState, useSearch } from '@jsl-react/hooks'
+import { useDebounceFunc, useSafeState, useSearch } from '@jsl-react/hooks'
 import { fetchBillboard, fetchLikeBillboardPost } from '@/core/api-service'
 import { message } from 'antd'
 
@@ -19,7 +19,7 @@ export const useList = () => {
 		setSearch(e => ({ ...e, number: 1, [key]: value }))
 	}
 
-	const onDebounceChangeSearch = useDebounce((key, value) => {
+	const onDebounceChangeSearch = useDebounceFunc((key, value) => {
 		setSearch(e => ({ ...e, number: 1, [key]: value }))
 	}, 1000)
 
