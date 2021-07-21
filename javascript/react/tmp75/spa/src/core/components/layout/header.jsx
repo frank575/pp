@@ -3,7 +3,6 @@ import { Avatar, Button } from 'antd'
 import { LogoutOutlined, MenuOutlined, UserOutlined } from '@ant-design/icons'
 import { useLayout } from '@/core/components/layout/service'
 import { useAuth } from '@/core/hooks/use-auth'
-import { Link } from 'react-router-dom'
 
 export const Header = () => {
 	const setMenuCollapsed = useLayout(e => e.setMenuCollapsed)
