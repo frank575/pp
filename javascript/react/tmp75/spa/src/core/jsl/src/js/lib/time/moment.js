@@ -1,4 +1,5 @@
 /// 時間處理函數(moment)
+/// v1 {author: frank575} 修正昨天返回值錯誤
 /// v0 {author: frank575}
 
 import moment from 'moment'
@@ -10,7 +11,7 @@ import moment from 'moment'
 const today = () => [moment().startOf('day'), moment().endOf('day')]
 
 const yesterday = () => [
-	moment().isoWeekday(-1).startOf('day'),
+	moment().subtract(1, 'day').startOf('day'),
 	moment().endOf('day'),
 ]
 
