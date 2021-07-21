@@ -4,7 +4,7 @@ import { EEditorStatus } from '@/enums/e-editor-status'
 import { useBillboardService } from '@/pages/billboard/service'
 
 export const SearchPanel = () => {
-	const { search, onDebounceChangeSearch } = useBillboardService(e => e.list)
+	const { search, onChangeKeyword } = useBillboardService(e => e.list)
 	const onOpenEditorDialog = useBillboardService(e => e.editorDialog.onOpen)
 
 	return (
@@ -19,7 +19,7 @@ export const SearchPanel = () => {
 						placeholder={'請輸入名稱(模糊查詢)'}
 						allowClear
 						defaultValue={search.keyword}
-						onChange={ev => onDebounceChangeSearch('keyword', ev.target.value)}
+						onChange={ev => onChangeKeyword('keyword', ev.target.value)}
 					/>
 				</Form.Item>
 				<Button

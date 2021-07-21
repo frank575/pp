@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
-import { useDebounceFunc, useSafeState, useSearch } from '@jsl-react/hooks'
+import { useDebounceFunc, useSafeState, useQueryString } from '@jsl-react/hooks'
 import { fetchBillboard, fetchLikeBillboardPost } from '@/core/api-service'
 import { message } from 'antd'
 
 export const useList = () => {
 	const [data, setData] = useSafeState({ content: [], total: 0 })
-	const [search, setSearch] = useSearch({
+	const [search, setSearch] = useQueryString({
 		size: 10,
 		number: 1,
 		status: undefined,
@@ -19,9 +19,20 @@ export const useList = () => {
 		setSearch(e => ({ ...e, number: 1, [key]: value }))
 	}
 
-	const onDebounceChangeSearch = useDebounceFunc((key, value) => {
-		setSearch(e => ({ ...e, number: 1, [key]: value }))
-	}, 1000)
+	const [debounceChangeSearch, breakDebounceChangeSearch] = useDebounceFunc(
+		(key, value) => {
+			setSearch(e => ({ ...e, number: 1, [key]: value }))
+		},
+		1000,
+	)
+
+	const onChangeKeyword = (key, value) => {
+		if (!value) {
+			breakDebounceChangeSearch()
+			return setSearch(e => ({ ...e, number: 1, [key]: value }))
+		}
+		debounceChangeSearch(key, value)
+	}
 
 	const onChangeTable = (pagination, filters, sorter) => {
 		if (
@@ -79,7 +90,7 @@ export const useList = () => {
 		search,
 		getList,
 		onChangeSearch,
-		onDebounceChangeSearch,
+		onChangeKeyword,
 		onChangeTable,
 		onLike,
 	}
