@@ -43,7 +43,11 @@ export default () => {
 			setAuth({ id: 1, account: initialUsername, name: 'frank' })
 			setToken('just token')
 			message.success('登入成功')
-			if (fromPathname != null) {
+			if (
+				fromPathname != null &&
+				fromPathname !== '/register' &&
+				fromPathname !== '/login'
+			) {
 				history.replace(fromPathname)
 			} else {
 				history.replace('/billboard')
