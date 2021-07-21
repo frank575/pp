@@ -24,9 +24,9 @@ export default () => {
 			<AppTitle title={'多國語系'} icon={TranslationOutlined} just />
 			<Form.Item label="當前語系" className="mb-2">
 				<Select value={locale} onChange={onChangeLocale}>
-					{ELocale.map(([v, t]) => (
-						<Select.Option key={v} value={v}>
-							{t}
+					{ELocale.map(e => (
+						<Select.Option key={e} value={e}>
+							{ELocale.t(e)}
 						</Select.Option>
 					))}
 				</Select>
