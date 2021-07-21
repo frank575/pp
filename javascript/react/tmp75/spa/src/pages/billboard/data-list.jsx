@@ -7,8 +7,8 @@ import {
 	ExclamationCircleOutlined,
 	LikeTwoTone,
 } from '@ant-design/icons'
-import { fetchDeleteBillboardPost } from '@/core/api-service'
-import { EBillboardStatus } from '@/core/api-service/_fake-table'
+import { fetchDeleteBillboardPost } from '@/core/__fake-api'
+import { EBillboardStatus } from '@/core/__fake-api'
 import { EEditorStatus } from '@/enums/e-editor-status'
 import { useList } from '@/pages/billboard/service/list'
 import { useEditorModal } from '@/pages/billboard/service/editor-modal'

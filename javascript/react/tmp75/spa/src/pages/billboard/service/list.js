@@ -5,7 +5,7 @@ import {
 	useQueryString,
 	useProvider,
 } from '@jsl-react/hooks'
-import { fetchBillboard, fetchLikeBillboardPost } from '@/core/api-service'
+import { fetchBillboard, fetchLikeBillboardPost } from '@/core/__fake-api'
 import { message } from 'antd'
 
 export const { Provider: ListProvider, inject: useList } = useProvider(service)

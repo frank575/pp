@@ -4,7 +4,7 @@ import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { NoLayoutWrap } from '@/components/no-layout-wrap'
 import { useHistory } from 'react-router'
-import { callNoAuthFakeApi } from '@/core/api-service'
+import { callNoAuthFakeApi } from '@/core/__fake-api'
 import { useAuth } from '@/core/hooks/use-auth'
 import { usePathnameHistories } from '@/core/hooks/use-pathname-histories'
 

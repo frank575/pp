@@ -2,7 +2,7 @@ import { useCallback, useEffect } from 'react'
 import { EAuthCode } from '@/core/hooks/use-auth'
 import { useSafeState } from '@jsl-react/hooks'
 import { useAuth } from '@/core/hooks/use-auth'
-import { callNoAuthRandomSuccessFakeApi } from '@/core/api-service'
+import { callNoAuthRandomSuccessFakeApi } from '@/core/__fake-api'
 import { message } from 'antd'
 
 export const useValidateAuth = () => {

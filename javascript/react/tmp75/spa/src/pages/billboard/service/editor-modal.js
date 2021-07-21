@@ -4,7 +4,7 @@ import { EEditorStatus } from '@/enums/e-editor-status'
 import {
 	fetchAddBillboardPost,
 	fetchEditBillboardPost,
-} from '@/core/api-service'
+} from '@/core/__fake-api'
 import { useProvider } from '@jsl-react/hooks'
 import { useList } from '@/pages/billboard/service/list'
 
