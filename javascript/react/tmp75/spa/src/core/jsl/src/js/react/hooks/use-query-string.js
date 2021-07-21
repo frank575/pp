@@ -1,4 +1,5 @@
 /// 自動綁定querystring的useState
+/// v5 {author: frank575} 修正空 search 及值轉空無限導址錯誤
 /// v4 {author: frank575} useSearch 更名為 useQueryString
 /// v3 {author: frank575} 使用replace防止某些情況下導致瀏覽器歷史上一步卡死
 /// v2 {author: frank575} refactor: 移除冗餘代碼
@@ -54,11 +55,13 @@ const transformState = state => {
 	if (typeof state === 'object') {
 		for (let k in state) {
 			const e = state[k]
-			if (_state == null) _state = {}
-			if (Array.isArray(e) && e.length) {
-				_state[k] = `L_${e.join(',')}`
-			} else {
-				_state[k] = e
+			if (e) {
+				if (_state == null) _state = {}
+				if (Array.isArray(e) && e.length) {
+					_state[k] = `L_${e.join(',')}`
+				} else {
+					_state[k] = e
+				}
 			}
 		}
 	}
@@ -73,41 +76,63 @@ const transformState = state => {
 export const useQueryString = (initialState = {}) => {
 	const location = useLocation()
 	const history = useHistory()
-	const [state, setState] = useSafeState(() =>
-		initState(initialState, location),
-	)
-	const isLock = useRef(true) // 防止 watch location 導致二次初始化
+	const [state, setState] = useSafeState(initState(initialState, location))
+	const isInit = useRef(true)
+	const isInitReplace = useRef(false)
+	const isManualChangeLink = useRef(true)
 
-	const checkThenUpdateHistory = useCallback(
-		(state, historyFuncKey = 'push') => {
-			const queryState = transformState(state)
-			if (queryState != null) {
-				history[historyFuncKey](
-					encodeURI(transformQueryMapToString(queryState)),
-				)
-			}
-		},
-		[],
-	)
+	const checkThenUpdateHistory = useCallback(state => {
+		const queryState = transformState(state)
+		if (queryState == null) {
+			history.push(location.pathname)
+		} else {
+			history.push(encodeURI(transformQueryMapToString(queryState)))
+		}
+	}, [])
 
 	const updateState = useCallback(
 		cb => {
 			const _state = typeof cb === 'function' ? cb(state) : cb
-			if (isLock.current) isLock.current = false
-			checkThenUpdateHistory(_state)
+			if (isManualChangeLink.current) isManualChangeLink.current = false
+			setState(_state)
 		},
 		[state],
 	)
 
 	useEffect(() => {
-		if (!location.search) {
-			checkThenUpdateHistory(initialState, 'replace')
-		} else {
-			if (!isLock.current) {
-				setState(initState(initialState, location))
+		if (!isInit.current) {
+			if (!isManualChangeLink.current) {
+				checkThenUpdateHistory(state)
+				isManualChangeLink.current = false
 			}
 		}
+	}, [state])
+
+	useEffect(() => {
+		if (!isInit.current) {
+			if (!isInitReplace.current) {
+				if (isManualChangeLink.current) {
+					setState(initState(initialState, location))
+				} else {
+					isManualChangeLink.current = true
+				}
+			} else {
+				isInitReplace.current = false
+			}
+		} else {
+			isInit.current = false
+		}
 	}, [location])
+
+	useEffect(() => {
+		if (!location.search) {
+			const queryState = transformState(state)
+			if (queryState != null) {
+				isInitReplace.current = true
+				history.replace(encodeURI(transformQueryMapToString(queryState)))
+			}
+		}
+	}, [])
 
 	return [state, updateState]
 }
