@@ -5,7 +5,7 @@ import { useAuth } from '@/core/hooks/use-auth'
 import { callNoAuthRandomSuccessFakeApi } from '@/core/api-service'
 import { message } from 'antd'
 
-export const useAsyncValidateAuth = () => {
+export const useValidateAuth = () => {
 	const auth = useAuth(e => e.auth)
 	const token = useAuth(e => e.token)
 	const setAuth = useAuth(e => e.setAuth)
