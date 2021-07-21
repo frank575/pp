@@ -1,11 +1,13 @@
 import React from 'react'
 import { Button, Form, Input, Typography } from 'antd'
 import { EEditorStatus } from '@/enums/e-editor-status'
-import { useBillboardService } from '@/pages/billboard/service'
+import { useEditorModal } from '@/pages/billboard/service/editor-modal'
+import { useList } from '@/pages/billboard/service/list'
 
 export const SearchPanel = () => {
-	const { search, onChangeKeyword } = useBillboardService(e => e.list)
-	const onOpenEditorDialog = useBillboardService(e => e.editorDialog.onOpen)
+	const search = useList(e => e.search)
+	const onChangeKeyword = useList(e => e.onChangeKeyword)
+	const onOpenEditorDialog = useEditorModal(e => e.onOpen)
 
 	return (
 		<div className="flex items-center justify-between mb-4">

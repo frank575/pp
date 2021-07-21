@@ -1,6 +1,5 @@
 import React, { useCallback, useMemo } from 'react'
 import { message, Modal, Select, Table, Tag, Tooltip, Typography } from 'antd'
-import { useBillboardService } from '@/pages/billboard/service'
 import {
 	DeleteOutlined,
 	DislikeTwoTone,
@@ -11,6 +10,8 @@ import {
 import { fetchDeleteBillboardPost } from '@/core/api-service'
 import { EBillboardStatus } from '@/core/api-service/_fake-table'
 import { EEditorStatus } from '@/enums/e-editor-status'
+import { useList } from '@/pages/billboard/service/list'
+import { useEditorModal } from '@/pages/billboard/service/editor-modal'
 
 export const DataList = () => {
 	const {
@@ -21,8 +22,8 @@ export const DataList = () => {
 		onLike,
 		getList,
 		onChangeTable,
-	} = useBillboardService(e => e.list)
-	const onOpenEditorDialog = useBillboardService(e => e.editorDialog.onOpen)
+	} = useList(e => e)
+	const onOpenEditorDialog = useEditorModal(e => e.onOpen)
 
 	const onDelete = useCallback(
 		e => {

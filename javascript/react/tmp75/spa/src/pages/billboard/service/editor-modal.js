@@ -5,6 +5,11 @@ import {
 	fetchAddBillboardPost,
 	fetchEditBillboardPost,
 } from '@/core/api-service'
+import { useProvider } from '@jsl-react/hooks'
+import { useList } from '@/pages/billboard/service/list'
+
+export const { Provider: EditorModalProvider, inject: useEditorModal } =
+	useProvider(service)
 
 const initialState = () => ({
 	id: undefined, // number | undefined
@@ -13,7 +18,8 @@ const initialState = () => ({
 	_visible: false,
 })
 
-export const useEditorModal = ({ getList }) => {
+function service() {
+	const getList = useList(e => e.getList)
 	const [form] = Form.useForm()
 	const [loading, setLoading] = useState(false)
 	const [state, setState] = useState(initialState())

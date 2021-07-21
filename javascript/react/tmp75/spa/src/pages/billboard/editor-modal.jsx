@@ -1,10 +1,10 @@
 import React from 'react'
 import { Form, Input, Modal } from 'antd'
-import { useBillboardService } from '@/pages/billboard/service'
+import { useEditorModal } from '@/pages/billboard/service/editor-modal'
 
 export const EditorModal = () => {
 	const { title, state, loading, onSubmit, onHide, form, onAdd } =
-		useBillboardService(e => e.editorDialog)
+		useEditorModal(e => e)
 	return (
 		<Modal
 			title={title}

@@ -1,9 +1,16 @@
 import { useEffect } from 'react'
-import { useDebounceFunc, useSafeState, useQueryString } from '@jsl-react/hooks'
+import {
+	useDebounceFunc,
+	useSafeState,
+	useQueryString,
+	useProvider,
+} from '@jsl-react/hooks'
 import { fetchBillboard, fetchLikeBillboardPost } from '@/core/api-service'
 import { message } from 'antd'
 
-export const useList = () => {
+export const { Provider: ListProvider, inject: useList } = useProvider(service)
+
+function service() {
 	const [data, setData] = useSafeState({ content: [], total: 0 })
 	const [search, setSearch] = useQueryString({
 		size: 10,
