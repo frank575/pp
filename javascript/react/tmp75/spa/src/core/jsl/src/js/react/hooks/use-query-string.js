@@ -1,4 +1,5 @@
 /// 自動綁定querystring的useState
+/// v4 {author: frank575} useSearch 更名為 useQueryString
 /// v3 {author: frank575} 使用replace防止某些情況下導致瀏覽器歷史上一步卡死
 /// v2 {author: frank575} refactor: 移除冗餘代碼
 /// v1 {author: frank575} fix: 修正路由未正確帶參及parse壞掉的問題還有二次初始化的錯誤
@@ -69,7 +70,7 @@ const transformState = state => {
  * @param {T} initialState
  * @returns [T, function(T | function(T): T): void]
  */
-export const useSearch = (initialState = {}) => {
+export const useQueryString = (initialState = {}) => {
 	const location = useLocation()
 	const history = useHistory()
 	const [state, setState] = useSafeState(() =>
