@@ -4,7 +4,7 @@ import { useMethods } from './use-methods'
 import { useProvider } from './use-provider'
 import { useDebounce } from './use-debounce'
 import { useSafeState } from './use-safe-state'
-import { useSearch } from './use-search'
+import { useQueryString } from './use-query-string'
 import { useTitle } from './use-title'
 import { useCacheState } from './use-cache-state'
 import { useDebounceFunc } from './use-debounce-func'
@@ -17,7 +17,7 @@ export {
 	useDebounce,
 	useDebounceFunc,
 	useSafeState,
-	useSearch,
+	useQueryString,
 	useTitle,
 	useCacheState,
 }
