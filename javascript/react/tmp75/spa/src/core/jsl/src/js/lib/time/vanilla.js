@@ -418,7 +418,7 @@ const thisMonth = (ft = null) => monthResult(false, ft)
  */
 const pastMonth = (ft = null) => monthResult(true, ft)
 
-export const vtime = {
+export default {
 	format,
 	countdown,
 	today,

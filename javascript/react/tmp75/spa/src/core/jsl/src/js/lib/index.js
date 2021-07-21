@@ -12,7 +12,8 @@ import {
 	checkSameChinese,
 	checkIncludeText,
 } from './cn-translate'
-import { vtime } from './time/vanilla'
+import vtime from './time/vanilla'
+import mtime from './time/moment'
 import { timeout } from './timer/timeout'
 import { interval } from './timer/interval'
 import { aniFrame } from './timer/ani-frame'
@@ -31,6 +32,7 @@ export {
 	checkSameChinese,
 	checkIncludeText,
 	vtime,
+	mtime,
 	timeout,
 	interval,
 	aniFrame,
