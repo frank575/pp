@@ -3,9 +3,11 @@ import { Avatar, Button } from 'antd'
 import { LogoutOutlined, MenuOutlined, UserOutlined } from '@ant-design/icons'
 import { useLayout } from '@/core/components/layout/service'
 import { useAuth } from '@/core/hooks/use-auth'
+import { Link } from 'react-router-dom'
 
 export const Header = () => {
 	const setMenuCollapsed = useLayout(e => e.setMenuCollapsed)
+	const auth = useAuth(e => e.auth)
 	const logout = useAuth(e => e.logout)
 	const onToggleCollapsed = () => setMenuCollapsed(e => !e)
 
@@ -23,21 +25,25 @@ export const Header = () => {
 				TMP75-REACT-SPA
 			</div>
 			<div className="flex items-center">
-				<Avatar
-					className="flex items-center justify-center"
-					size="small"
-					icon={<UserOutlined />}
-				/>
-				<span className="ml-1 pr-2 mr-2 text-sm border-solid border-r-1 border-gray-300">
-					frank.wcw
-				</span>
+				{auth != null ? (
+					<>
+						<Avatar
+							className="flex items-center justify-center"
+							size="small"
+							icon={<UserOutlined />}
+						/>
+						<span className="ml-1 pr-2 mr-2 text-sm border-solid border-r-1 border-gray-300">
+							{auth.account}
+						</span>
+					</>
+				) : null}
 				<Button
 					className="flex items-center text-xs"
 					icon={<LogoutOutlined />}
 					size={'small'}
 					onClick={logout}
 				>
-					登出
+					{auth == null ? '登入' : '登出'}
 				</Button>
 			</div>
 		</div>
