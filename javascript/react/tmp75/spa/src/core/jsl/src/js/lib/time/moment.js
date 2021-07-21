@@ -7,10 +7,7 @@ import moment from 'moment'
 // formatToMinute = 'YYYY-MM-DD HH:mm'
 // formatToDate = 'YYYY-MM-DD'
 
-const today = () => [
-	moment().startOf('day'),
-	moment().endOf('day'),
-]
+const today = () => [moment().startOf('day'), moment().endOf('day')]
 
 const yesterday = () => [
 	moment().isoWeekday(-1).startOf('day'),
@@ -27,10 +24,7 @@ const pastWeek = () => [
 	moment().isoWeekday(0).endOf('day'),
 ]
 
-const thisMonth = () => [
-	moment().date(1).startOf('day'),
-	moment().endOf('day'),
-]
+const thisMonth = () => [moment().date(1).startOf('day'), moment().endOf('day')]
 
 const pastMonth = () => [
 	moment()
