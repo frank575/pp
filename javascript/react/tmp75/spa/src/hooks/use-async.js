@@ -1,7 +1,13 @@
 import { useCallback, useState } from 'react'
 
-export const useAsync = promiseFunc => {
-	const [state, setState] = useState([])
+/**
+ * @template T
+ * @param {Promise<T>>} promiseFunc
+ * @param {*} initialValue
+ * @return {[T, boolean, ((function(): Promise<void>)|*)]}
+ */
+export const useAsync = (promiseFunc, initialValue = []) => {
+	const [state, setState] = useState(initialValue)
 	const [loading, setLoading] = useState(false)
 	const run = useCallback(async () => {
 		setLoading(true)
