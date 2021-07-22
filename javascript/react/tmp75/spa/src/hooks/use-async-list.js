@@ -38,6 +38,7 @@ export const useAsyncList = (httpPath, initQueryString) => {
 	useEffect(getList, [queryString])
 
 	return {
+		getList,
 		dataSource,
 		total,
 		loading,
