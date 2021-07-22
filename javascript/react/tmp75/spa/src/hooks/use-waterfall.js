@@ -4,7 +4,7 @@ export const useWaterfall = (
 	getList,
 	createdRun = true,
 	size = 10,
-	range = 0.8,
+	range = 0.95,
 ) => {
 	const [isEnd, setIsEnd] = useState(false)
 	const [list, setList] = useState([])
@@ -20,23 +20,30 @@ export const useWaterfall = (
 	const run = useCallback(
 		async (isReset = false) => {
 			setLoading(true)
-			const { data } = await getList()
-			pagination.current.total = data.totalElements
-			pagination.current.number = pagination.current.number + 1
+			setIsEnd(true)
+			if (isReset) pagination.current.number = 1
+			const { data } = await getList({
+				size,
+				number: pagination.current.number,
+			})
+			pagination.current.total = data.data.totalElements ?? 0
 			if (data.success) {
 				if (isReset) {
-					setList(e => data.data.content)
+					setList(data.data.content)
 				} else {
 					setList(e => [...e, ...data.data.content])
 				}
 				if (
-					pagination.current.number * pagination.current.size >=
-					pagination.current.total
+					!(
+						pagination.current.number * pagination.current.size >=
+						pagination.current.total
+					)
 				) {
-					setIsEnd(true)
+					pagination.current.number = pagination.current.number + 1
+					setIsEnd(false)
 				}
 			} else {
-				setIsEnd(true)
+				pagination.current.number = 1
 			}
 			setLoading(false)
 		},
