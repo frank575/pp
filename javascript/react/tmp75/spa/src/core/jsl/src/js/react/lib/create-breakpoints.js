@@ -1,5 +1,5 @@
 /// 斷點鉤子
-/// v1 {author: frank575} 擴展 opts.delay, bootstrap
+/// v1 {author: frank575} 擴展 opts.delay, opts.bootstrap
 /// v0 {author: frank575}
 
 import { useCallback, useEffect, useMemo, useRef } from 'react'
