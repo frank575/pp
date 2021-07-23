@@ -12,7 +12,7 @@ export const { Provider: ListProvider, inject: useList } = useProvider(service)
 
 function service() {
 	const [data, setData] = useSafeState({ content: [], total: 0 })
-	const [search, setSearch] = useQueryString({
+	const [queryString, setQueryString] = useQueryString({
 		size: 10,
 		number: 1,
 		status: undefined,
@@ -23,12 +23,12 @@ function service() {
 	const [loading, setLoading] = useSafeState(true)
 
 	const onChangeSearch = (key, value) => {
-		setSearch(e => ({ ...e, number: 1, [key]: value }))
+		setQueryString(e => ({ ...e, number: 1, [key]: value }))
 	}
 
 	const [debounceChangeSearch, breakDebounceChangeSearch] = useDebounceFunc(
 		(key, value) => {
-			setSearch(e => ({ ...e, number: 1, [key]: value }))
+			setQueryString(e => ({ ...e, number: 1, [key]: value }))
 		},
 		1000,
 	)
@@ -36,25 +36,28 @@ function service() {
 	const onChangeKeyword = (key, value) => {
 		if (!value) {
 			breakDebounceChangeSearch()
-			return setSearch(e => ({ ...e, number: 1, [key]: value }))
+			return setQueryString(e => ({ ...e, number: 1, [key]: value }))
 		}
 		debounceChangeSearch(key, value)
 	}
 
 	const onChangeTable = (pagination, filters, sorter) => {
 		if (
-			pagination.current !== search.number ||
-			pagination.pageSize !== search.size
+			pagination.current !== queryString.number ||
+			pagination.pageSize !== queryString.size
 		) {
-			setSearch(e => ({
+			setQueryString(e => ({
 				...e,
 				number: pagination.current,
 				size: pagination.pageSize,
 			}))
 			return
 		}
-		if (sorter.field !== search.sort || sorter.order !== search.order) {
-			setSearch(e => ({
+		if (
+			sorter.field !== queryString.sort ||
+			sorter.order !== queryString.order
+		) {
+			setQueryString(e => ({
 				...e,
 				number: 1,
 				sort: sorter.field,
@@ -66,8 +69,8 @@ function service() {
 	const getList = async () => {
 		setLoading(true)
 		const res = await fetchBillboard({
-			...search,
-			number: search.number - 1,
+			...queryString,
+			number: queryString.number - 1,
 		})
 		setLoading(false)
 		if (res.success) {
@@ -89,12 +92,12 @@ function service() {
 		}
 	}
 
-	useEffect(getList, [search])
+	useEffect(getList, [queryString])
 
 	return {
 		loading,
 		data,
-		search,
+		queryString,
 		getList,
 		onChangeSearch,
 		onChangeKeyword,

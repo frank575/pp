@@ -15,7 +15,7 @@ import { useEditorModal } from '@/pages/billboard/service/editor-modal'
 
 export const DataList = () => {
 	const {
-		search,
+		queryString,
 		loading,
 		data,
 		onChangeSearch,
@@ -53,7 +53,7 @@ export const DataList = () => {
 			{
 				title: '編號',
 				render(v, e, i) {
-					return (search.number - 1) * search.size + (i + 1)
+					return (queryString.number - 1) * queryString.size + (i + 1)
 				},
 			},
 			{
@@ -65,7 +65,7 @@ export const DataList = () => {
 					return (
 						<Select
 							placeholder={'篩選狀態'}
-							value={search.status}
+							value={queryString.status}
 							allowClear
 							onChange={v => onChangeSearch('status', v)}
 						>
@@ -143,7 +143,7 @@ export const DataList = () => {
 				},
 			},
 		],
-		[search.status, search.number, search.size],
+		[queryString.status, queryString.number, queryString.size],
 	)
 
 	return (
@@ -153,8 +153,8 @@ export const DataList = () => {
 			dataSource={data.content}
 			pagination={{
 				total: data.total,
-				current: search.number,
-				pageSize: search.size,
+				current: queryString.number,
+				pageSize: queryString.size,
 				showSizeChanger: true,
 			}}
 			columns={columns}

@@ -5,7 +5,7 @@ import { useEditorModal } from '@/pages/billboard/service/editor-modal'
 import { useList } from '@/pages/billboard/service/list'
 
 export const SearchPanel = () => {
-	const search = useList(e => e.search)
+	const queryString = useList(e => e.queryString)
 	const onChangeKeyword = useList(e => e.onChangeKeyword)
 	const onOpenEditorDialog = useEditorModal(e => e.onOpen)
 
@@ -20,7 +20,7 @@ export const SearchPanel = () => {
 						className={'w-auto'}
 						placeholder={'請輸入名稱(模糊查詢)'}
 						allowClear
-						defaultValue={search.keyword}
+						defaultValue={queryString.keyword}
 						onChange={ev => onChangeKeyword('keyword', ev.target.value)}
 					/>
 				</Form.Item>
