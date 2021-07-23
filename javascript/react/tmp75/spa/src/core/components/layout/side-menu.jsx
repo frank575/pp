@@ -3,6 +3,7 @@ import { Menu } from 'antd'
 import {
 	BgColorsOutlined,
 	OrderedListOutlined,
+	BugOutlined,
 	ScheduleOutlined,
 	TranslationOutlined,
 } from '@ant-design/icons'
@@ -28,6 +29,9 @@ export const SideMenu = () => {
 				</Item>
 				<Item key={'colorful'} icon={<BgColorsOutlined />}>
 					<Link to={'/colorful'}>多主題色</Link>
+				</Item>
+				<Item key={'debug'} icon={<BugOutlined />}>
+					<Link to={'/debug'}>開發調適</Link>
 				</Item>
 				<Item key={'language'} icon={<TranslationOutlined />}>
 					<Link to={'/language'}>多國語系</Link>

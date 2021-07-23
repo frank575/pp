@@ -62,6 +62,18 @@ export const Routes = () => {
 				/>
 
 				<RouteWrapper
+					path={'/debug'}
+					exact
+					component={withSuspensePrivateRoute(
+						lazy(() => import('@/pages/debug')),
+						LayoutFallback,
+						withTitle('開發調適'),
+						withSideKey('debug'),
+					)}
+					layout={Layout}
+				/>
+
+				<RouteWrapper
 					path={'/language'}
 					exact
 					component={withSuspensePrivateRoute(
