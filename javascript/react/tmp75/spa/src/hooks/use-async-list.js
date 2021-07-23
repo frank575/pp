@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useAsync } from '@/hooks/use-async'
-import { useDebounce, useDebounceFunc, useQueryString } from '@jsl-react/hooks'
+import { useQueryString } from '@jsl-react/hooks'
 import { useAuthHttp } from '@/core/hooks/http/use-auth-http'
 
 /**
@@ -11,7 +11,11 @@ import { useAuthHttp } from '@/core/hooks/http/use-auth-http'
  */
 export const useAsyncList = (httpPath, initQueryString) => {
 	const { _http } = useAuthHttp()
-	const [queryString, setQueryString] = useQueryString(initQueryString)
+	const [queryString, setQueryString] = useQueryString({
+		number: 1,
+		size: 10,
+		...initQueryString,
+	})
 	const [search, setSearch] = useState({ ...queryString })
 	const [[dataSource, total], loading, getList] = useAsync(async () => {
 		const { data } = await _http.post(httpPath, queryString)
@@ -28,12 +32,13 @@ export const useAsyncList = (httpPath, initQueryString) => {
 			}
 		})
 	const onSearch = () => setQueryString({ ...search, number: 1 })
-	const onChangeTable = pagination =>
+	const onChangeTable = pagination => {
 		setQueryString(e => ({
 			...e,
 			size: pagination.pageSize,
-			number: pagination.current,
+			number: e.size !== pagination.pageSize ? 1 : pagination.current,
 		}))
+	}
 
 	useEffect(getList, [queryString])
 
