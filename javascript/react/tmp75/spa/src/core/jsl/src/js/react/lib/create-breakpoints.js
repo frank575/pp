@@ -1,7 +1,8 @@
 /// 斷點鉤子
+/// v1 {author: frank575} 擴展 opts.delay, bootstrap
 /// v0 {author: frank575}
 
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 
 export const createBreakpoints = (screens = {}) => {
 	const _screens = {
@@ -16,20 +17,30 @@ export const createBreakpoints = (screens = {}) => {
 
 	/**
 	 * @param {string|number} range
-	 * @param {function(boolean, Event)} cb
+	 * @param {function(boolean)} cb
+	 * @param {{bootstrap?: boolean, delay?: number}} opts
 	 */
-	const useBreakpoints = (range, cb) => {
+	const useBreakpoints = (range, cb, opts = {}) => {
+		const { bootstrap = true, delay = 500 } = opts
 		const breakpoints = useMemo(
-			() => (typeof range === 'number' ? range : _screens[range]),
+			() => (typeof range === 'number' ? range : _screens[range] || 0),
 			[range],
 		)
+		let timer = useRef(null)
 
-		const onResize = useCallback(
-			ev => {
-				cb && cb(window.innerWidth <= breakpoints, ev)
-			},
-			[cb, breakpoints],
-		)
+		const onResize = useCallback(() => {
+			if (timer.current != null) clearTimeout(timer.current)
+			timer.current = setTimeout(() => {
+				timer.current = null
+				cb && cb(window.innerWidth <= breakpoints)
+			}, delay)
+		}, [cb, breakpoints])
+
+		useEffect(() => {
+			if (bootstrap) {
+				cb && cb(window.innerWidth <= breakpoints)
+			}
+		}, [])
 
 		useEffect(() => {
 			window.addEventListener('resize', onResize)
