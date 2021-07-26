@@ -1,4 +1,5 @@
 /// 自動綁定querystring的useState
+/// v6 {author: frank575} 修正 transformState 值空判斷由 ! 改成 !=null
 /// v5 {author: frank575} 修正空 search 及值轉空無限導址錯誤
 /// v4 {author: frank575} useSearch 更名為 useQueryString
 /// v3 {author: frank575} 使用replace防止某些情況下導致瀏覽器歷史上一步卡死
@@ -55,7 +56,7 @@ const transformState = state => {
 	if (typeof state === 'object') {
 		for (let k in state) {
 			const e = state[k]
-			if (e) {
+			if (e != null) {
 				if (_state == null) _state = {}
 				if (Array.isArray(e) && e.length) {
 					_state[k] = `L_${e.join(',')}`
