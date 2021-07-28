@@ -1,4 +1,5 @@
 /// 自動綁定querystring的useState
+/// v7 {author: frank575} 修正數字正則錯誤(原本會 parse 0001 這類數字)
 /// v6 {author: frank575} 修正 transformState 值空判斷由 ! 改成 !=null
 /// v5 {author: frank575} 修正空 search 及值轉空無限導址錯誤
 /// v4 {author: frank575} useSearch 更名為 useQueryString
@@ -39,7 +40,7 @@ const initState = (initialState, location) => {
 						_state[k] = JSON.parse(strArrSearchEl)
 						break
 					default:
-						if (/^([0-9]+|true|false)$/.test(searchEl)) {
+						if (/^(0|[1-9][0-9]*|true|false)$/.test(searchEl)) {
 							_state[k] = JSON.parse(searchEl)
 						} else {
 							_state[k] = searchEl
