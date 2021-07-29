@@ -19,16 +19,12 @@ export default () => {
 	const usernameValidator = (_, value) => {
 		if (!value) {
 			return Promise.reject(new Error('必填'))
-		} else if (value !== initialUsername) {
-			return Promise.reject(new Error('帳號錯誤'))
 		}
 		return Promise.resolve()
 	}
 	const passwordValidator = (_, value) => {
 		if (!value) {
 			return Promise.reject(new Error('必填'))
-		} else if (value !== initialPassword) {
-			return Promise.reject(new Error('密碼錯誤'))
 		}
 		return Promise.resolve()
 	}
