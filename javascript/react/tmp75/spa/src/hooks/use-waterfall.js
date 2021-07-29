@@ -1,5 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+/**
+ * 瀑布流獲取數據
+ * @param getList
+ * @param createdRun
+ * @param size
+ * @param range
+ * @return {{start: function(): void, end: function(): void, run: function(): Promise<void>, list: *[], setList: (value: (((prevState: *[]) => *[]) | *[])) => void, loading: boolean}}
+ */
 export const useWaterfall = (
 	getList,
 	createdRun = true,
@@ -71,5 +79,5 @@ export const useWaterfall = (
 		}
 	}, [getList, _onScroll, isEnd])
 
-	return { list, loading, start, end, run }
+	return { list, setList, loading, start, end, run }
 }
