@@ -18,7 +18,7 @@ function Header(){
         : <div className="header__account">尚未登入</div>
     }
     <div className="header__nav" style={{right: showNav ? 0 : '-180px'}}>
-      <div className="close header__nav__fixed">
+      <div className="header__nav__fixed">
         {auth ? <div className="logout" onClick={logout} style={{cursor: 'pointer'}}>登出</div> : null}
         <div className="close" onClick={onChangeShowNav(false)} />
       </div>

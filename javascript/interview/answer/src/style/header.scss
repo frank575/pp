@@ -68,6 +68,7 @@
         justify-content: center;
         width: 21px;
         height: 21px;
+        cursor: pointer;
         &::before, &::after {
           content: "";
           position: absolute;
