@@ -5,7 +5,7 @@ export {Header}
 
 function Header(){
   return <div className="header">
-    <div className="header__logo">面試題</div>
+    <div className="header__logo">面試題(React)</div>
     <div className="menu header__menu" />
     <div className="header__account">尚未登入</div>
     <div className="header__nav">
