@@ -1,0 +1,138 @@
+@import "var";
+
+html, body {
+  margin: 0;
+  min-height: 100vh;
+  background: $dark;
+}
+
+* {
+  font-family: 微軟正黑體;
+  box-sizing: border-box;
+}
+
+.text-yellow {
+  color: $yellow;
+}
+
+.text-gray {
+  color: $gray;
+}
+
+.btn {
+  background: $yellow;
+  color: $dark;
+  font-weight: 900;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color .3s ease, color .3s ease;
+  @include rwd {
+    width: 30px;
+    height: 30px;
+  }
+  &:hover {
+    background: $dark;
+    color: $yellow;
+    .minus, .plus {
+      background: $yellow;
+    }
+    .plus::after {
+      background: $yellow;
+    }
+  }
+}
+
+.input {
+  appearance: none;
+  border: 1px solid $yellow;
+  color: $yellow;
+  background: none;
+  outline: none;
+  height: 48px;
+  padding: 4px 8px;
+  &::placeholder {
+    color: $gray;
+  }
+  @include rwd {
+    height: 30px;
+  }
+}
+
+.number {
+  width: 48px;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  color: $yellow;
+  @include rwd {
+    width: 30px;
+    font-size: 16px;
+  }
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+}
+
+%mp {
+  display: block;
+  width: 20px;
+  height: 4px;
+  background: $dark;
+  cursor: pointer;
+  @include rwd {
+    width: 12px;
+  }
+}
+
+.minus {
+  @extend %mp;
+  transition: background-color .3s ease;
+}
+
+.plus {
+  @extend %mp;
+  position: relative;
+  transition: background-color .3s ease;
+  &::after {
+    content: "";
+    position: absolute;
+    left: calc(50% - 2px);
+    top: calc(50% - 10px);
+    width: 4px;
+    height: 20px;
+    background: $dark;
+    transition: background-color .3s ease;
+    @include rwd {
+      height: 12px;
+      top: calc(50% - 6px);
+    }
+  }
+}
+
+.menu {
+  width: 24px;
+  height: 16px;
+  border-top: 2px solid $yellow;
+  border-bottom: 2px solid $yellow;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  &::after {
+    content: "";
+    border-top: 1px solid $yellow;
+    border-bottom: 1px solid $yellow;
+    width: 100%;
+  }
+}
+
+@import "header";
+@import "login";
+@import "home";
