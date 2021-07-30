@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <div class="header__logo">面試題(Vue)</div>
+    <div class="header__logo">面試題(Vue3)</div>
     <div class="menu header__menu" />
     <div class="header__account">尚未登入</div>
     <div class="header__nav">
