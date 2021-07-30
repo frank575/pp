@@ -17,13 +17,14 @@ function Header(){
         ? <div className="header__account" onClick={logout} style={{cursor: 'pointer'}}>登出</div>
         : <div className="header__account">尚未登入</div>
     }
+    {showNav ? <div className="header__black-screen" onClick={onChangeShowNav(false)}/> : null}
     <div className="header__nav" style={{right: showNav ? 0 : '-180px'}}>
       <div className="header__nav__fixed">
         {auth ? <div className="logout" onClick={logout} style={{cursor: 'pointer'}}>登出</div> : null}
         <div className="close" onClick={onChangeShowNav(false)} />
       </div>
-      <Link className="header__nav__link" to="/login">登入</Link>
-      <Link className="header__nav__link" to="/">私有路由(登入可見)</Link>
+      <Link className="header__nav__link" to="/login" onClick={onChangeShowNav(false)}>登入</Link>
+      <Link className="header__nav__link" to="/" onClick={onChangeShowNav(false)}>私有路由(登入可見)</Link>
     </div>
   </div>
 }
