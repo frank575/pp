@@ -9,7 +9,7 @@ function Header(){
     <div className="menu header__menu" />
     <div className="header__account">尚未登入</div>
     <div className="header__nav">
-      <div className="close header__nav__fixed">
+      <div className="header__nav__fixed">
         <div className="logout" style={{cursor: 'pointer'}}>登出</div>
         <div className="close" />
       </div>
