@@ -1,0 +1,11 @@
+$yellow: #fadb14;
+$dark: #1b1b1b;
+$gray: rgba(#fff, .6);
+
+$md: 768;
+
+@mixin rwd($max-width: $md) {
+  @media screen and (max-width: $md + px) {
+    @content;
+  }
+}
