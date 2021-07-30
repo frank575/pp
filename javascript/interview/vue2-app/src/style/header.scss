@@ -1,0 +1,75 @@
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  &__logo {
+    color: $yellow;
+    font-weight: 600;
+    font-size: 24px;
+    padding: 8px 16px;
+  }
+  &__account {
+    color: $gray;
+    padding: 8px 16px;
+  }
+  &__nav {
+    width: 100%;
+    border-top: 1px solid $yellow;
+    border-bottom: 1px solid $yellow;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &__fixed {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .logout {
+        margin-right: 12px;
+        background: $yellow;
+      }
+      .close {
+        background: $yellow;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 21px;
+        height: 21px;
+        cursor: pointer;
+        &::before, &::after {
+          content: "";
+          position: absolute;
+          left: calc(50% - 10.5px);
+          top: calc(50% - 1px);
+          width: 21px;
+          height: 2px;
+          background: $dark;
+        }
+        &::before {
+          transform: rotate(45deg);
+        }
+        &::after {
+          transform: rotate(-45deg);
+        }
+      }
+    }
+    &__link {
+      color: $yellow;
+      text-decoration: none;
+      &:not(:last-child) {
+        margin-right: 24px;
+        position: relative;
+        &::after {
+          content: '';
+          position: absolute;
+          height: 100%;
+          top: 0;
+          right: -12px;
+          border-right: 1px solid $yellow;
+        }
+      }
+    }
+  }
+}
