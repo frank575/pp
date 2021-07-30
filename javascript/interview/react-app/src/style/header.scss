@@ -21,6 +21,39 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    &__fixed {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .logout {
+        margin-right: 12px;
+        background: $yellow;
+      }
+      .close {
+        background: $yellow;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 21px;
+        height: 21px;
+        &::before, &::after {
+          content: "";
+          position: absolute;
+          left: calc(50% - 10.5px);
+          top: calc(50% - 1px);
+          width: 21px;
+          height: 2px;
+          background: $dark;
+        }
+        &::before {
+          transform: rotate(45deg);
+        }
+        &::after {
+          transform: rotate(-45deg);
+        }
+      }
+    }
     &__link {
       color: $yellow;
       text-decoration: none;

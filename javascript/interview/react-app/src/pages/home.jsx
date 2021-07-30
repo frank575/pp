@@ -6,9 +6,9 @@ function Home() {
   return <div className="home">
     <div className="home__items">
       <div className="number home__items__num">-5-5</div>
-      <div className="number home__items__sym"></div>
+      <div className="number home__items__sym" />
       <div className="number home__items__num">3-9</div>
-      <div className="number home__items__sym"></div>
+      <div className="number home__items__sym" />
       <div className="number home__items__num">1-2</div>
     </div>
     <div className="home__counters">
