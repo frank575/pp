@@ -10,7 +10,7 @@ function Header(){
   const onChangeShowNav = show => () => setShowNav(show)
 
   return <div className="header">
-    <div className="header__logo">面試題</div>
+    <div className="header__logo">面試題(解答)</div>
     <div className="menu header__menu" onClick={onChangeShowNav(true)} />
     {
       auth
