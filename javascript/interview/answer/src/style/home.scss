@@ -1,0 +1,45 @@
+.home {
+  &__counters {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 24px;
+    >.counter {
+      &:not(:last-child) {
+        margin-right: 48px;
+        @include rwd {
+          margin-right: 30px;
+        }
+      }
+    }
+  }
+  &__items {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 24px 0;
+    &__num {
+      width: #{48 * 3}px;
+      font-size: 48px;
+      @include rwd {
+        width: #{30 * 3}px;
+        font-size: 24px;
+      }
+    }
+    &__sym {
+      font-size: 48px;
+      @include rwd {
+        font-size: 24px;
+      }
+    }
+  }
+  &__result {
+    width: 100%;
+    text-align: center;
+    margin: 24px 0;
+    font-size: 96px;
+    @include rwd {
+      font-size: 72px;
+    }
+  }
+}
