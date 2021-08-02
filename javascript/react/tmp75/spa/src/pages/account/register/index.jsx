@@ -3,7 +3,7 @@ import { NoLayoutWrap } from '@/components/no-layout-wrap'
 import { Button, Form, Input, message } from 'antd'
 import { Link } from 'react-router-dom'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
-import { useHistory } from 'react-router'
+import { useHistory } from 'react-router-dom'
 import { callNoAuthFakeApi } from '@/core/__fake-api'
 import { useAuth } from '@/core/hooks/use-auth'
 

@@ -3,7 +3,7 @@ import { Breadcrumb, Typography } from 'antd'
 import { ArrowLeftOutlined, HomeOutlined } from '@ant-design/icons'
 import { createClassName } from '@jsl'
 import { Link } from 'react-router-dom'
-import { useHistory } from 'react-router'
+import { useHistory } from 'react-router-dom'
 
 const { Item } = Breadcrumb
 export const PageTitle = ({

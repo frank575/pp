@@ -1,5 +1,5 @@
 import { useProvider } from '@jsl-react/hooks'
-import { useLocation } from 'react-router'
+import { useLocation } from 'react-router-dom'
 import { useEffect, useMemo, useState } from 'react'
 
 const service = () => {

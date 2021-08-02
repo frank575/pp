@@ -9,7 +9,7 @@
 /// v0 {author: frank575}
 
 import { useCallback, useEffect, useRef } from 'react'
-import { useHistory, useLocation } from 'react-router'
+import { useHistory, useLocation } from 'react-router-dom'
 import { useSafeState } from './use-safe-state'
 
 const getValue = (search, param) => new URLSearchParams(search).get(param)

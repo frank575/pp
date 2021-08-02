@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import { useHistory } from 'react-router'
+import { useHistory } from 'react-router-dom'
 import { useLocalStorageState, useProvider } from '@jsl-react/hooks'
 import { createEnum } from '@jsl'
 import { useMitt } from '@/core/hooks/use-mitt'
