@@ -3,16 +3,16 @@ import React from 'react'
 import { LoadingOutlined } from '@ant-design/icons'
 import { useValidateAuth } from '@/core/hooks/use-validate-auth'
 import { EAuthCode } from '@/core/hooks/use-auth'
-import { AppContent } from '@/components/app/content'
+import { PageContent } from '@/components/page-content'
 
 export const AuthComponent = ({ component: RouteComponent }) => {
 	const code = useValidateAuth()
 
 	return code === EAuthCode.validating ? (
-		<AppContent className="flex items-center">
+		<PageContent className="flex items-center">
 			<LoadingOutlined className="mr-2" />
 			取得使用者資料(身分驗證中)...
-		</AppContent>
+		</PageContent>
 	) : code === EAuthCode.authError || code === EAuthCode.notLogin ? (
 		<Redirect to={'/login'} />
 	) : (

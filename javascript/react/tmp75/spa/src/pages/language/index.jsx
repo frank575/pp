@@ -1,6 +1,6 @@
 import React from 'react'
-import { AppContent } from '@/components/app/content'
-import { AppTitle } from '@/components/app/title'
+import { PageContent } from '@/components/page-content'
+import { PageTitle } from '@/components/page-title'
 import { TranslationOutlined } from '@ant-design/icons'
 import { Form, message, Select } from 'antd'
 import { ELocale } from '@/enums/e-locale'
@@ -20,8 +20,8 @@ export default () => {
 	}
 
 	return (
-		<AppContent>
-			<AppTitle title={'多國語系'} icon={TranslationOutlined} just />
+		<PageContent>
+			<PageTitle title={'多國語系'} icon={TranslationOutlined} just />
 			<Form.Item label="當前語系" className="mb-2">
 				<Select value={locale} onChange={onChangeLocale}>
 					{ELocale.map(e => (
@@ -34,6 +34,6 @@ export default () => {
 			<Form.Item label="示範單字" className="mb-0">
 				{t('handsomeX', ['Frank'])}
 			</Form.Item>
-		</AppContent>
+		</PageContent>
 	)
 }

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router'
 
 const { Item } = Breadcrumb
-export const AppTitle = ({
+export const PageTitle = ({
 	title,
 	just = false,
 	back = false,
