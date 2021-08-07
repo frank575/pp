@@ -1,0 +1,19 @@
+{
+  "name": "file-zh-translate",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "prompts": "^2.4.1"
+  },
+  "scripts": {
+    "start": "npm run pass-env node ./src/index.js",
+    "pass-env": "cross-env _SOURCE_ROOT_PATH=C:\\Users\\wcw85\\Desktop\\phps _FILE_EXTENSION=.php _PENDING_TIME=6000",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
