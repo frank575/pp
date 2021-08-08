@@ -1,3 +1,6 @@
+ // 如果使用 command line rollup 的話抓的是 global，package scripts 則是 package packages 的 rollup
+
+
 // 讓 rollup 可以解析 json 檔
 import json from '@rollup/plugin-json'
 // 用來 build node_modules 的代碼到代碼中，沒使用的話則是外部引入，這樣開發者還要自行安裝插件才可使用
