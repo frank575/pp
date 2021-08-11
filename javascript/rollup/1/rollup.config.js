@@ -1,6 +1,17 @@
 /**
- 如果使用 command line rollup 的話抓的是 global，package scripts 則是 package packages 的 rollup
+ 如果使用 command line rollup 的話抓的是 global rollup，package scripts 則是 package packages 的 rollup，或者是用 ./node_modules/.bin/rollup 來執行
 **/
+
+// 常用基本指令
+// --input(-i) 輸入文件(可以多個，如：-i a.js -i b.js --dir dist)
+// --file 輸出文件
+// --format 編譯格式，如：cjs, umd...
+// --dir 輸出目錄(多文件輸入常用，使用 --dir 導出到對應目錄)
+// --name 指定 umd 的名字
+// --watch 監聽文件變化
+// -c 指定執行的 rollup.config.js
+// --environment [key]:[value] 指定環境變量
+// --plugin json
 
 // 讓 rollup 可以解析 json 檔
 import json from '@rollup/plugin-json'
