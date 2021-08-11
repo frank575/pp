@@ -1,4 +1,5 @@
 /// 時間處理函數(香草)
+/// v2 {author: frank575} 優化時間寫入set語法
 /// v1 {author: frank575} api名稱調整last->past, jsdoc ft 類型新增null
 /// v0 {author: frank575}
 
@@ -250,17 +251,13 @@ const countdown = (ms = 0, options = {}) => {
 
 const createStartDate = date => {
 	const _date = date ? new Date(date) : new Date()
-	_date.setHours(0)
-	_date.setMinutes(0)
-	_date.setSeconds(0)
+	_date.setHours(0, 0, 0)
 	return _date
 }
 
 const createEndDate = date => {
 	const _date = date ? new Date(date) : new Date()
-	_date.setHours(23)
-	_date.setMinutes(59)
-	_date.setSeconds(59)
+	_date.setHours(23, 59, 59)
 	return _date
 }
 
@@ -309,12 +306,8 @@ const monthResult = (last, ft) => {
 			month--
 		}
 	}
-	start.setFullYear(year)
-	start.setMonth(month)
-	start.setDate(1)
-	start.setHours(0)
-	start.setMinutes(0)
-	start.setSeconds(0)
+	start.setFullYear(year, month, 1)
+	start.setHours(0, 0, 0)
 	let date = PER_MONTH_DAY_NUM[month]
 	if (date == null) {
 		if ((year % 4 === 0 && !(year % 100 === 0)) || year % 400 === 0) {
