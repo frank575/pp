@@ -3,15 +3,17 @@
 **/
 
 // 常用基本指令
-// --input(-i) 輸入文件(可以多個，如：-i a.js -i b.js --dir dist)
-// --file 輸出文件
-// --format 編譯格式，如：cjs, umd...
-// --dir 輸出目錄(多文件輸入常用，使用 --dir 導出到對應目錄)
-// --name 指定 umd 的名字
-// --watch 監聽文件變化
-// -c 指定執行的 rollup.config.js
+// -v, --version 查版本
+// -h, --help 查幫助文檔
+// -i, --input 輸入文件(可以多個，如：-i a.js -i b.js --dir dist)
+// -o, --file 輸出文件
+// -f, --format 編譯格式，如：cjs, umd...
+// -d, --dir 輸出目錄(多文件輸入常用，使用 --dir 導出到對應目錄)
+// -n, --name 指定 umd 的名字
+// -w, --watch 監聽文件變化
+// -c, --config 指定執行的 rollup.config.js
 // --environment [key]:[value] 指定環境變量
-// --plugin json
+// -p, --plugin json
 
 // 讓 rollup 可以解析 json 檔
 import json from '@rollup/plugin-json'
