@@ -5,12 +5,12 @@
 import React from 'react'
 import { createContext, useContextSelector } from 'use-context-selector'
 
-export const useProvider = <A, T>(providerService: (...args: A[]) => T) => {
+export const createProvider = <A, T>(providerService: (...args: A[]) => T) => {
 	const context = createContext<T>(null as unknown as T)
 	const Provider = ({ children } = { children: React.Children }) => (
 		<context.Provider value={providerService()}>{children}</context.Provider>
 	)
-	const inject = (getter: (el?: T) => any = () => undefined) =>
+	const inject = (getter: (el: T) => any = () => undefined) =>
 		useContextSelector(context, getter)
 
 	return {

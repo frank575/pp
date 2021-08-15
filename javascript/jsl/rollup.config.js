@@ -18,6 +18,6 @@ const cpkg = ({ input, file }) => ({
 
 export default [
 	cpkg({ input: 'src/lib/index.ts', file: 'dist/index.cjs.js' }),
-	cpkg({ input: 'src/react/hooks/index.ts', file: 'dist/react.hooks.cjs.js' }),
-	cpkg({ input: 'src/react/lib/index.ts', file: 'dist/react.lib.cjs.js' }),
+	cpkg({ input: 'src/react/hooks/index.ts', file: 'dist/react/hooks.cjs.js' }),
+	cpkg({ input: 'src/react/lib/index.ts', file: 'dist/react/lib.cjs.js' }),
 ]
