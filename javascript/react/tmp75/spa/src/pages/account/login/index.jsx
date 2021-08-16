@@ -29,7 +29,7 @@ export default () => {
 		return Promise.resolve()
 	}
 	const onLogin = async data => {
-		console.log(data)
+		$devLog(data)
 
 		const { username, password } = data
 		setSubmitLoading(true)

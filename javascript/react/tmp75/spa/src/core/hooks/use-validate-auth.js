@@ -50,7 +50,7 @@ export const useValidateAuth = () => {
 
 	const initAuth = async () => {
 		const { code: _code } = await checkAuth()
-		console.log({
+		$devLog({
 			'checkAuth.code': EAuthCode.t(_code),
 		})
 		switch (_code) {

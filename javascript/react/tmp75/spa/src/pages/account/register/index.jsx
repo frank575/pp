@@ -25,7 +25,7 @@ export default () => {
 	}
 
 	const onRegister = async data => {
-		console.log(data)
+		$devLog(data)
 
 		const { username, password } = data
 		setSubmitLoading(true)
