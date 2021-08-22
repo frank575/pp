@@ -13,7 +13,8 @@ export const EAuthCode = createEnum({
 	hasAuth: [4, '已取得身分資訊'],
 })
 
-export const { Provider: AuthProvider, inject: useAuth } = createProvider(service)
+export const { Provider: AuthProvider, inject: useAuth } =
+	createProvider(service)
 
 function service() {
 	const history = useHistory()
