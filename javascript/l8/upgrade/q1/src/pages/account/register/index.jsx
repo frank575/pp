@@ -1,6 +1,6 @@
 import { Wrap } from '@/pages/account/wrap'
 import { Input } from '@/components/form/input'
-import { useMemo, useRef } from 'react'
+import { useMemo } from 'react'
 import { useForm } from '@/components/form/lib/validator'
 import { Button } from '@/components/button'
 import { Link } from 'react-router-dom'

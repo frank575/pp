@@ -3,6 +3,7 @@ import { Input } from '@/components/form/input'
 import { Button } from '@/components/button'
 import { Link } from 'react-router-dom'
 import { useForm } from '@/components/form/lib/validator'
+import { Jigsaw } from '@/pages/account/login/captcha/jigsaw'
 
 export default () => {
 	const form = useForm({
@@ -39,6 +40,7 @@ export default () => {
 				</div>
 				<Button onClick={onSubmit}>登入</Button>
 			</div>
+			<Jigsaw />
 		</Wrap>
 	)
 }
