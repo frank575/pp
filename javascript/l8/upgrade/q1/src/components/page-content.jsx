@@ -1,6 +1,6 @@
 import { createClassName } from '@jsl'
 
-export const PageContent = ({ className, children }) => {
+export const PageContent = ({ className, children, style = {} }) => {
 	return (
 		<main
 			className={createClassName(
@@ -9,6 +9,7 @@ export const PageContent = ({ className, children }) => {
 				},
 				[className],
 			)}
+			style={style}
 		>
 			{children}
 		</main>
