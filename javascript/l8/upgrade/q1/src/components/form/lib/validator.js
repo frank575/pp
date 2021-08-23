@@ -6,10 +6,9 @@ import { createRef, useMemo } from 'react'
  * 提供的基本驗證規則
  * @param {Rule[]} rules
  * @param {*} value 傳入的驗證 value
- * @param {Object<string, *>} state 其他表單的值
  * @return {{message: string | null, success: boolean}} 驗證結果及訊息
  */
-export const commonValidatorRule = async (rules = [], state = {}, value) => {
+export const commonValidatorRule = async (rules = [], value) => {
 	for (let i = 0; i < rules.length; i++) {
 		const { type, required, min, max, message, validator } = rules[i]
 		if (required === true) {
@@ -72,7 +71,7 @@ export const commonValidatorRule = async (rules = [], state = {}, value) => {
 			}
 		}
 		if (validator != null) {
-			const result = await validator(value, state)
+			const result = await validator(value)
 			let validateResultMessage, success
 			if (typeof result === 'boolean') {
 				success = result
@@ -116,9 +115,7 @@ export const useForm = obj => {
 			(p, k) => ((p[k] = refs.current[k].ref.current.value), p),
 			{},
 		)
-		const validates = keys.map(k =>
-			refs.current[k].ref.current.validate?.(state),
-		)
+		const validates = keys.map(k => refs.current[k].ref.current.validate?.())
 		const result = await Promise.all(validates)
 		return {
 			pass: !result.some(e => !e.success),

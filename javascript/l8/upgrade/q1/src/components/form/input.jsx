@@ -68,12 +68,12 @@ export const Input = forwardRef(
 
 		const validateByChangeTrigger = async value => {
 			if (trigger === 'change') {
-				await validate({}, value)
+				await validate(value)
 			}
 		}
 
-		const validate = async (state = {}, value) => {
-			const result = await commonValidatorRule(rules, state, value ?? _value)
+		const validate = async value => {
+			const result = await commonValidatorRule(rules, value ?? _value)
 			setAuthState(result)
 			return result
 		}
