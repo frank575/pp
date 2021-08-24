@@ -1,16 +1,20 @@
 import styles from './index.module.css'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useHttp } from '@/core/hooks/http/use-http'
+import { Spinner } from '@/components/spinner'
 
 const JIGSAW_MASK_WIDTH = 60
 const JIGSAW_MASK_HEIGHT = 46.7
 const DRAG_PANEL_WIDTH = 48
 
 export const Jigsaw = ({ onSuccess }) => {
+	const { http } = useHttp()
 	const containerRef = useRef(null)
 	const imgRef = useRef(null)
-	const jigsawRef = useRef(null)
 	const dragRef = useRef(null)
 	const isEndRef = useRef(false)
+	const [imgLoading, setImgLoading] = useState(true)
+	const [url, setUrl] = useState('')
 	const [isDrag, setIsDrag] = useState(false)
 	const [beginDragX, setBeginDragX] = useState(0)
 	const [currentX, setCurrentX] = useState(0)
@@ -54,33 +58,47 @@ export const Jigsaw = ({ onSuccess }) => {
 		[currentX, maskJigsawX],
 	)
 
-	const initPosition = useCallback(() => {
-		const containerWidth = containerRef.current.clientWidth
-		const imgNaturalWidth = imgRef.current.naturalWidth
-		const imgNaturalHeight = imgRef.current.naturalHeight
-		const containerHeight =
-			(containerWidth / imgNaturalWidth) * imgNaturalHeight
-		const halfContainerWidth = containerWidth / 2
-		const beginX =
-			halfContainerWidth +
-			Math.random() * halfContainerWidth -
-			JIGSAW_MASK_WIDTH
-		const beginY = Math.random() * containerHeight - JIGSAW_MASK_HEIGHT
-		isEndRef.current = false
-		setMaskJigsawX(beginX)
-		setMaskJigsawY(beginY < 0 ? 0 : beginY)
-	}, [])
+	const initPosition = useCallback(
+		() =>
+			new Promise(async resolve => {
+				setImgLoading(true)
+				const res = await http.get('https://dog.ceo/api/breeds/image/random')
+				const url = res.data.message
+				setUrl(url)
+				const img = new Image()
+				img.src = url
+				img.onload = () => {
+					setImgLoading(false)
+					const containerWidth = containerRef.current.clientWidth
+					const imgNaturalWidth = img.naturalWidth
+					const imgNaturalHeight = img.naturalHeight
+					const containerHeight =
+						(containerWidth / imgNaturalWidth) * imgNaturalHeight
+					const halfContainerWidth = containerWidth / 2
+					const beginX =
+						halfContainerWidth +
+						Math.random() * halfContainerWidth -
+						JIGSAW_MASK_WIDTH
+					const beginY = Math.random() * containerHeight - JIGSAW_MASK_HEIGHT
+					isEndRef.current = false
+					setMaskJigsawX(beginX)
+					setMaskJigsawY(beginY < 0 ? 0 : beginY)
+					resolve()
+				}
+			}),
+		[],
+	)
 
 	const bindEvents = useCallback(() => {
-		dragRef.current.addEventListener('mousedown', dragStart)
+		dragRef.current?.addEventListener('mousedown', dragStart)
 		window.addEventListener('mousemove', dragging)
 		window.addEventListener('mouseup', dragEnd)
 		return () => {
-			dragRef.current.removeEventListener('mousedown', dragStart)
+			dragRef.current?.removeEventListener('mousedown', dragStart)
 			window.removeEventListener('mousemove', dragging)
 			window.removeEventListener('mouseup', dragEnd)
 		}
-	}, [dragStart, dragging, dragEnd])
+	}, [dragStart, dragging, dragEnd, http])
 
 	useEffect(initPosition, [])
 	useEffect(bindEvents, [bindEvents])
@@ -91,11 +109,14 @@ export const Jigsaw = ({ onSuccess }) => {
 			<div className="w-96 z-10">
 				<div
 					ref={containerRef}
-					className="w-full relative overflow-hidden pointer-events-none"
+					className="w-full relative overflow-hidden pointer-events-none flex items-center justify-center"
+					style={{ minWidth: 108, minHeight: 108 }}
 				>
-					<img ref={imgRef} src="/chihuahua.jpg" alt="" />
-					{useMemo(
-						() => (
+					{imgLoading ? (
+						<Spinner color={'#faad14'} size={64} />
+					) : (
+						<>
+							<img className={'w-full'} ref={imgRef} src={url} alt="" />
 							<img
 								className="opacity-70 absolute"
 								style={{
@@ -107,15 +128,9 @@ export const Jigsaw = ({ onSuccess }) => {
 								src="/jigsaw-mask.png"
 								alt=""
 							/>
-						),
-						[maskJigsawX, maskJigsawY],
-					)}
-					{useMemo(
-						() => (
 							<img
-								ref={jigsawRef}
 								className={styles.jigsaw}
-								src="/chihuahua.jpg"
+								src={url}
 								alt=""
 								style={{
 									left: currentX,
@@ -125,18 +140,23 @@ export const Jigsaw = ({ onSuccess }) => {
 									WebkitMaskPosition: jigsawPosition,
 								}}
 							/>
-						),
-						[maskJigsawX, jigsawPosition, currentX],
+						</>
 					)}
 				</div>
-				<div className="w-full bg-white rounded-full mt-4 p-1">
-					<div
-						ref={dragRef}
-						className="bg-primary rounded-full w-12 h-6 cursor-move"
-						style={{ transform: `translateX(${currentX}px)` }}
-					/>
-				</div>
-				<div className="text-white mt-4 text-center">請拖曳到對應的位置</div>
+				{imgLoading ? null : (
+					<>
+						<div className="w-full bg-white rounded-full mt-4 p-1">
+							<div
+								ref={dragRef}
+								className="bg-primary rounded-full w-12 h-6 cursor-move"
+								style={{ transform: `translateX(${currentX}px)` }}
+							/>
+						</div>
+						<div className="text-white mt-4 text-center">
+							請拖曳到對應的位置
+						</div>
+					</>
+				)}
 			</div>
 		</div>
 	)
