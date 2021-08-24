@@ -47,11 +47,11 @@ export const Jigsaw = ({ onSuccess }) => {
 			if (isEndRef.current || !isDrag) return
 			setIsDrag(false)
 			if (currentX > maskJigsawX - 4 && currentX < maskJigsawX + 4) {
-				console.log('驗證成功')
+				createMessage('驗證成功')
 				isEndRef.current = true
 				onSuccess?.()
 			} else {
-				createMessage('驗證失敗' + Date.now())
+				createMessage('驗證失敗', 'danger')
 				setCurrentX(0)
 				initPosition()
 			}

@@ -1,20 +1,40 @@
 import { createElement, useEffect, useRef } from 'react'
 import { render } from 'react-dom'
+import { createClassName } from '@jsl'
 
-const Message = ({ message, direction }) => {
-	const msgRef = useRef(null)
+const Message = ({ type, message, direction, el }) => {
+	const isRemoveRef = useRef(false)
+
+	const onDestroy = () => {
+		if (!isRemoveRef.current) {
+			el.remove()
+			isRemoveRef.current = true
+		}
+	}
+
 	useEffect(() => {
 		if (direction > 0) {
-			setTimeout(() => msgRef.current.remove(), direction)
+			setTimeout(onDestroy, direction)
 		}
 	}, [])
+
+	console.log(onDestroy)
+
 	return (
-		<div
-			ref={msgRef}
-			className="bg-white color-black mt-4 rounded-md px-4 py-2 flex items-center w-full shadow-lg animate-fade-side-in-quick"
-		>
-			{message}
-		</div>
+		<>
+			<div
+				className={createClassName({
+					'bg-success text-white rounded-full text-xs px-2 py-1 mr-2': true,
+					'bg-danger': true,
+				})}
+			>
+				{type}
+			</div>
+			<div className="text-sm mr-2">{message}</div>
+			<div className="text-xs cursor-pointer ml-auto" onClick={onDestroy}>
+				Close
+			</div>
+		</>
 	)
 }
 
@@ -29,8 +49,10 @@ export const createMessage = (
 	direction = 3000,
 ) => {
 	const container = document.getElementById('message-container')
-	const el = document.createDocumentFragment()
-	const msg = createElement(Message, { message, type, direction })
+	const el = document.createElement('div')
+	el.className =
+		'bg-white color-black mt-4 rounded-full p-2 flex items-center w-full shadow-lg animate-fade-side-in-quick'
+	const msg = createElement(Message, { message, type, direction, el })
 	render(msg, el)
 	container.append(el)
 }
