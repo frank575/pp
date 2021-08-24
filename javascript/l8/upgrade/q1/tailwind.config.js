@@ -33,6 +33,15 @@ module.exports = {
 				// 'screen-sm': '640px',
 				// 'screen-xs': '425px',
 			},
+			animation: {
+				'fade-side-in-quick': 'fade-side-in .4s ease forwards',
+			},
+			keyframes: {
+				'fade-side-in': {
+					'0%': { opacity: 0, transform: `translateY(-4px)` },
+					'100%': { opacity: 1, transform: `translateY(0px)` },
+				},
+			},
 		},
 	},
 	variants: {

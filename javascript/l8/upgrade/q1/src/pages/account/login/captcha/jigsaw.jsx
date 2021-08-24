@@ -2,6 +2,7 @@ import styles from './index.module.css'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useHttp } from '@/core/hooks/http/use-http'
 import { Spinner } from '@/components/spinner'
+import { createMessage } from '@/lib/create-message'
 
 const JIGSAW_MASK_WIDTH = 60
 const JIGSAW_MASK_HEIGHT = 46.7
@@ -50,7 +51,7 @@ export const Jigsaw = ({ onSuccess }) => {
 				isEndRef.current = true
 				onSuccess?.()
 			} else {
-				console.log('驗證成功')
+				createMessage('驗證失敗' + Date.now())
 				setCurrentX(0)
 				initPosition()
 			}
