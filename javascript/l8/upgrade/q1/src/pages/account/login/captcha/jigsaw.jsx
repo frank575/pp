@@ -3,13 +3,15 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useHttp } from '@/core/hooks/http/use-http'
 import { Spinner } from '@/components/spinner'
 import { createMessage } from '@/lib/create-message'
+import { useVisible } from '@/hooks/use-visible'
 
 const JIGSAW_MASK_WIDTH = 60
 const JIGSAW_MASK_HEIGHT = 46.7
 const DRAG_PANEL_WIDTH = 48
 
-export const Jigsaw = ({ onSuccess }) => {
+export const Jigsaw = ({ visible, onChange, onLogin }) => {
 	const { http } = useHttp()
+	const [_visible, setVisible] = useVisible(visible, onChange)
 	const containerRef = useRef(null)
 	const imgRef = useRef(null)
 	const dragRef = useRef(null)
@@ -25,11 +27,13 @@ export const Jigsaw = ({ onSuccess }) => {
 		() => `${maskJigsawX}px ${maskJigsawY}px`,
 		[maskJigsawX, maskJigsawY],
 	)
+
 	const dragStart = useCallback(ev => {
 		if (isEndRef.current) return
 		setIsDrag(true)
 		setBeginDragX(ev.clientX)
 	}, [])
+
 	const dragging = useCallback(
 		ev => {
 			if (!isDrag) return
@@ -42,19 +46,20 @@ export const Jigsaw = ({ onSuccess }) => {
 		},
 		[isDrag, beginDragX],
 	)
+
 	const dragEnd = useCallback(
-		ev => {
+		async ev => {
 			if (isEndRef.current || !isDrag) return
 			setIsDrag(false)
 			if (currentX > maskJigsawX - 4 && currentX < maskJigsawX + 4) {
-				createMessage('驗證成功')
 				isEndRef.current = true
-				onSuccess?.()
-			} else {
-				createMessage('驗證失敗', 'danger')
-				setCurrentX(0)
-				initPosition()
+				const res = await onLogin?.()
+				if (res && res.data.success) return
 			}
+			createMessage('驗證失敗', 'danger')
+			isEndRef.current = false
+			setCurrentX(0)
+			initPosition()
 		},
 		[currentX, maskJigsawX],
 	)
@@ -91,22 +96,31 @@ export const Jigsaw = ({ onSuccess }) => {
 	)
 
 	const bindEvents = useCallback(() => {
-		dragRef.current?.addEventListener('mousedown', dragStart)
-		window.addEventListener('mousemove', dragging)
-		window.addEventListener('mouseup', dragEnd)
-		return () => {
-			dragRef.current?.removeEventListener('mousedown', dragStart)
-			window.removeEventListener('mousemove', dragging)
-			window.removeEventListener('mouseup', dragEnd)
+		if (_visible) {
+			dragRef.current?.addEventListener('mousedown', dragStart)
+			window.addEventListener('mousemove', dragging)
+			window.addEventListener('mouseup', dragEnd)
+			return () => {
+				dragRef.current?.removeEventListener('mousedown', dragStart)
+				window.removeEventListener('mousemove', dragging)
+				window.removeEventListener('mouseup', dragEnd)
+			}
 		}
-	}, [dragStart, dragging, dragEnd, http])
+	}, [dragStart, dragging, dragEnd, http, _visible])
 
-	useEffect(initPosition, [])
+	useEffect(() => {
+		if (_visible) {
+			initPosition()
+		}
+	}, [_visible])
 	useEffect(bindEvents, [bindEvents])
 
-	return (
-		<div className="w-screen h-screen fixed top-0 left-0 flex justify-center items-center  select-none">
-			<div className="bg-black opacity-70 fixed left-0 top-0 w-full h-full" />
+	return _visible ? (
+		<div className="w-screen h-screen fixed top-0 left-0 flex justify-center items-center select-none">
+			<div
+				className="bg-black opacity-70 fixed left-0 top-0 w-full h-full"
+				onClick={() => setVisible(false)}
+			/>
 			<div className="w-96 z-10">
 				<div
 					ref={containerRef}
@@ -160,5 +174,5 @@ export const Jigsaw = ({ onSuccess }) => {
 				)}
 			</div>
 		</div>
-	)
+	) : null
 }

@@ -49,7 +49,7 @@ export const Input = forwardRef(
 			message: '格式不正確',
 			success: true,
 		})
-		const [_value, set_value] = useState(() => value || '')
+		const [_value, set_value] = useState(() => value ?? defaultValue ?? '')
 
 		const _onChange = async ev => {
 			const v = ev.target.value

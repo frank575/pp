@@ -1,19 +1,38 @@
 import { Wrap } from '@/pages/account/wrap'
 import { Input } from '@/components/form/input'
 import { Button } from '@/components/button'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useForm } from '@/components/form/lib/validator'
 import { Jigsaw } from '@/pages/account/login/captcha/jigsaw'
+import { useHttp } from '@/core/hooks/http/use-http'
+import { createMessage } from '@/lib/create-message'
+import { useRef, useState } from 'react'
 
 export default () => {
+	const history = useHistory()
+	const { http } = useHttp()
+	const [authVisible, setAuthVisible] = useState(false)
+	const cacheForm = useRef({})
 	const form = useForm({
 		username: '',
 		password: '',
 	})
+
+	const login = async () => {
+		const res = await http.post('/login', cacheForm.current)
+		if (res.data.success) {
+			createMessage('登入成功')
+			history.push('/')
+		}
+		return res
+	}
+
 	const onSubmit = async () => {
 		const { data } = await form.submit()
-		console.log(data)
+		cacheForm.current = data
+		setAuthVisible(true)
 	}
+
 	return (
 		<Wrap title={'登入'}>
 			<Input
@@ -40,7 +59,7 @@ export default () => {
 				</div>
 				<Button onClick={onSubmit}>登入</Button>
 			</div>
-			<Jigsaw />
+			<Jigsaw visible={authVisible} onLogin={login} onChange={setAuthVisible} />
 		</Wrap>
 	)
 }

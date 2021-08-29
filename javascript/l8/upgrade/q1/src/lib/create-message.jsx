@@ -18,14 +18,12 @@ const Message = ({ type, message, direction, el }) => {
 		}
 	}, [])
 
-	console.log(onDestroy)
-
 	return (
 		<>
 			<div
 				className={createClassName({
 					'bg-success text-white rounded-full text-xs px-2 py-1 mr-2': true,
-					'bg-danger': true,
+					'bg-danger': type === 'danger',
 				})}
 			>
 				{type}
