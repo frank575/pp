@@ -4,6 +4,7 @@ import { useAuth } from '@/core/hooks/use-auth'
 import { AxiosInstance } from 'axios'
 import { useMitt } from '@/core/hooks/use-mitt'
 import { AUTHORIZATION_FAILED } from '@/core/mitt-type'
+import { createMessage } from '@/lib/create-message'
 
 export { AuthHttpProvider, useAuthHttp }
 
@@ -18,7 +19,7 @@ function AuthHttpProvider({ children }) {
 		_service.http.interceptors.request.use(
 			config => {
 				if (token != null) {
-					config.headers['X-XSRF-TOKEN'] = token
+					config.headers['AUTHENTICATION_TOKEN'] = token
 				}
 				return config
 			},
@@ -32,10 +33,11 @@ function AuthHttpProvider({ children }) {
 				return response
 			},
 			error => {
+				console.log(error)
 				// 統一 try/catch
 				const res = error.response
 				if (res && res.data) {
-					message.error(res.data.message)
+					createMessage(res.data.message, 'danger')
 				}
 				if (res.status === 401 || res.status === 403) {
 					emit(AUTHORIZATION_FAILED)

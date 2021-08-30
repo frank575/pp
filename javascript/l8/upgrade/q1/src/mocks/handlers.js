@@ -3,6 +3,7 @@ import { createStorage, waitFunc } from '@/mocks/lib'
 
 const storage = createStorage({
 	authTime: 0,
+	token: String(Math.random()),
 	users: [],
 })
 
@@ -12,11 +13,12 @@ const login = rest.post('/api/login', async (req, res, ctx) => {
 	if (
 		storage.users.some(e => e.username === username && e.password === password)
 	) {
+		storage.token = String(Math.random())
 		storage.authTime = 3
 		return res(
 			ctx.status(200),
 			ctx.json({
-				token: '這是token，三次訪問後將被掛消',
+				token: storage.token,
 				message: '登入成功',
 				success: true,
 			}),
@@ -84,24 +86,23 @@ const authentication = rest.get(
 	'/api/authentication',
 	async (req, res, ctx) => {
 		await waitFunc()
-		// Check if the user is authenticated in this session
-		const isAuthenticated = sessionStorage.getItem('is-authenticated')
-
-		if (!isAuthenticated) {
-			// If not authenticated, respond with a 403 error
+		const token = req.headers.get('AUTHENTICATION_TOKEN')
+		if (token !== storage.token || storage.authTime <= 0) {
 			return res(
 				ctx.status(403),
 				ctx.json({
-					errorMessage: 'Not authorized',
+					message: '權限不足',
+					success: false,
 				}),
 			)
 		}
+		storage.authTime--
 
-		// If authenticated, return a mocked user details
 		return res(
 			ctx.status(200),
 			ctx.json({
-				username: 'admin',
+				message: '驗證成功',
+				success: true,
 			}),
 		)
 	},

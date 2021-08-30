@@ -43,7 +43,7 @@ export const Input = forwardRef(
 		},
 		ref,
 	) => {
-		const changeLockRef = useRef(0)
+		const changeLockRef = useRef(1)
 		const [look, setLook] = useState(false)
 		const [authState, setAuthState] = useState({
 			message: '格式不正確',
@@ -59,10 +59,7 @@ export const Input = forwardRef(
 				set_value(v)
 				onChange?.(v)
 			} else {
-				if (onChange) {
-					return onChange?.(v)
-				}
-				ev.target.value = value
+				onChange?.(v)
 			}
 		}
 
@@ -88,13 +85,11 @@ export const Input = forwardRef(
 
 		useEffect(() => {
 			if (changeLockRef.current > 0) return changeLockRef.current--
-
-			if (value !== _value) {
-				;(async () => {
-					await validateByChangeTrigger(value)
-					set_value(value)
-				})()
-			}
+			if (value === _value) return
+			;(async () => {
+				await validateByChangeTrigger(value)
+				set_value(value)
+			})()
 		}, [value])
 
 		return (
@@ -120,10 +115,10 @@ export const Input = forwardRef(
 								'border-danger': !authState.success,
 								'pr-12': togglePassword,
 							})}
+							value={_value}
 							type={togglePassword ? (look ? 'text' : 'password') : htmlType}
 							placeholder={placeholder}
 							onChange={_onChange}
-							defaultValue={defaultValue ?? _value}
 						/>
 						{togglePassword &&
 							(look ? (

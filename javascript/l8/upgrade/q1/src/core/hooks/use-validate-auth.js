@@ -2,26 +2,24 @@ import { useCallback, useEffect } from 'react'
 import { EAuthCode } from '@/core/hooks/use-auth'
 import { useSafeState } from '@jsl-react/hooks'
 import { useAuth } from '@/core/hooks/use-auth'
+import { useAuthHttp } from '@/core/hooks/http/use-auth-http'
 
 export const useValidateAuth = () => {
+	const { _http } = useAuthHttp()
 	const auth = useAuth(e => e.auth)
 	const token = useAuth(e => e.token)
 	const setAuth = useAuth(e => e.setAuth)
 	const clearAuthState = useAuth(e => e.clearAuthState)
 	const [code, setCode] = useSafeState(
-		auth == null ? EAuthCode.validating : EAuthCode.authSuccess,
+		!auth ? EAuthCode.validating : EAuthCode.authSuccess,
 	)
 
 	const checkAuth = useCallback(async () => {
 		if (token) {
-			if (auth == null) {
-				const { success } = true
-				if (success) {
-					setAuth({
-						id: 1,
-						account: import.meta.env.VITE_USERNAME,
-						name: 'frank',
-					})
+			if (!auth) {
+				const res = await _http.get('/authentication')
+				if (res.data.success) {
+					setAuth(true)
 					return {
 						code: EAuthCode.authSuccess,
 						message: EAuthCode.t(EAuthCode.authSuccess),

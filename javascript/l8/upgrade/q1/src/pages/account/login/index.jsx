@@ -7,10 +7,13 @@ import { Jigsaw } from '@/pages/account/login/captcha/jigsaw'
 import { useHttp } from '@/core/hooks/http/use-http'
 import { createMessage } from '@/lib/create-message'
 import { useRef, useState } from 'react'
+import { useAuth } from '@/core/hooks/use-auth'
 
 export default () => {
 	const history = useHistory()
 	const { http } = useHttp()
+	const setAuth = useAuth(e => e.setAuth)
+	const setToken = useAuth(e => e.setToken)
 	const [authVisible, setAuthVisible] = useState(false)
 	const cacheForm = useRef({})
 	const form = useForm({
@@ -21,6 +24,8 @@ export default () => {
 	const login = async () => {
 		const res = await http.post('/login', cacheForm.current)
 		if (res.data.success) {
+			setAuth(true)
+			setToken(res.data.token)
 			createMessage('登入成功')
 			history.push('/')
 		}
