@@ -55,8 +55,9 @@ export const Jigsaw = ({ visible, onChange, onLogin }) => {
 				isEndRef.current = true
 				const res = await onLogin?.()
 				if (res && res.data.success) return
+			} else {
+				createMessage('驗證失敗，請拖曳到正確位置', 'danger')
 			}
-			createMessage('驗證失敗', 'danger')
 			isEndRef.current = false
 			setCurrentX(0)
 			initPosition()
@@ -113,6 +114,7 @@ export const Jigsaw = ({ visible, onChange, onLogin }) => {
 			initPosition()
 		}
 	}, [_visible])
+
 	useEffect(bindEvents, [bindEvents])
 
 	return _visible ? (

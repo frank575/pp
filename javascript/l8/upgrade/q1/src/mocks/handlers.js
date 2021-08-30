@@ -61,12 +61,7 @@ const register = rest.post('/api/register', async (req, res, ctx) => {
 			}),
 		)
 	}
-	if (
-		typeof password !== 'string' ||
-		password.length < 4 ||
-		password.length > 8 ||
-		!/^[A-z]\d+[A-z]$/.test(password)
-	) {
+	if (typeof password !== 'string' || !/^[A-z]\d{2,6}[A-z]$/.test(password)) {
 		return res(
 			ctx.status(500),
 			ctx.json({

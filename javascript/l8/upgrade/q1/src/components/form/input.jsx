@@ -55,12 +55,12 @@ export const Input = forwardRef(
 			const v = ev.target.value
 			if (value === undefined) {
 				await validateByChangeTrigger(v)
+				changeLockRef.current++
 				set_value(v)
 				onChange?.(v)
 			} else {
 				if (onChange) {
-					changeLockRef.current = 1
-					return onChange(v)
+					return onChange?.(v)
 				}
 				ev.target.value = value
 			}
@@ -87,13 +87,12 @@ export const Input = forwardRef(
 		}))
 
 		useEffect(() => {
-			if (value !== _value && changeLockRef.current > 0) {
+			if (changeLockRef.current > 0) return changeLockRef.current--
+
+			if (value !== _value) {
 				;(async () => {
 					await validateByChangeTrigger(value)
 					set_value(value)
-					if (changeLockRef.current) {
-						changeLockRef.current = 0
-					}
 				})()
 			}
 		}, [value])

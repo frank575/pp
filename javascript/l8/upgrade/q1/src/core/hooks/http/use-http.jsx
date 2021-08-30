@@ -1,6 +1,7 @@
 import { createContext, useContext, useMemo } from 'react'
 import { createHttp } from '@/core/hooks/http/create-http'
 import { AxiosInstance } from 'axios'
+import { createMessage } from '@/lib/create-message'
 
 export { HttpProvider, useHttp }
 
@@ -17,9 +18,9 @@ function HttpProvider({ children }) {
 			error => {
 				// 統一 try/catch
 				const res = error.response
-				// if (res && res.data) {
-				// 	message.error(res.data.message)
-				// }
+				if (res && res.data) {
+					createMessage(res.data.message, 'danger')
+				}
 				return Promise.resolve(res)
 			},
 		)
