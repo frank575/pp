@@ -21,31 +21,7 @@ export const ClickNumCaptcha = ({
 		const [b, a] = isSmall ? '小大' : '大小'
 		return `請由數字最${b}點到最${a}`
 	}, [isSmall])
-	const validate = async (answers = []) => {
-		let pass = true
-		for (let i = 0; i < answers.length - 1; i++) {
-			const curr = answers[i]
-			const next = answers[i + 1]
-			if (isSmall) {
-				if (curr > next) {
-					pass = false
-					break
-				}
-			} else {
-				if (curr < next) {
-					pass = false
-					break
-				}
-			}
-		}
-		if (pass) {
-			const res = await onLogin?.()
-			if (res && res.data.success) return
-		} else {
-			createMessage('驗證失敗，請點選正確數字', 'danger')
-		}
-		return initDot()
-	}
+
 	const onClickDot = (num, i) => {
 		const _answers = [...answers, num]
 		setAnswers(_answers)
@@ -54,6 +30,7 @@ export const ClickNumCaptcha = ({
 			validate(_answers)
 		}
 	}
+
 	const createRandomWithDotNum = useCallback(() => {
 		const randoms = []
 		for (let i = 0; i < DOT_NUM; i++) {
@@ -68,6 +45,7 @@ export const ClickNumCaptcha = ({
 		}
 		return randoms
 	}, [])
+
 	const initDot = useCallback(() => {
 		const questions = []
 		const randoms = createRandomWithDotNum()
@@ -106,6 +84,35 @@ export const ClickNumCaptcha = ({
 		setIsSmall(Math.random() < 0.5)
 		setAnswers([])
 	}, [setQuestions, setAnswers])
+
+	const validate = useCallback(
+		async (answers = []) => {
+			let pass = true
+			for (let i = 0; i < answers.length - 1; i++) {
+				const curr = answers[i]
+				const next = answers[i + 1]
+				if (isSmall) {
+					if (curr > next) {
+						pass = false
+						break
+					}
+				} else {
+					if (curr < next) {
+						pass = false
+						break
+					}
+				}
+			}
+			if (pass) {
+				const res = await onLogin?.()
+				if (res && res.data.success) return
+			} else {
+				createMessage('驗證失敗，請點選正確數字', 'danger')
+			}
+			return initDot()
+		},
+		[isSmall, onLogin, initDot],
+	)
 
 	useEffect(() => {
 		if (visible) {
