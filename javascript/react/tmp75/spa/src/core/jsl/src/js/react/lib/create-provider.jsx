@@ -10,7 +10,7 @@ import { createContext, useContextSelector } from 'use-context-selector'
  * @param {function(): S} providerService
  * @return {{inject: (function(callback: function(state: S): T): T), Provider: function({children: *}): *}}
  */
-export const useProvider = providerService => {
+export const createProvider = providerService => {
 	const context = createContext(null)
 	const Provider = ({ children }) => (
 		<context.Provider value={providerService()}>{children}</context.Provider>

@@ -1,7 +1,6 @@
 import { useLocalStorageState } from './storage/use-local-storage-state'
 import { useSessionStorageState } from './storage/use-session-storage-state'
 import { useMethods } from './use-methods'
-import { useProvider } from './use-provider'
 import { useDebounce } from './use-debounce'
 import { useSafeState } from './use-safe-state'
 import { useQueryString } from './use-query-string'
@@ -11,7 +10,6 @@ import { useDebounceFunc } from './use-debounce-func'
 
 export {
 	useMethods,
-	useProvider,
 	useLocalStorageState,
 	useSessionStorageState,
 	useDebounce,

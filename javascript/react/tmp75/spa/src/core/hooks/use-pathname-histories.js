@@ -1,6 +1,6 @@
-import { useProvider } from '@jsl-react/hooks'
 import { useLocation } from 'react-router-dom'
 import { useEffect, useMemo, useState } from 'react'
+import { createProvider } from '@jsl-react/lib'
 
 const service = () => {
 	const location = useLocation()
@@ -28,4 +28,4 @@ const service = () => {
 export const {
 	Provider: PathnameHistoriesProvider,
 	inject: usePathnameHistories,
-} = useProvider(service)
+} = createProvider(service)

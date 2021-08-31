@@ -1,8 +1,8 @@
 import {
 	useLocalStorageState,
-	useProvider,
 	useSafeState,
 } from '@jsl-react/hooks'
+import { createProvider } from '@jsl-react/lib'
 
 const service = () => {
 	const [menuCollapsed, setMenuCollapsed] = useLocalStorageState(
@@ -19,4 +19,4 @@ const service = () => {
 }
 
 export const { Provider: LayoutProvider, inject: useLayout } =
-	useProvider(service)
+	createProvider(service)

@@ -5,11 +5,11 @@ import {
 	fetchAddBillboardPost,
 	fetchEditBillboardPost,
 } from '@/core/__fake-api'
-import { useProvider } from '@jsl-react/hooks'
 import { useList } from '@/pages/billboard/service/list'
+import { createProvider } from '@jsl-react/lib'
 
 export const { Provider: EditorModalProvider, inject: useEditorModal } =
-	useProvider(service)
+	createProvider(service)
 
 const initialState = () => ({
 	id: undefined, // number | undefined

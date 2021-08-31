@@ -4,7 +4,7 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import { findNestedDynamicObj } from '../../lib/find-nested-dynamic-obj'
-import { useProvider } from '../hooks/use-provider'
+import { createProvider } from './create-provider'
 import { useSessionStorageState } from '../hooks/storage/use-session-storage-state'
 import { useLocalStorageState } from '../hooks/storage/use-local-storage-state'
 
@@ -86,7 +86,7 @@ function createI18n({ locale, messages, storageName, storageKey } = {}) {
 
 	return {
 		t,
-		...useProvider(
+		...createProvider(
 			service({ locale, messages, _setLocale, storageName, storageKey }),
 		),
 	}

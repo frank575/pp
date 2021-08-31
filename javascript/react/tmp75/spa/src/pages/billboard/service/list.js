@@ -3,14 +3,14 @@ import {
 	useDebounceFunc,
 	useSafeState,
 	useQueryString,
-	useProvider,
 } from '@jsl-react/hooks'
 import { fetchBillboard, fetchLikeBillboardPost } from '@/core/__fake-api'
 import { message } from 'antd'
+import { createProvider } from '@jsl-react/lib'
 
-export const { Provider: ListProvider, inject: useList } = useProvider(service)
+export const { Provider: ListProvider, inject: useList } = createProvider(service)
 
-function service() {
+function service () {
 	const [data, setData] = useSafeState({ content: [], total: 0 })
 	const [queryString, setQueryString] = useQueryString({
 		size: 10,
