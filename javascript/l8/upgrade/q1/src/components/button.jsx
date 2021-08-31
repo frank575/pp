@@ -5,11 +5,11 @@ export const Button = ({
 	children,
 	loading = false,
 	style = {},
-	onClick,
+	onClick: onPropClick,
 }) => {
-	const _onClick = ev => {
+	const onClick = ev => {
 		if (loading) return
-		onClick?.(ev)
+		onPropClick?.(ev)
 	}
 	return (
 		<button
@@ -20,7 +20,7 @@ export const Button = ({
 				[className]: className != null,
 			})}
 			style={style}
-			onClick={_onClick}
+			onClick={onClick}
 		>
 			{loading ? '稍等' : children}
 		</button>

@@ -119,21 +119,21 @@ export default () => {
 				<JigsawCaptcha
 					visible={authVisible}
 					onLogin={login}
-					onChange={setAuthVisible}
+					onChangeVisible={setAuthVisible}
 				/>
 			) : null}
 			{validateMode === EValidateMode.PATTERN ? (
 				<PatternCaptcha
 					visible={authVisible}
 					onLogin={login}
-					onChange={setAuthVisible}
+					onChangeVisible={setAuthVisible}
 				/>
 			) : null}
 			{validateMode === EValidateMode.CLICK_NUM ? (
 				<ClickNumCaptcha
 					visible={authVisible}
 					onLogin={login}
-					onChange={setAuthVisible}
+					onChangeVisible={setAuthVisible}
 				/>
 			) : null}
 		</Wrap>

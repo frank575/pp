@@ -30,12 +30,12 @@ export const Input = forwardRef(
 		{
 			label,
 			required,
-			value,
+			value: propValue,
 			placeholder = '',
 			className,
 			rules = [],
 			trigger = 'change',
-			onChange,
+			onChange: onPropChange,
 			htmlType = 'text',
 			labelWidth = 64,
 			togglePassword = false,
@@ -49,17 +49,17 @@ export const Input = forwardRef(
 			message: '格式不正確',
 			success: true,
 		})
-		const [_value, set_value] = useState(() => value ?? defaultValue ?? '')
+		const [value, setValue] = useState(() => propValue ?? defaultValue ?? '')
 
-		const _onChange = async ev => {
+		const onChange = async ev => {
 			const v = ev.target.value
-			if (value === undefined) {
+			if (propValue === undefined) {
 				await validateByChangeTrigger(v)
 				changeLockRef.current++
-				set_value(v)
-				onChange?.(v)
+				setValue(v)
+				onPropChange?.(v)
 			} else {
-				onChange?.(v)
+				onPropChange?.(v)
 			}
 		}
 
@@ -70,7 +70,7 @@ export const Input = forwardRef(
 		}
 
 		const validate = async value => {
-			const result = await commonValidatorRule(rules, value ?? _value)
+			const result = await commonValidatorRule(rules, value ?? value)
 			setAuthState(result)
 			return result
 		}
@@ -78,19 +78,19 @@ export const Input = forwardRef(
 		const toggleLook = look => () => setLook(look)
 
 		useImperativeHandle(ref, () => ({
-			value: _value,
+			value: value,
 			pass: authState.success,
 			validate,
 		}))
 
 		useEffect(() => {
 			if (changeLockRef.current > 0) return changeLockRef.current--
-			if (value === _value) return
+			if (propValue === value) return
 			;(async () => {
-				await validateByChangeTrigger(value)
-				set_value(value)
+				await validateByChangeTrigger(propValue)
+				setValue(propValue)
 			})()
-		}, [value])
+		}, [propValue])
 
 		return (
 			<div
@@ -115,10 +115,10 @@ export const Input = forwardRef(
 								'border-danger': !authState.success,
 								'pr-12': togglePassword,
 							})}
-							value={_value}
+							value={value}
 							type={togglePassword ? (look ? 'text' : 'password') : htmlType}
 							placeholder={placeholder}
-							onChange={_onChange}
+							onChange={onChange}
 						/>
 						{togglePassword &&
 							(look ? (

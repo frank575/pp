@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 export const useVisible = (visible, onChangeVisible) => {
 	const [_visible, set_visible] = useState(visible)
-	const lockRef = useRef(0)
+	const lockRef = useRef(1)
 
 	const updateVisible = vs => {
 		const v = typeof vs === 'function' ? vs(_visible) : vs

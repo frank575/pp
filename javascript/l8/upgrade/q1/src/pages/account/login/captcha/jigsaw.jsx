@@ -5,14 +5,19 @@ import { Spinner } from '@/components/spinner'
 import { createMessage } from '@/lib/create-message'
 import { useVisible } from '@/hooks/use-visible'
 import styles from './index.module.css'
+import { ModalWrap } from '@/pages/account/login/captcha/modal-wrap'
 
 const JIGSAW_MASK_WIDTH = 60
 const JIGSAW_MASK_HEIGHT = 46.7
 const DRAG_PANEL_WIDTH = 48
 
-export const JigsawCaptcha = ({ visible, onChange, onLogin }) => {
+export const JigsawCaptcha = ({
+	visible: propVisible,
+	onChangeVisible,
+	onLogin,
+}) => {
 	const { http } = useHttp()
-	const [_visible, setVisible] = useVisible(visible, onChange)
+	const [visible, setVisible] = useVisible(propVisible, onChangeVisible)
 	const containerRef = useRef(null)
 	const imgRef = useRef(null)
 	const dragRef = useRef(null)
@@ -98,7 +103,7 @@ export const JigsawCaptcha = ({ visible, onChange, onLogin }) => {
 	)
 
 	const bindEvents = useCallback(() => {
-		if (_visible) {
+		if (visible) {
 			dragRef.current?.addEventListener('mousedown', dragStart)
 			window.addEventListener('mousemove', dragging)
 			window.addEventListener('mouseup', dragEnd)
@@ -108,77 +113,70 @@ export const JigsawCaptcha = ({ visible, onChange, onLogin }) => {
 				window.removeEventListener('mouseup', dragEnd)
 			}
 		}
-	}, [dragStart, dragging, dragEnd, http, _visible])
+	}, [dragStart, dragging, dragEnd, http, visible])
 
 	useEffect(() => {
-		if (_visible) {
+		if (visible) {
 			initPosition()
 		}
-	}, [_visible])
+	}, [visible])
 
 	useEffect(bindEvents, [bindEvents])
 
-	return _visible
-		? ReactDOM.createPortal(
-				<div className="w-screen h-screen fixed top-0 left-0 flex justify-center items-center select-none">
-					<div
-						className="bg-black opacity-70 fixed left-0 top-0 w-full h-full"
-						onClick={() => setVisible(false)}
-					/>
-					<div className="w-96 z-10">
-						<div
-							ref={containerRef}
-							className="w-full relative overflow-hidden pointer-events-none flex items-center justify-center"
-							style={{ minWidth: 108, minHeight: 108 }}
-						>
-							{imgLoading ? (
-								<Spinner color={'#faad14'} size={64} />
-							) : (
-								<>
-									<img className={'w-full'} ref={imgRef} src={url} alt="" />
-									<img
-										className="opacity-70 absolute"
-										style={{
-											width: JIGSAW_MASK_WIDTH,
-											height: JIGSAW_MASK_HEIGHT,
-											left: maskJigsawX,
-											top: maskJigsawY,
-										}}
-										src="/jigsaw-mask.png"
-										alt=""
-									/>
-									<img
-										className={styles.jigsaw}
-										src={url}
-										alt=""
-										style={{
-											left: currentX,
-											top: 0,
-											transform: `translateX(-${maskJigsawX}px)`,
-											maskPosition: jigsawPosition,
-											WebkitMaskPosition: jigsawPosition,
-										}}
-									/>
-								</>
-							)}
+	return (
+		<ModalWrap visible={visible} setVisible={setVisible}>
+			<div className="w-96 z-10">
+				<div
+					ref={containerRef}
+					className="w-full relative overflow-hidden pointer-events-none flex items-center justify-center"
+					style={{ minWidth: 108, minHeight: 108 }}
+				>
+					{imgLoading ? (
+						<Spinner color={'#faad14'} size={64} />
+					) : (
+						<>
+							<img className={'w-full'} ref={imgRef} src={url} alt="" />
+							<img
+								className="opacity-70 absolute"
+								style={{
+									width: JIGSAW_MASK_WIDTH,
+									height: JIGSAW_MASK_HEIGHT,
+									left: maskJigsawX,
+									top: maskJigsawY,
+								}}
+								src="/jigsaw-mask.png"
+								alt=""
+							/>
+							<img
+								className={styles.jigsaw}
+								src={url}
+								alt=""
+								style={{
+									left: currentX,
+									top: 0,
+									transform: `translateX(-${maskJigsawX}px)`,
+									maskPosition: jigsawPosition,
+									WebkitMaskPosition: jigsawPosition,
+								}}
+							/>
+						</>
+					)}
+				</div>
+				{imgLoading ? null : (
+					<>
+						<div className="w-full bg-white rounded-full mt-4 p-1">
+							<div
+								ref={dragRef}
+								className="bg-primary rounded-full w-12 h-6 cursor-move"
+								style={{ transform: `translateX(${currentX}px)` }}
+							/>
 						</div>
-						{imgLoading ? null : (
-							<>
-								<div className="w-full bg-white rounded-full mt-4 p-1">
-									<div
-										ref={dragRef}
-										className="bg-primary rounded-full w-12 h-6 cursor-move"
-										style={{ transform: `translateX(${currentX}px)` }}
-									/>
-								</div>
-								<div className="text-white mt-4 text-center">
-									請拖曳到對應的位置
-								</div>
-							</>
-						)}
-					</div>
-				</div>,
-				document.getElementById('modal-root'),
-		  )
-		: null
+						<div className="text-white mt-4 text-center">
+							請拖曳到對應的位置
+						</div>
+					</>
+				)}
+			</div>
+		</ModalWrap>
+	)
 }
