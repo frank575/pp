@@ -1,4 +1,5 @@
 /// 斷點鉤子
+/// v2 {author: frank575} 修正為只判斷寬度變化
 /// v1 {author: frank575} 擴展 opts.delay, opts.bootstrap
 /// v0 {author: frank575}
 
