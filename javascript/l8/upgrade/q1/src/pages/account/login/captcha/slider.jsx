@@ -10,7 +10,7 @@ const JIGSAW_MASK_WIDTH = 60
 const JIGSAW_MASK_HEIGHT = 46.7
 const DRAG_PANEL_WIDTH = 48
 
-export const JigsawCaptcha = ({
+export const SliderCaptcha = ({
 	visible: propVisible,
 	onChangeVisible,
 	onLogin,
@@ -33,13 +33,13 @@ export const JigsawCaptcha = ({
 		[maskJigsawX, maskJigsawY],
 	)
 
-	const dragStart = useCallback(ev => {
+	const slideStart = useCallback(ev => {
 		if (isEndRef.current) return
 		setIsDrag(true)
 		setBeginDragX(ev.clientX)
 	}, [])
 
-	const dragging = useCallback(
+	const sliding = useCallback(
 		ev => {
 			if (!isDrag) return
 			const x = ev.clientX - beginDragX
@@ -52,7 +52,7 @@ export const JigsawCaptcha = ({
 		[isDrag, beginDragX],
 	)
 
-	const dragEnd = useCallback(
+	const slideEnd = useCallback(
 		async ev => {
 			if (isEndRef.current || !isDrag) return
 			setIsDrag(false)
@@ -103,16 +103,16 @@ export const JigsawCaptcha = ({
 
 	const bindEvents = useCallback(() => {
 		if (visible) {
-			dragRef.current?.addEventListener('mousedown', dragStart)
-			window.addEventListener('mousemove', dragging)
-			window.addEventListener('mouseup', dragEnd)
+			dragRef.current?.addEventListener('mousedown', slideStart)
+			window.addEventListener('mousemove', sliding)
+			window.addEventListener('mouseup', slideEnd)
 			return () => {
-				dragRef.current?.removeEventListener('mousedown', dragStart)
-				window.removeEventListener('mousemove', dragging)
-				window.removeEventListener('mouseup', dragEnd)
+				dragRef.current?.removeEventListener('mousedown', slideStart)
+				window.removeEventListener('mousemove', sliding)
+				window.removeEventListener('mouseup', slideEnd)
 			}
 		}
-	}, [dragStart, dragging, dragEnd, http, visible])
+	}, [slideStart, sliding, slideEnd, http, visible])
 
 	useEffect(() => {
 		if (visible) {

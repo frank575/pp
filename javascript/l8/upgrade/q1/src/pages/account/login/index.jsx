@@ -3,7 +3,7 @@ import { Input } from '@/components/form/input'
 import { Button } from '@/components/button'
 import { Link, useHistory } from 'react-router-dom'
 import { useForm } from '@/components/form/lib/validator'
-import { JigsawCaptcha } from '@/pages/account/login/captcha/jigsaw'
+import { SliderCaptcha } from '@/pages/account/login/captcha/slider'
 import { useHttp } from '@/core/hooks/http/use-http'
 import { createMessage } from '@/lib/create-message'
 import { useRef, useState } from 'react'
@@ -88,7 +88,7 @@ export default () => {
 					currentMode={validateMode}
 					onClick={setValidateMode}
 				>
-					拼圖
+					滑塊
 				</ValidateItem>
 				<ValidateItem
 					className="border-l-0 border-r-0"
@@ -116,7 +116,7 @@ export default () => {
 				<Button onClick={onSubmit}>登入</Button>
 			</div>
 			{validateMode === EValidateMode.JIGSAW ? (
-				<JigsawCaptcha
+				<SliderCaptcha
 					visible={authVisible}
 					onLogin={login}
 					onChangeVisible={setAuthVisible}
