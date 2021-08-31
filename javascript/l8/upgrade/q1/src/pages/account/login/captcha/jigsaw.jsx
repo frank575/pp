@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import ReactDOM from 'react-dom'
 import { useHttp } from '@/core/hooks/http/use-http'
 import { Spinner } from '@/components/spinner'
 import { createMessage } from '@/lib/create-message'
