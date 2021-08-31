@@ -3,17 +3,18 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 /**
  * 瀑布流獲取數據
  * @param getList
- * @param createdRun
- * @param size
- * @param range
- * @return {{start: function(): void, end: function(): void, run: function(): Promise<void>, list: *[], setList: (value: (((prevState: *[]) => *[]) | *[])) => void, loading: boolean}}
+ * @param options
+ * @param {boolean} options.createdRun
+ * @param {number} options.size
+ * @param {number} options.range
+ * @param {HTMLElement | Window} [options.el = window]
+ * @return {{start: function(): void, end: function(): void, run: function(): Promise<void>, list: *[], setList: function(*[]): void | *[], loading: boolean}}
  */
 export const useWaterfall = (
 	getList,
-	createdRun = true,
-	size = 10,
-	range = 0.95,
+	options = {}
 ) => {
+	const { createdRun = true, size = 10, range = 0.95, el = window } = options
 	const [isEnd, setIsEnd] = useState(false)
 	const [list, setList] = useState([])
 	const [loading, setLoading] = useState(false)
@@ -59,8 +60,8 @@ export const useWaterfall = (
 	)
 
 	const _onScroll = useCallback(async () => {
-		const { pageYOffset, innerHeight } = window
-		const { scrollHeight } = document.body
+		const { pageYOffset, innerHeight, scrollTop, clientHeight } = el
+		const { scrollHeight } = el instanceof Window ? document.body : bindScrollElement
 		const st = pageYOffset + innerHeight
 		const r = st / scrollHeight
 		if (!loading && r > range) {
@@ -73,11 +74,11 @@ export const useWaterfall = (
 	}, [])
 
 	useEffect(() => {
-		if (getList != null && !isEnd) {
-			window.addEventListener('scroll', _onScroll)
-			return () => window.removeEventListener('scroll', _onScroll)
+		if (getList != null && !isEnd && el != null) {
+			el.addEventListener('scroll', _onScroll)
+			return () => el.removeEventListener('scroll', _onScroll)
 		}
-	}, [getList, _onScroll, isEnd])
+	}, [getList, _onScroll, isEnd, el])
 
 	return { list, setList, loading, start, end, run }
 }
