@@ -3,17 +3,42 @@ import { Input } from '@/components/form/input'
 import { Button } from '@/components/button'
 import { Link, useHistory } from 'react-router-dom'
 import { useForm } from '@/components/form/lib/validator'
-import { Jigsaw } from '@/pages/account/login/captcha/jigsaw'
+import { JigsawCaptcha } from '@/pages/account/login/captcha/jigsaw'
 import { useHttp } from '@/core/hooks/http/use-http'
 import { createMessage } from '@/lib/create-message'
 import { useRef, useState } from 'react'
 import { useAuth } from '@/core/hooks/use-auth'
+import { EValidateMode } from '@/enums/validate-mode'
+import { createClassName } from '@jsl'
+import { useLocalStorageState } from '@jsl-react/hooks'
+import { PatternCaptcha } from '@/pages/account/login/captcha/pattern'
+import { ClickNumCaptcha } from '@/pages/account/login/captcha/click-num'
+
+const ValidateItem = ({ className, mode, currentMode, onClick, children }) => {
+	return (
+		<div
+			className={createClassName({
+				'border border-1 border-gray-200 px-4 py-2 cursor-pointer': true,
+				'bg-primary border-primary text-white': mode === currentMode,
+				'hover:text-primary': mode !== currentMode,
+				[className]: className != null,
+			})}
+			onClick={() => onClick(mode)}
+		>
+			{children}
+		</div>
+	)
+}
 
 export default () => {
 	const history = useHistory()
 	const { http } = useHttp()
 	const setAuth = useAuth(e => e.setAuth)
 	const setToken = useAuth(e => e.setToken)
+	const [validateMode, setValidateMode] = useLocalStorageState(
+		'l8-q1_validate-mode',
+		EValidateMode.JIGSAW,
+	)
 	const [authVisible, setAuthVisible] = useState(false)
 	const cacheForm = useRef({})
 	const form = useForm({
@@ -56,6 +81,32 @@ export default () => {
 				label={'密碼'}
 				defaultValue={import.meta.env.VITE_PASSWORD}
 			/>
+			<div className="flex items-center justify-center">
+				<ValidateItem
+					className="rounded-l-md"
+					mode={EValidateMode.JIGSAW}
+					currentMode={validateMode}
+					onClick={setValidateMode}
+				>
+					拼圖
+				</ValidateItem>
+				<ValidateItem
+					className="border-l-0 border-r-0"
+					mode={EValidateMode.CLICK_NUM}
+					currentMode={validateMode}
+					onClick={setValidateMode}
+				>
+					數字點擊
+				</ValidateItem>
+				<ValidateItem
+					className="rounded-r-md"
+					mode={EValidateMode.PATTERN}
+					currentMode={validateMode}
+					onClick={setValidateMode}
+				>
+					圖形
+				</ValidateItem>
+			</div>
 			<div className="text-center mt-4">
 				<div className="text-center mb-4">
 					<Link className="text-primary text-sm" to={'/register'}>
@@ -64,7 +115,27 @@ export default () => {
 				</div>
 				<Button onClick={onSubmit}>登入</Button>
 			</div>
-			<Jigsaw visible={authVisible} onLogin={login} onChange={setAuthVisible} />
+			{validateMode === EValidateMode.JIGSAW ? (
+				<JigsawCaptcha
+					visible={authVisible}
+					onLogin={login}
+					onChange={setAuthVisible}
+				/>
+			) : null}
+			{validateMode === EValidateMode.PATTERN ? (
+				<PatternCaptcha
+					visible={authVisible}
+					onLogin={login}
+					onChange={setAuthVisible}
+				/>
+			) : null}
+			{validateMode === EValidateMode.CLICK_NUM ? (
+				<ClickNumCaptcha
+					visible={authVisible}
+					onLogin={login}
+					onChange={setAuthVisible}
+				/>
+			) : null}
 		</Wrap>
 	)
 }
