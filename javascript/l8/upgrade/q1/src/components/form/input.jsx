@@ -69,8 +69,8 @@ export const Input = forwardRef(
 			}
 		}
 
-		const validate = async value => {
-			const result = await commonValidatorRule(rules, value ?? value)
+		const validate = async _value => {
+			const result = await commonValidatorRule(rules, _value ?? value)
 			setAuthState(result)
 			return result
 		}
@@ -78,7 +78,7 @@ export const Input = forwardRef(
 		const toggleLook = look => () => setLook(look)
 
 		useImperativeHandle(ref, () => ({
-			value: value,
+			value,
 			pass: authState.success,
 			validate,
 		}))
