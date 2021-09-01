@@ -1,6 +1,6 @@
 import { useVisible } from '@/hooks/use-visible'
 import { ModalWrap } from '@/pages/account/login/captcha/modal-wrap'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { createMessage } from '@/lib/create-message'
 import { useInitialRef } from '@jsl-react/hooks'
 import { Spinner } from '@/components/spinner'

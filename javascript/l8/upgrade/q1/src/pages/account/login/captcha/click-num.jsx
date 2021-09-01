@@ -56,7 +56,7 @@ export const ClickNumCaptcha = ({
 
 			if (resetTime < DOT_NUM * 2) {
 				if (
-					questions.some(([qx, qy, qnum]) => {
+					questions.some(([qx, qy]) => {
 						const ex = x + DOT_SIZE
 						const ey = y + DOT_SIZE
 						const eqx = qx + DOT_SIZE
