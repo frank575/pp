@@ -3,6 +3,7 @@ import { ModalWrap } from '@/pages/account/login/captcha/modal-wrap'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { createMessage } from '@/lib/create-message'
 import { useInitialRef } from '@jsl-react/hooks'
+import { Spinner } from '@/components/spinner'
 
 const SIZE = 3
 const BOARD_SIZE = 360
@@ -53,6 +54,7 @@ export const PatternCaptcha = ({
 	onLogin,
 }) => {
 	const lockDotsRef = useRef({})
+	const [loading, setLoading] = useState(false)
 	const [isDraw, setIsDraw] = useState(false)
 	const [drawStyle, setDrawStyle] = useState({
 		left: 0,
@@ -94,7 +96,9 @@ export const PatternCaptcha = ({
 
 		return validLocals
 	}, [])
+
 	const getLockKey = (x, y) => `x${x}y${y}`
+
 	const init = useCallback(() => {
 		const _questions = []
 		let pos = [
@@ -132,6 +136,21 @@ export const PatternCaptcha = ({
 		[setIsDraw, setDrawStyle, setAnswers],
 	)
 
+	const onMouseEnterDot = useCallback(
+		(ev, pos) => {
+			if (isDraw) {
+				const lockKey = getLockKey(...pos)
+				if (lockDotsRef.current[lockKey] != null) return
+				lockDotsRef.current[lockKey] = 1
+				const { target } = ev
+				const { x, y } = target.getBoundingClientRect()
+				setAnswers(e => [...e, pos])
+				setDrawStyle(e => ({ ...e, left: x + 10, top: y + 10 }))
+			}
+		},
+		[isDraw, setAnswers],
+	)
+
 	const onDrawing = useCallback(
 		({ clientX, clientY }) => {
 			if (isDraw) {
@@ -158,7 +177,9 @@ export const PatternCaptcha = ({
 				return qx !== ax || ay !== qy
 			})
 			if (!failed) {
+				setLoading(true)
 				const res = await onLogin?.()
+				setLoading(false)
 				if (res && res.data.success) return
 			} else {
 				createMessage('驗證失敗，請照正確順序拖曳', 'danger')
@@ -166,21 +187,6 @@ export const PatternCaptcha = ({
 			init()
 		}
 	}, [isDraw, setIsDraw, questions, answers, onLogin])
-
-	const onMouseEnterDot = useCallback(
-		(ev, pos) => {
-			if (isDraw) {
-				const lockKey = getLockKey(...pos)
-				if (lockDotsRef.current[lockKey] != null) return
-				lockDotsRef.current[lockKey] = 1
-				const { target } = ev
-				const { x, y } = target.getBoundingClientRect()
-				setAnswers(e => [...e, pos])
-				setDrawStyle(e => ({ ...e, left: x + 10, top: y + 10 }))
-			}
-		},
-		[isDraw, setAnswers],
-	)
 
 	useEffect(() => {
 		if (visible) {
@@ -199,45 +205,44 @@ export const PatternCaptcha = ({
 
 	return (
 		<ModalWrap visible={visible} setVisible={setVisible}>
-			<div className="relative text-center">
-				{useMemo(
-					() => (
-						<div style={{ width: BOARD_SIZE, height: BOARD_SIZE }}>
-							{dots.current.map((_, x) =>
-								dots.current[x].map((_, y) => (
-									<div
-										key={`x${x}y${y}`}
-										className="w-5 h-5 absolute bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2 cursor-pointer"
-										style={{
-											left: x * CUBE_SIZE,
-											top: y * CUBE_SIZE,
-											zIndex: 1,
-										}}
-										onMouseDown={ev => onDrawStart(ev, [x, y])}
-										onMouseEnter={ev => onMouseEnterDot(ev, [x, y])}
-									/>
-								)),
-							)}
-							<Lines name="questions" list={questions} strokeWidth={1} />
-							<Lines name="answers" list={answers} strokeWidth={8} />
-						</div>
-					),
-					[questions, answers, onDrawStart],
-				)}
-				{isDraw ? (
-					<div
-						className="fixed w-2 bg-white"
-						style={{
-							left: drawStyle.left,
-							top: drawStyle.top,
-							height: drawStyle.height,
-							transform: drawStyle.transform,
-							transformOrigin: 'center top',
-						}}
-					/>
-				) : null}
-				<div className="text-white mt-12">請照順序滑動解鎖</div>
-			</div>
+			{loading ? (
+				<Spinner color={'#faad14'} size={64} />
+			) : (
+				<div className="relative text-center">
+					<div style={{ width: BOARD_SIZE, height: BOARD_SIZE }}>
+						{dots.current.map((_, x) =>
+							dots.current[x].map((_, y) => (
+								<div
+									key={`x${x}y${y}`}
+									className="w-5 h-5 absolute bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2 cursor-pointer"
+									style={{
+										left: x * CUBE_SIZE,
+										top: y * CUBE_SIZE,
+										zIndex: 1,
+									}}
+									onMouseDown={ev => onDrawStart(ev, [x, y])}
+									onMouseEnter={ev => onMouseEnterDot(ev, [x, y])}
+								/>
+							)),
+						)}
+						<Lines name="questions" list={questions} strokeWidth={1} />
+						<Lines name="answers" list={answers} strokeWidth={8} />
+					</div>
+					{isDraw ? (
+						<div
+							className="fixed w-2 bg-white"
+							style={{
+								left: drawStyle.left,
+								top: drawStyle.top,
+								height: drawStyle.height,
+								transform: drawStyle.transform,
+								transformOrigin: 'center top',
+							}}
+						/>
+					) : null}
+					<div className="text-white mt-12">請照順序滑動解鎖</div>
+				</div>
+			)}
 		</ModalWrap>
 	)
 }

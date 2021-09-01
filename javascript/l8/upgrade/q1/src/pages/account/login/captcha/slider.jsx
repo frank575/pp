@@ -21,7 +21,7 @@ export const SliderCaptcha = ({
 	const imgRef = useRef(null)
 	const dragRef = useRef(null)
 	const isEndRef = useRef(false)
-	const [imgLoading, setImgLoading] = useState(true)
+	const [loading, setLoading] = useState(true)
 	const [url, setUrl] = useState('')
 	const [isDrag, setIsDrag] = useState(false)
 	const [beginDragX, setBeginDragX] = useState(0)
@@ -58,7 +58,9 @@ export const SliderCaptcha = ({
 			setIsDrag(false)
 			if (currentX > maskJigsawX - 4 && currentX < maskJigsawX + 4) {
 				isEndRef.current = true
+				setLoading(true)
 				const res = await onLogin?.()
+				setLoading(false)
 				if (res && res.data.success) return
 			} else {
 				createMessage('驗證失敗，請拖曳到正確位置', 'danger')
@@ -73,14 +75,14 @@ export const SliderCaptcha = ({
 	const initPosition = useCallback(
 		() =>
 			new Promise(async resolve => {
-				setImgLoading(true)
+				setLoading(true)
 				const res = await http.get('https://dog.ceo/api/breeds/image/random')
 				const url = res.data.message
 				setUrl(url)
 				const img = new Image()
 				img.src = url
 				img.onload = () => {
-					setImgLoading(false)
+					setLoading(false)
 					const containerWidth = containerRef.current.clientWidth
 					const imgNaturalWidth = img.naturalWidth
 					const imgNaturalHeight = img.naturalHeight
@@ -130,7 +132,7 @@ export const SliderCaptcha = ({
 					className="w-full relative overflow-hidden pointer-events-none flex items-center justify-center"
 					style={{ minWidth: 108, minHeight: 108 }}
 				>
-					{imgLoading ? (
+					{loading ? (
 						<Spinner color={'#faad14'} size={64} />
 					) : (
 						<>
@@ -161,7 +163,7 @@ export const SliderCaptcha = ({
 						</>
 					)}
 				</div>
-				{imgLoading ? null : (
+				{loading ? null : (
 					<>
 						<div className="w-full bg-white rounded-full mt-4 p-1">
 							<div

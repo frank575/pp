@@ -2,6 +2,7 @@ import { useVisible } from '@/hooks/use-visible'
 import { ModalWrap } from '@/pages/account/login/captcha/modal-wrap'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { createMessage } from '@/lib/create-message'
+import { Spinner } from '@/components/spinner'
 
 const DOT_NUM = 3
 const DOT_SIZE = 60
@@ -15,6 +16,7 @@ export const ClickNumCaptcha = ({
 	onChangeVisible,
 	onLogin,
 }) => {
+	const [loading, setLoading] = useState(false)
 	const [visible, setVisible] = useVisible(propVisible, onChangeVisible)
 	const [isSmall, setIsSmall] = useState(true)
 	const [answers, setAnswers] = useState([])
@@ -99,7 +101,9 @@ export const ClickNumCaptcha = ({
 				}
 			}
 			if (pass) {
+				setLoading(true)
 				const res = await onLogin?.()
+				setLoading(false)
 				if (res && res.data.success) return
 			} else {
 				createMessage('驗證失敗，請點選正確數字', 'danger')
@@ -118,25 +122,33 @@ export const ClickNumCaptcha = ({
 	return (
 		<ModalWrap visible={visible} setVisible={setVisible}>
 			<div className="relative text-center">
-				<div
-					className="bg-white relative"
-					style={{ width: BOARD_WIDTH, height: BOARD_HEIGHT }}
-				>
-					{questions.map(([x, y, num], i) => (
+				{loading ? (
+					<Spinner color={'#faad14'} size={64} />
+				) : (
+					<>
 						<div
-							key={`x${x}y${y}num${num}`}
-							className="flex items-center justify-center absolute border-solid border-1 border-black rounded-full cursor-pointer bg-white"
-							style={{ width: DOT_SIZE, height: DOT_SIZE, left: x, top: y }}
-							onClick={() => onClickDot(num, i)}
+							className="bg-white relative"
+							style={{ width: BOARD_WIDTH, height: BOARD_HEIGHT }}
 						>
-							{num}
+							{questions.map(([x, y, num], i) => (
+								<div
+									key={`x${x}y${y}num${num}`}
+									className="flex items-center justify-center absolute border-solid border-1 border-black rounded-full cursor-pointer bg-white"
+									style={{ width: DOT_SIZE, height: DOT_SIZE, left: x, top: y }}
+									onClick={() => onClickDot(num, i)}
+								>
+									{num}
+								</div>
+							))}
 						</div>
-					))}
-				</div>
-				{answers.length ? (
-					<div className="text-white mt-5 text-lg">{answers.join('、')}</div>
-				) : null}
-				<div className="text-white mt-5">{title}</div>
+						{answers.length ? (
+							<div className="text-white mt-5 text-lg">
+								{answers.join('、')}
+							</div>
+						) : null}
+						<div className="text-white mt-5">{title}</div>
+					</>
+				)}
 			</div>
 		</ModalWrap>
 	)
