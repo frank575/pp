@@ -125,7 +125,7 @@ export const ClickNumCaptcha = ({
 					{questions.map(([x, y, num], i) => (
 						<div
 							key={`x${x}y${y}num${num}`}
-							className="flex items-center justify-center absolute border-solid border-1 border-black rounded-full cursor-pointer"
+							className="flex items-center justify-center absolute border-solid border-1 border-black rounded-full cursor-pointer bg-white"
 							style={{ width: DOT_SIZE, height: DOT_SIZE, left: x, top: y }}
 							onClick={() => onClickDot(num, i)}
 						>
