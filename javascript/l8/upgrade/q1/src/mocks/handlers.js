@@ -1,5 +1,5 @@
 import { rest } from 'msw'
-import { createStorage, waitFunc } from '@/mocks/lib'
+import { createStorage, waitFunc } from './lib'
 
 const storage = createStorage({
 	authTime: 0,
