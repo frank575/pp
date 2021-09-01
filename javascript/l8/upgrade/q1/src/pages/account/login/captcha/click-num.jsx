@@ -7,6 +7,8 @@ const DOT_NUM = 3
 const DOT_SIZE = 60
 const BOARD_WIDTH = 450
 const BOARD_HEIGHT = 300
+const MAX_NUM = 99
+const MIN_NUM = 1
 
 export const ClickNumCaptcha = ({
 	visible: propVisible,
@@ -32,18 +34,11 @@ export const ClickNumCaptcha = ({
 	}
 
 	const createRandomWithDotNum = useCallback(() => {
-		const randoms = []
-		for (let i = 0; i < DOT_NUM; i++) {
-			let resetTime = 0
-			let num = Math.floor(Math.random() * 98) + 1
-			while (randoms.some(n => n === num)) {
-				if (resetTime >= 6) break
-				num = Math.floor(Math.random() * 98 + 1)
-				resetTime++
-			}
-			randoms.push(num)
-		}
-		return randoms
+		const midRandom = Math.floor(Math.random() * (MAX_NUM - 2)) + 2
+		const nextFloor = Math.floor(Math.random() * (MAX_NUM - midRandom))
+		const nextRandom = (nextFloor === 0 ? MIN_NUM : nextFloor) + midRandom
+		const previousRandom = Math.floor(Math.random() * (midRandom - 1)) + MIN_NUM
+		return [previousRandom, midRandom, nextRandom]
 	}, [])
 
 	const initDot = useCallback(() => {
