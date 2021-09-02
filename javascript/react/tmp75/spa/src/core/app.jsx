@@ -1,8 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { HashRouter as Router } from 'react-router-dom'
-import { ConfigProvider } from 'antd'
-import zhTW from 'antd/lib/locale/zh_TW'
 import { I18nProvider } from '@i18n'
 import { AuthProvider } from '@/core/hooks/use-auth'
 import { Routes } from '@/core/routes'
@@ -15,7 +13,6 @@ export const App = () => {
 	return (
 		<Router>
 			<I18nProvider>
-				<ConfigProvider locale={zhTW}>
 					<HttpProvider>
 						<AuthProvider>
 							<AuthHttpProvider>
@@ -23,7 +20,6 @@ export const App = () => {
 							</AuthHttpProvider>
 						</AuthProvider>
 					</HttpProvider>
-				</ConfigProvider>
 			</I18nProvider>
 		</Router>
 	)

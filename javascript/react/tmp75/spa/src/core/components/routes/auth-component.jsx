@@ -4,6 +4,7 @@ import { LoadingOutlined } from '@ant-design/icons'
 import { useValidateAuth } from '@/core/hooks/use-validate-auth'
 import { EAuthCode } from '@/core/hooks/use-auth'
 import { PageContent } from '@/components/page-content'
+import { RouteContent } from '@/core/components/routes/route-content'
 
 export const AuthComponent = ({ component: RouteComponent }) => {
 	const code = useValidateAuth()
@@ -16,6 +17,6 @@ export const AuthComponent = ({ component: RouteComponent }) => {
 	) : code === EAuthCode.authError || code === EAuthCode.notLogin ? (
 		<Redirect to={'/login'} />
 	) : (
-		<RouteComponent />
+		<RouteContent Component={RouteComponent} />
 	)
 }

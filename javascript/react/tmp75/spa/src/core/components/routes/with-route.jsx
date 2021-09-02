@@ -1,9 +1,10 @@
 import React from 'react'
+import { RouteContent } from '@/core/components/routes/route-content'
 
 export const withRoute =
 	(routeComponent, ...withFuncs) =>
 	() => {
 		withFuncs.forEach(e => e())
 
-		return routeComponent
+		return <RouteContent Component={routeComponent} />
 	}
