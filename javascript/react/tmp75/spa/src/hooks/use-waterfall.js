@@ -2,13 +2,16 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 
 /**
  * 瀑布流獲取數據
- * @param getList
- * @param options
- * @param {boolean} options.createdRun
- * @param {number} options.size
- * @param {number} options.range
- * @param {HTMLElement | Window} [options.el = window]
- * @return {{start: function(): void, end: function(): void, run: function(): Promise<void>, list: *[], setList: function(*[]): void | *[], loading: boolean}}
+ * @type {
+ *   (getList: (params: { size: number, number: number }) => Promise<void>, options: { createdRun?: boolean, size?: number, range?: number, el?: window | HTMLElement }) => {
+ *     list: any[],
+ *     setList: (getter: (e: any[]) => any[] | any[]) => void,
+ *     loading: boolean,
+ *     start: () => void,
+ *     end: () => void,
+ *     run: (reset: boolean) => Promise<void>,
+ *   }
+ * }
  */
 export const useWaterfall = (
 	getList,
@@ -27,17 +30,17 @@ export const useWaterfall = (
 	const end = () => setIsEnd(true)
 
 	const run = useCallback(
-		async (isReset = false) => {
+		async (reset = false) => {
 			setLoading(true)
 			setIsEnd(true)
-			if (isReset) pagination.current.number = 1
+			if (reset) pagination.current.number = 1
 			const { data } = await getList({
 				size,
 				number: pagination.current.number,
 			})
 			pagination.current.total = data.data.totalElements ?? 0
 			if (data.success) {
-				if (isReset) {
+				if (reset) {
 					setList(data.data.content)
 				} else {
 					setList(e => [...e, ...data.data.content])
@@ -61,8 +64,10 @@ export const useWaterfall = (
 
 	const _onScroll = useCallback(async () => {
 		const { pageYOffset, innerHeight, scrollTop, clientHeight } = el
-		const { scrollHeight } = el instanceof Window ? document.body : bindScrollElement
-		const st = pageYOffset + innerHeight
+		const { scrollHeight } = el instanceof Window ? document.body : el
+		const yOffset = pageYOffset ?? scrollTop
+		const elHeight = innerHeight ?? clientHeight
+		const st = yOffset + elHeight
 		const r = st / scrollHeight
 		if (!loading && r > range) {
 			run()

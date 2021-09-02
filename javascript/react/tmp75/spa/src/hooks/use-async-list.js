@@ -4,10 +4,19 @@ import { useQueryString } from '@jsl-react/hooks'
 import { useAuthHttp } from '@/core/hooks/http/use-auth-http'
 
 /**
- * @template T
- * @param {string} httpPath
- * @param {T} initQueryString
- * @return {{onChangeSearch: (function(string | string[]): function(string | string[]): void), total: *, search: T, onChangeTable: (function(*): void), onSearch: (function(): void), loading: boolean, queryString: T, dataSource: *}}
+ * @type {
+ *   <T extends Object, K extends keyof T>(httpPath: string, initQueryString: T) => {
+ *     getList: () => Promise<void>,
+ *     dataSource: any[],
+ *     total: number,
+ *     loading: boolean,
+ *     queryString: T,
+ *     search: T,
+ *     onSearch: () => void,
+ *     onChangeSearch: (key: K) => (value: T[K]) => void,
+ *     onChangeTable: (pagination: { pageSize: number, current: number }) => void,
+ *   }
+ * }
  */
 export const useAsyncList = (httpPath, initQueryString) => {
 	const { _http } = useAuthHttp()
