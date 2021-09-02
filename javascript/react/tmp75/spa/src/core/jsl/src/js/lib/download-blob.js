@@ -1,10 +1,11 @@
 /// 下載 blob File
+/// v1 {author: frank575} 由 ts 重寫類型
 /// v0 {author: frank575}
 
 /**
- * @param {*} blob
- * @param {string} fileName
- * @param {string} fileType
+ * @type {
+ *   (blob: any, fileName: string, fileType: string) => void
+ * }
  */
 export const downloadBlob = (blob, fileName, fileType) => {
 	const url = window.URL.createObjectURL(new Blob([blob]))
