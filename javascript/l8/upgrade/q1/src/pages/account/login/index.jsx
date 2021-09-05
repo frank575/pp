@@ -37,7 +37,7 @@ export default () => {
 	const setToken = useAuth(e => e.setToken)
 	const [validateMode, setValidateMode] = useLocalStorageState(
 		'l8-q1_validate-mode',
-		EValidateMode.JIGSAW,
+		EValidateMode.SLIDER,
 	)
 	const [authVisible, setAuthVisible] = useState(false)
 	const cacheForm = useRef({})
@@ -84,7 +84,7 @@ export default () => {
 			<div className="flex items-center justify-center">
 				<ValidateItem
 					className="rounded-l-md"
-					mode={EValidateMode.JIGSAW}
+					mode={EValidateMode.SLIDER}
 					currentMode={validateMode}
 					onClick={setValidateMode}
 				>
@@ -115,7 +115,7 @@ export default () => {
 				</div>
 				<Button onClick={onSubmit}>登入</Button>
 			</div>
-			{validateMode === EValidateMode.JIGSAW ? (
+			{validateMode === EValidateMode.SLIDER ? (
 				<SliderCaptcha
 					visible={authVisible}
 					onLogin={login}

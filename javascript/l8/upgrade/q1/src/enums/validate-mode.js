@@ -1,7 +1,7 @@
 import { createEnum } from '@jsl'
 
 export const EValidateMode = createEnum({
-	JIGSAW: 'JIGSAW',
+	SLIDER: 'SLIDER',
 	CLICK_NUM: 'CLICK_NUM',
 	PATTERN: 'PATTERN',
 })
