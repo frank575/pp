@@ -75,7 +75,6 @@ export default () => {
 			<Input
 				className="mb-4"
 				ref={form.refs.password.ref}
-				htmlType={'password'}
 				togglePassword
 				labelWidth={80}
 				label={'密碼'}

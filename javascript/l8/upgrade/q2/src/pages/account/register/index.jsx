@@ -56,7 +56,6 @@ export default () => {
 			<Input
 				className="mb-4"
 				ref={form.refs.password.ref}
-				htmlType={'password'}
 				togglePassword
 				labelWidth={80}
 				label={'密碼'}
@@ -65,7 +64,6 @@ export default () => {
 			/>
 			<Input
 				ref={form.refs.password2.ref}
-				htmlType={'password'}
 				togglePassword
 				labelWidth={80}
 				label={'確認密碼'}
