@@ -11,15 +11,15 @@ export const useValidateAuth = () => {
 	const setAuth = useAuth(e => e.setAuth)
 	const clearAuthState = useAuth(e => e.clearAuthState)
 	const [code, setCode] = useSafeState(
-		!auth ? EAuthCode.validating : EAuthCode.authSuccess,
+		auth == null ? EAuthCode.validating : EAuthCode.authSuccess,
 	)
 
 	const checkAuth = useCallback(async () => {
 		if (token) {
-			if (!auth) {
-				const res = await _http.get('/authentication')
+			if (auth == null) {
+				const res = await _http.get('/user')
 				if (res.data.success) {
-					setAuth(true)
+					setAuth(res.data.data)
 					return {
 						code: EAuthCode.authSuccess,
 						message: EAuthCode.t(EAuthCode.authSuccess),

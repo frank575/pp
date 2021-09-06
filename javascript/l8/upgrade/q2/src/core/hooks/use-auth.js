@@ -19,7 +19,7 @@ export const { Provider: AuthProvider, inject: useAuth } =
 
 function service() {
 	const history = useHistory()
-	const [auth, setAuth] = useState(false) // Object | null
+	const [auth, setAuth] = useState(null) // Object | null
 	const [token, setToken] = useLocalStorageState('l8-q2_token', null)
 	const { on } = useMitt()
 

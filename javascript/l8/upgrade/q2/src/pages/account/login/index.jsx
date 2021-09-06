@@ -49,10 +49,10 @@ export default () => {
 	const login = async () => {
 		const res = await http.post('/login', cacheForm.current)
 		if (res.data.success) {
-			setAuth(true)
+			setAuth(res.data.data)
 			setToken(res.data.token)
 			createMessage('登入成功')
-			history.push('/')
+			setTimeout(() => history.push('/'))
 		}
 		return res
 	}
