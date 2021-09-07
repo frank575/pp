@@ -7,12 +7,16 @@ const PADDING = 5
 const DOUBLE_PADDING = PADDING * 2
 const MAX_WIDTH = CANVAS_WIDTH - DOUBLE_PADDING
 const MAX_HEIGHT = CANVAS_HEIGHT - DOUBLE_PADDING
+const MAX_RECT_SIZE = MAX_HEIGHT
+const MIN_RECT_SIZE = 120
 
 export default () => {
 	const rectPos = useRef([PADDING, PADDING])
+	const rectSize = useRef([MAX_RECT_SIZE, MAX_RECT_SIZE])
 	const draggingRef = useRef({
 		cornerIndex: -1,
-		cornerPressDownPos: [0, 0],
+		cornerPressDownX: 0,
+		cornerPressDownRectWidth: [rectSize.current[0], rectSize.current[1]],
 		rect: false,
 		rectPressDownPos: [0, 0],
 	})
@@ -28,16 +32,17 @@ export default () => {
 			ctx.fillRect(PADDING, PADDING, CANVAS_WIDTH - PADDING * 2, MAX_HEIGHT)
 
 			const [rx, ry] = rectPos.current
+			const [rw, rh] = rectSize.current
 			ctx.fillStyle = 'rgba(255, 255, 255, .3)'
 			ctx.strokeStyle = 'red'
-			ctx.fillRect(rx, ry, MAX_HEIGHT, MAX_HEIGHT)
-			ctx.strokeRect(rx, ry, MAX_HEIGHT, MAX_HEIGHT)
+			ctx.fillRect(rx, ry, rw, rh)
+			ctx.strokeRect(rx, ry, rw, rh)
 
 			ctx.fillStyle = 'red'
 			// 順序同 border-radios
 			for (let i = 0; i < 4; i++) {
-				const x = i % 3 === 0 ? rx - PADDING : rx + MAX_HEIGHT - PADDING,
-					y = i < 2 ? ry - PADDING : ry + MAX_HEIGHT - PADDING
+				const x = i % 3 === 0 ? rx - PADDING : rx + rw - PADDING,
+					y = i < 2 ? ry - PADDING : ry + rh - PADDING
 				ctx.fillRect(x, y, DOUBLE_PADDING, DOUBLE_PADDING)
 			}
 		}
@@ -53,8 +58,9 @@ export default () => {
 				y = clientY - top
 			for (let i = 0; i < 4; i++) {
 				const [rx, ry] = rectPos.current
-				const cx = i % 3 === 0 ? rx - PADDING : rx + MAX_HEIGHT - PADDING,
-					cy = i < 2 ? ry - PADDING : ry + MAX_HEIGHT - PADDING
+				const [rw, rh] = rectSize.current
+				const cx = i % 3 === 0 ? rx - PADDING : rx + rw - PADDING,
+					cy = i < 2 ? ry - PADDING : ry + rh - PADDING
 				if (
 					x >= cx &&
 					x <= cx + DOUBLE_PADDING &&
@@ -76,7 +82,8 @@ export default () => {
 			const x = clientX - left,
 				y = clientY - top
 			const [rx, ry] = rectPos.current
-			if (x >= rx && x <= rx + MAX_HEIGHT && y >= ry && y <= ry + MAX_HEIGHT) {
+			const [rw, rh] = rectSize.current
+			if (x >= rx && x <= rx + rw && y >= ry && y <= ry + rh) {
 				canvas.style.cursor = 'move'
 				callback?.({ x, y })
 				return true
@@ -89,6 +96,11 @@ export default () => {
 			checkMouseEnterCorner(
 				{ clientX, clientY, left, top },
 				({ x, y, i }) => {
+					const [rx, ry] = rectPos.current
+					const [rw] = rectSize.current
+					draggingRef.current.cornerPressDownX = x
+					draggingRef.current.cornerPressDownRectWidth = rw
+					draggingRef.current.rectPressDownPos = [x - rx, y - ry]
 					draggingRef.current.cornerIndex = i
 					document.body.style.userSelect = 'none'
 				},
@@ -106,9 +118,25 @@ export default () => {
 		const onMousemove = ({ clientX, clientY }) => {
 			const { left, top } = canvas.getBoundingClientRect()
 			if (draggingRef.current.cornerIndex > -1) {
-				console.log(`index: ${draggingRef.current.cornerIndex}, 正在被拖曳！`)
+				const {
+					cornerIndex,
+					cornerPressDownRectWidth,
+					cornerPressDownX,
+					rectPressDownPos,
+				} = draggingRef.current
+				const [rpdx, rpdy] = draggingRef.current.rectPressDownPos
+				const cpdrw = cornerPressDownRectWidth
+				const cx = cornerPressDownX
+				const x = clientX - left,
+					y = clientY - top
+				let newX = Math.abs(cpdrw + (cornerIndex % 3 === 0 ? -x - cx : x - cx))
+				if (newX < MIN_RECT_SIZE || newX > MAX_RECT_SIZE) return
+				rectSize.current = [newX, newX]
+				draw()
+				// console.log(`index: ${cornerIndex}, 正在被拖曳！`)
 			} else if (draggingRef.current.rect) {
 				const [rpdx, rpdy] = draggingRef.current.rectPressDownPos
+				const [rw, rh] = rectSize.current
 				const x = clientX - left,
 					y = clientY - top
 				let newX = x - rpdx,
@@ -116,18 +144,19 @@ export default () => {
 
 				if (newX < PADDING) {
 					newX = PADDING
-				} else if (newX + MAX_HEIGHT + PADDING > MAX_WIDTH) {
-					newX = MAX_WIDTH - MAX_HEIGHT + PADDING
+				} else if (newX + rw + PADDING > MAX_WIDTH) {
+					newX = MAX_WIDTH - rw + PADDING
 				}
 
 				if (newY < PADDING) {
 					newY = PADDING
-				} else if (newY + MAX_HEIGHT + PADDING > MAX_HEIGHT) {
-					newY = PADDING
+				} else if (newY + rh + PADDING > MAX_HEIGHT) {
+					newY = MAX_HEIGHT - rh + PADDING
 				}
 
 				rectPos.current = [newX, newY]
 				draw()
+				// console.log(`矩形正在被拖曳`)
 			} else {
 				checkMouseEnterCorner({ clientX, clientY, left, top }, null, () => {
 					checkMouseEnterRect({ clientX, clientY, left, top })
