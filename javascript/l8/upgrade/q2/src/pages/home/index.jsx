@@ -1,10 +1,11 @@
-import { PageContent } from '@/components/page-content'
 import { useEffect, useRef } from 'react'
+import { PageContent } from '@/components/page-content'
 import { useInitialRef } from '@jsl-react/hooks'
 
 const MIN_RECT_SIZE = 120
 
 export default () => {
+	const canvasRef = useRef(null)
 	/**
 	 * @type {React.MutableRefObject<{padding: number, minRectSize: number, canvasWidth: number, maxHeight: number, doublePadding: number, maxRectSize: number, canvasHeight: number, maxWidth: number}>}
 	 */
@@ -48,11 +49,12 @@ export default () => {
 	})
 
 	useEffect(() => {
-		const canvas = document.getElementById('canvas')
+		const canvas = canvasRef.current
 		const ctx = canvas.getContext('2d')
 		const img = new Image()
 		img.src =
-			'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F47%2F2021%2F03%2F09%2Fchihuahua-laying-down-wooden-floor-1675701502-2000.jpg'
+			'https://img.freepik.com/free-photo/little-chihuahua-dog-posing-like-christmas-deer-isolated-white-background_155003-24226.jpg?size=626&ext=jpg&ga=GA1.2.1611205989.1630800000'
+		img.crossOrigin = '*'
 		img.onload = () => {
 			const { doublePadding, maxRectSize, minRectSize } = canvasState.current
 			const { width: w, height: h } = img
@@ -275,14 +277,22 @@ export default () => {
 		}
 	}, [])
 
+	const onSplitPicture = () => {
+		//https://stackoverflow.com/questions/14017442/capturing-only-a-portion-of-canvas-with-todataurl-javascript-html5/14017466
+		const canvas = canvasRef.current
+		// const base64 = canvasRef.current.toDataURL('image/png')
+		// const replacePrefixBase64 = base64.replace('data:image/png;base64,', '')
+	}
+
 	return (
 		<PageContent>
 			<div>首頁</div>
 			<canvas
-				id="canvas"
+				ref={canvasRef}
 				width={canvasState.current.canvasWidth}
 				height={canvasState.current.canvasHeight}
 			/>
+			<button onClick={onSplitPicture}>確定</button>
 		</PageContent>
 	)
 }
