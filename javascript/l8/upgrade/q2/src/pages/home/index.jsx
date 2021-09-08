@@ -1,18 +1,44 @@
 import { PageContent } from '@/components/page-content'
 import { useEffect, useRef } from 'react'
+import { useInitialRef } from '@jsl-react/hooks'
 
-const CANVAS_WIDTH = 504
-const CANVAS_HEIGHT = 302
-const PADDING = 5
-const DOUBLE_PADDING = PADDING * 2
-const MAX_WIDTH = CANVAS_WIDTH - DOUBLE_PADDING
-const MAX_HEIGHT = CANVAS_HEIGHT - DOUBLE_PADDING
-const MAX_RECT_SIZE = MAX_HEIGHT
 const MIN_RECT_SIZE = 120
 
 export default () => {
-	const rectPos = useRef([PADDING, PADDING])
-	const rectSize = useRef([MAX_RECT_SIZE, MAX_RECT_SIZE])
+	/**
+	 * @type {React.MutableRefObject<{padding: number, minRectSize: number, canvasWidth: number, maxHeight: number, doublePadding: number, maxRectSize: number, canvasHeight: number, maxWidth: number}>}
+	 */
+	const canvasState = useInitialRef(() => {
+		const canvasWidth = 504
+		const canvasHeight = 302
+		const padding = 5
+		const doublePadding = padding * 2
+		const maxWidth = canvasWidth - doublePadding
+		const maxHeight = canvasHeight - doublePadding
+
+		return {
+			canvasWidth,
+			canvasHeight,
+			padding,
+			doublePadding,
+			maxWidth,
+			maxHeight,
+			maxRectSize: maxHeight,
+			minRectSize: MIN_RECT_SIZE,
+		}
+	})
+	const rectSize = useRef([
+		canvasState.current.minRectSize,
+		canvasState.current.minRectSize,
+	])
+	const rectPos = useRef([
+		canvasState.current.padding +
+			canvasState.current.canvasWidth / 2 -
+			rectSize.current[0] / 2,
+		canvasState.current.padding +
+			canvasState.current.canvasHeight / 2 -
+			rectSize.current[1] / 2,
+	])
 	const draggingRef = useRef({
 		cornerIndex: -1,
 		cornerPressDownPos: 0,
@@ -24,48 +50,74 @@ export default () => {
 	useEffect(() => {
 		const canvas = document.getElementById('canvas')
 		const ctx = canvas.getContext('2d')
+		const img = new Image()
+		img.src =
+			'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F47%2F2021%2F03%2F09%2Fchihuahua-laying-down-wooden-floor-1675701502-2000.jpg'
+		img.onload = () => {
+			const { doublePadding, maxRectSize, minRectSize } = canvasState.current
+			const { width: w, height: h } = img
+			const scale = w / canvasState.current.maxWidth
+			const newH = h / scale
+			const canvasHeight = newH + doublePadding
+			canvasState.current.maxRectSize = newH
+			canvasState.current.canvasHeight = canvasHeight
+			canvasState.current.maxHeight = newH
+			if (newH < minRectSize) {
+				canvasState.current.minRectSize = newH
+			} else {
+				canvasState.current.minRectSize = MIN_RECT_SIZE
+			}
+			canvas.height = canvasHeight
+			draw()
+		}
 
 		const draw = () => {
-			ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
-
-			ctx.fillStyle = 'black'
-			ctx.fillRect(PADDING, PADDING, CANVAS_WIDTH - PADDING * 2, MAX_HEIGHT)
+			const { canvasWidth, canvasHeight, padding, maxWidth, doublePadding } =
+				canvasState.current
+			ctx.clearRect(0, 0, canvasWidth, canvasHeight)
+			ctx.drawImage(
+				img,
+				padding,
+				padding,
+				maxWidth,
+				canvas.height - doublePadding,
+			)
 
 			const [rx, ry] = rectPos.current
 			const [rw, rh] = rectSize.current
 			ctx.fillStyle = 'rgba(255, 255, 255, .3)'
-			ctx.strokeStyle = 'red'
+			ctx.strokeStyle = '#3a86ff'
 			ctx.fillRect(rx, ry, rw, rh)
 			ctx.strokeRect(rx, ry, rw, rh)
 
-			ctx.fillStyle = 'red'
+			ctx.fillStyle = '#fff'
 			// 順序同 border-radios
 			for (let i = 0; i < 4; i++) {
-				const x = i % 3 === 0 ? rx - PADDING : rx + rw - PADDING,
-					y = i < 2 ? ry - PADDING : ry + rh - PADDING
-				ctx.fillRect(x, y, DOUBLE_PADDING, DOUBLE_PADDING)
+				const x = i % 3 === 0 ? rx - padding : rx + rw - padding,
+					y = i < 2 ? ry - padding : ry + rh - padding
+				ctx.fillRect(x, y, doublePadding, doublePadding)
+				ctx.strokeRect(x, y, doublePadding, doublePadding)
 			}
 		}
-
-		draw()
 
 		const checkMouseEnterCorner = (
 			{ clientX, clientY, left, top },
 			passCallback,
 			failCallback,
 		) => {
+			const { padding, doublePadding } = canvasState.current
 			const x = clientX - left,
 				y = clientY - top
 			for (let i = 0; i < 4; i++) {
 				const [rx, ry] = rectPos.current
 				const [rw, rh] = rectSize.current
-				const cx = i % 3 === 0 ? rx - PADDING : rx + rw - PADDING,
-					cy = i < 2 ? ry - PADDING : ry + rh - PADDING
+				const cx = i % 3 === 0 ? rx - padding : rx + rw - padding,
+					cy = i < 2 ? ry - padding : ry + rh - padding
 				if (
 					x >= cx &&
-					x <= cx + DOUBLE_PADDING &&
+					x <= cx + doublePadding &&
 					y >= cy &&
-					y <= cy + DOUBLE_PADDING
+					y <= cy + doublePadding
 				) {
 					canvas.style.cursor = i % 2 === 0 ? 'nwse-resize' : 'nesw-resize'
 					passCallback?.({ x, y, i })
@@ -97,10 +149,13 @@ export default () => {
 				{ clientX, clientY, left, top },
 				({ x, y, i }) => {
 					const [rw] = rectSize.current
-					draggingRef.current.cornerPressDownPos = [x, y]
-					draggingRef.current.cornerPressDownRectWidth = rw
-					draggingRef.current.rectPressDownPos = [x, y]
+					const [rx, ry] = rectPos.current
+					const pressX = i % 3 === 0 ? rx : rx + rw,
+						pressY = i < 2 ? ry : ry + rw
 					draggingRef.current.cornerIndex = i
+					draggingRef.current.cornerPressDownRectWidth = rw
+					draggingRef.current.cornerPressDownPos = [pressX, pressY]
+					draggingRef.current.rectPressDownPos = [pressX, pressY]
 					document.body.style.userSelect = 'none'
 				},
 				() => {
@@ -117,39 +172,59 @@ export default () => {
 		const onMousemove = ({ clientX, clientY }) => {
 			const { left, top } = canvas.getBoundingClientRect()
 			if (draggingRef.current.cornerIndex > -1) {
+				const { minRectSize, maxRectSize, padding, maxWidth, maxHeight } =
+					canvasState.current
 				const {
 					cornerIndex,
 					cornerPressDownRectWidth,
 					cornerPressDownPos,
 					rectPressDownPos,
 				} = draggingRef.current
+				const [rx, ry] = rectPos.current
 				const [rpdx, rpdy] = rectPressDownPos
 				const cpdrw = cornerPressDownRectWidth
 				const [cx] = cornerPressDownPos
 				const x = clientX - left
-				const isChangeX = cornerIndex % 3 === 0,
-					isChangeY = cornerIndex < 2
-				const newX = Math.abs(
-					cpdrw + (cornerIndex % 3 === 0 ? -x - cx : x - cx),
+				const newrw = Math.abs(
+					cpdrw + (cornerIndex % 3 === 0 ? rpdx - x : x - cx),
 				)
-				const ox = cpdrw - newX
-				const rox = rpdx - ox,
-					roy = rpdy + ox
-
+				const rox =
+						cornerIndex === 0
+							? rpdx + (cpdrw - newrw)
+							: cornerIndex === 1
+							? rx
+							: cornerIndex === 2
+							? rx
+							: cornerIndex === 3
+							? rpdx + (cpdrw - newrw)
+							: 0,
+					roy =
+						cornerIndex === 0
+							? rpdy + (cpdrw - newrw)
+							: cornerIndex === 1
+							? rpdy + (cpdrw - newrw)
+							: cornerIndex === 2
+							? ry
+							: cornerIndex === 3
+							? ry
+							: 0
+				// console.log(rox, roy, newrw)
 				if (
-					newX < MIN_RECT_SIZE ||
-					newX > MAX_RECT_SIZE ||
-					rox < PADDING ||
-					roy < PADDING
+					newrw > maxRectSize ||
+					newrw < minRectSize ||
+					rox < padding ||
+					rox + newrw > maxWidth + padding ||
+					roy < padding ||
+					roy + newrw > maxHeight + padding
 				)
 					return
-				if (isChangeX) rectPos.current[0] = rox
-				if (isChangeY) rectPos.current[1] = roy
 
-				rectSize.current = [newX, newX]
+				rectPos.current = [rox, roy]
+				rectSize.current = [newrw, newrw]
 				draw()
 				// console.log(`index: ${cornerIndex}, 正在被拖曳！`)
 			} else if (draggingRef.current.rect) {
+				const { padding, maxWidth, maxHeight } = canvasState.current
 				const [rpdx, rpdy] = draggingRef.current.rectPressDownPos
 				const [rw, rh] = rectSize.current
 				const x = clientX - left,
@@ -157,16 +232,16 @@ export default () => {
 				let newX = x - rpdx,
 					newY = y - rpdy
 
-				if (newX < PADDING) {
-					newX = PADDING
-				} else if (newX + rw + PADDING > MAX_WIDTH) {
-					newX = MAX_WIDTH - rw + PADDING
+				if (newX < padding) {
+					newX = padding
+				} else if (newX + rw + padding > maxWidth) {
+					newX = maxWidth - rw + padding
 				}
 
-				if (newY < PADDING) {
-					newY = PADDING
-				} else if (newY + rh + PADDING > MAX_HEIGHT) {
-					newY = MAX_HEIGHT - rh + PADDING
+				if (newY < padding) {
+					newY = padding
+				} else if (newY + rh + padding > maxHeight) {
+					newY = maxHeight - rh + padding
 				}
 
 				rectPos.current = [newX, newY]
@@ -203,7 +278,11 @@ export default () => {
 	return (
 		<PageContent>
 			<div>首頁</div>
-			<canvas id="canvas" width={CANVAS_WIDTH} height={CANVAS_HEIGHT} />
+			<canvas
+				id="canvas"
+				width={canvasState.current.canvasWidth}
+				height={canvasState.current.canvasHeight}
+			/>
 		</PageContent>
 	)
 }
