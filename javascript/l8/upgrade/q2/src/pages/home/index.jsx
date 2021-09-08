@@ -15,7 +15,7 @@ export default () => {
 	const rectSize = useRef([MAX_RECT_SIZE, MAX_RECT_SIZE])
 	const draggingRef = useRef({
 		cornerIndex: -1,
-		cornerPressDownX: 0,
+		cornerPressDownPos: 0,
 		cornerPressDownRectWidth: [rectSize.current[0], rectSize.current[1]],
 		rect: false,
 		rectPressDownPos: [0, 0],
@@ -96,11 +96,10 @@ export default () => {
 			checkMouseEnterCorner(
 				{ clientX, clientY, left, top },
 				({ x, y, i }) => {
-					const [rx, ry] = rectPos.current
 					const [rw] = rectSize.current
-					draggingRef.current.cornerPressDownX = x
+					draggingRef.current.cornerPressDownPos = [x, y]
 					draggingRef.current.cornerPressDownRectWidth = rw
-					draggingRef.current.rectPressDownPos = [x - rx, y - ry]
+					draggingRef.current.rectPressDownPos = [x, y]
 					draggingRef.current.cornerIndex = i
 					document.body.style.userSelect = 'none'
 				},
@@ -121,16 +120,32 @@ export default () => {
 				const {
 					cornerIndex,
 					cornerPressDownRectWidth,
-					cornerPressDownX,
+					cornerPressDownPos,
 					rectPressDownPos,
 				} = draggingRef.current
-				const [rpdx, rpdy] = draggingRef.current.rectPressDownPos
+				const [rpdx, rpdy] = rectPressDownPos
 				const cpdrw = cornerPressDownRectWidth
-				const cx = cornerPressDownX
-				const x = clientX - left,
-					y = clientY - top
-				let newX = Math.abs(cpdrw + (cornerIndex % 3 === 0 ? -x - cx : x - cx))
-				if (newX < MIN_RECT_SIZE || newX > MAX_RECT_SIZE) return
+				const [cx] = cornerPressDownPos
+				const x = clientX - left
+				const isChangeX = cornerIndex % 3 === 0,
+					isChangeY = cornerIndex < 2
+				const newX = Math.abs(
+					cpdrw + (cornerIndex % 3 === 0 ? -x - cx : x - cx),
+				)
+				const ox = cpdrw - newX
+				const rox = rpdx - ox,
+					roy = rpdy + ox
+
+				if (
+					newX < MIN_RECT_SIZE ||
+					newX > MAX_RECT_SIZE ||
+					rox < PADDING ||
+					roy < PADDING
+				)
+					return
+				if (isChangeX) rectPos.current[0] = rox
+				if (isChangeY) rectPos.current[1] = roy
+
 				rectSize.current = [newX, newX]
 				draw()
 				// console.log(`index: ${cornerIndex}, 正在被拖曳！`)
