@@ -29,14 +29,7 @@ export default () => {
 		canvasState.current.minRectSize,
 		canvasState.current.minRectSize,
 	])
-	const rectPos = useInitialRef(() => [
-		canvasState.current.padding +
-			canvasState.current.canvasWidth / 2 -
-			rectSize.current[0] / 2,
-		canvasState.current.padding +
-			canvasState.current.canvasHeight / 2 -
-			rectSize.current[1] / 2,
-	])
+	const rectPos = useInitialRef(() => [0, 0])
 	const draggingRef = useInitialRef(() => ({
 		cornerIndex: -1,
 		cornerPressDownPos: 0,
@@ -68,7 +61,7 @@ export default () => {
 			canvasState.current.canvasHeight = canvasHeight
 			canvasState.current.maxHeight = newH
 			rectSize.current = [newH, newH]
-			rectPos.current = [padding + canvasWidth / 2 - newH / 2, padding]
+			rectPos.current = [padding + maxWidth / 2 - newH / 2, padding]
 			canvas.height = canvasHeight
 			draw()
 		}
