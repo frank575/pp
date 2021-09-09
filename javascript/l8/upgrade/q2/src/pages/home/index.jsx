@@ -1,7 +1,13 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { PageContent } from '@/components/page-content'
 import { useInitialRef } from '@jsl-react/hooks'
 
+const CANVAS_WIDTH = 504
+const CANVAS_HEIGHT = 302
+const PADDING = 4
+const DOUBLE_PADDING = PADDING * 2
+const MAX_WIDTH = CANVAS_WIDTH - DOUBLE_PADDING
+const MAX_HEIGHT = CANVAS_HEIGHT - DOUBLE_PADDING
 const MIN_RECT_SIZE = 120
 
 export default () => {
@@ -9,30 +15,21 @@ export default () => {
 	/**
 	 * @type {React.MutableRefObject<{padding: number, minRectSize: number, canvasWidth: number, maxHeight: number, doublePadding: number, maxRectSize: number, canvasHeight: number, maxWidth: number}>}
 	 */
-	const canvasState = useInitialRef(() => {
-		const canvasWidth = 504
-		const canvasHeight = 302
-		const padding = 4
-		const doublePadding = padding * 2
-		const maxWidth = canvasWidth - doublePadding
-		const maxHeight = canvasHeight - doublePadding
-
-		return {
-			canvasWidth,
-			canvasHeight,
-			padding,
-			doublePadding,
-			maxWidth,
-			maxHeight,
-			maxRectSize: maxHeight,
-			minRectSize: MIN_RECT_SIZE,
-		}
-	})
-	const rectSize = useRef([
+	const canvasState = useInitialRef(() => ({
+		canvasWidth: CANVAS_WIDTH,
+		canvasHeight: CANVAS_HEIGHT,
+		padding: PADDING,
+		doublePadding: DOUBLE_PADDING,
+		maxWidth: MAX_WIDTH,
+		maxHeight: MAX_HEIGHT,
+		maxRectSize: MAX_HEIGHT,
+		minRectSize: MIN_RECT_SIZE,
+	}))
+	const rectSize = useInitialRef(() => [
 		canvasState.current.minRectSize,
 		canvasState.current.minRectSize,
 	])
-	const rectPos = useRef([
+	const rectPos = useInitialRef(() => [
 		canvasState.current.padding +
 			canvasState.current.canvasWidth / 2 -
 			rectSize.current[0] / 2,
@@ -40,17 +37,18 @@ export default () => {
 			canvasState.current.canvasHeight / 2 -
 			rectSize.current[1] / 2,
 	])
-	const draggingRef = useRef({
+	const draggingRef = useInitialRef(() => ({
 		cornerIndex: -1,
 		cornerPressDownPos: 0,
 		cornerPressDownRectWidth: [rectSize.current[0], rectSize.current[1]],
 		rect: false,
 		rectPressDownPos: [0, 0],
-	})
+	}))
 	const imgSrc = useRef(
 		'https://img.freepik.com/free-photo/little-chihuahua-dog-posing-like-christmas-deer-isolated-white-background_155003-24226.jpg?size=626&ext=jpg&ga=GA1.2.1611205989.1630800000',
 	)
 	const imgRef = useRef(null)
+	const [imgLoaded, setImgLoaded] = useState(false)
 
 	const initCanvas = useCallback(() => {
 		const canvas = canvasRef.current
@@ -59,19 +57,18 @@ export default () => {
 		img.src = imgSrc.current
 		img.crossOrigin = '*'
 		img.onload = () => {
-			const { doublePadding, minRectSize } = canvasState.current
+			setImgLoaded(true)
+			const { padding, doublePadding, maxWidth, canvasWidth } =
+				canvasState.current
 			const { width: w, height: h } = img
-			const scale = w / canvasState.current.maxWidth
+			const scale = w / maxWidth
 			const newH = h / scale
 			const canvasHeight = newH + doublePadding
 			canvasState.current.maxRectSize = newH
 			canvasState.current.canvasHeight = canvasHeight
 			canvasState.current.maxHeight = newH
-			if (newH < minRectSize) {
-				canvasState.current.minRectSize = newH
-			} else {
-				canvasState.current.minRectSize = MIN_RECT_SIZE
-			}
+			rectSize.current = [newH, newH]
+			rectPos.current = [padding + canvasWidth / 2 - newH / 2, padding]
 			canvas.height = canvasHeight
 			draw()
 		}
@@ -314,7 +311,7 @@ export default () => {
 				width={canvasState.current.canvasWidth}
 				height={canvasState.current.canvasHeight}
 			/>
-			<button onClick={onSplitPicture}>確定</button>
+			{imgLoaded ? <button onClick={onSplitPicture}>確定</button> : null}
 		</PageContent>
 	)
 }
