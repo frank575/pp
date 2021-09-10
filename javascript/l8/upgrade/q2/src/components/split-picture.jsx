@@ -9,7 +9,7 @@ const MAX_WIDTH = CANVAS_WIDTH - DOUBLE_PADDING
 const MAX_HEIGHT = CANVAS_HEIGHT - DOUBLE_PADDING
 const MIN_RECT_SIZE = 120
 
-export const SplitPicture = ({ src, onSplit }) => {
+export const SplitPicture = ({ src, onSplit, type = 'base64' }) => {
 	const canvasRef = useRef(null)
 	const splitCanvasRef = useRef(null)
 	/**
@@ -287,8 +287,12 @@ export const SplitPicture = ({ src, onSplit }) => {
 		splitCanvas.height = rh
 		sctx.clearRect(0, 0, rw, rh)
 		sctx.drawImage(image, -rx + padding, -ry + padding, maxWidth, maxHeight)
-		const base64 = splitCanvas.toDataURL('image/png')
-		onSplit?.(base64)
+
+		if (type === 'base64') {
+			onSplit?.(splitCanvas.toDataURL('image/png'))
+		} else if (type === 'blob') {
+			splitCanvas.toBlob(blob => onSplit?.(blob))
+		}
 	}, [])
 
 	useEffect(() => {

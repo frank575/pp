@@ -1,17 +1,35 @@
 import { PageContent } from '@/components/page-content'
 import { SplitPicture } from '@/components/split-picture'
+import { Upload } from '@/components/upload'
+import { useState } from 'react'
+import { useAuthHttp } from '@/core/hooks/http/use-auth-http'
+import { createMessage } from '@/lib/create-message'
 
 export default () => {
+	const { _http } = useAuthHttp()
+	const [uploadImgSrc, setUploadImgSrc] = useState(null)
+	const onSendUploadPicture = file => {
+		if (file) {
+			const reader = new FileReader()
+			reader.readAsDataURL(file)
+			reader.onload = () => setUploadImgSrc(reader.result)
+		}
+	}
+	const onUpdateUserHeadPicture = async blob => {
+		const formData = new FormData()
+		formData.append('image', blob, 'head.png')
+		const res = await _http.post('/users/uploadPicture', formData)
+		if (res.data.success) createMessage('上傳使用者圖片成功')
+	}
+
 	return (
 		<PageContent>
 			<div>首頁</div>
+			<Upload onChange={onSendUploadPicture} />
 			<SplitPicture
-				src={
-					'https://img.freepik.com/free-photo/little-chihuahua-dog-posing-like-christmas-deer-isolated-white-background_155003-24226.jpg?size=626&ext=jpg&ga=GA1.2.1611205989.1630800000'
-				}
-				onSplit={base64 =>
-					console.log(base64.replace('data:image/png;base64,', ''))
-				}
+				type={'blob'}
+				src={uploadImgSrc}
+				onSplit={onUpdateUserHeadPicture}
 			/>
 		</PageContent>
 	)
