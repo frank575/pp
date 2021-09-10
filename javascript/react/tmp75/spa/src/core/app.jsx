@@ -13,13 +13,13 @@ export const App = () => {
 	return (
 		<Router>
 			<I18nProvider>
-					<HttpProvider>
-						<AuthProvider>
-							<AuthHttpProvider>
-								<Routes />
-							</AuthHttpProvider>
-						</AuthProvider>
-					</HttpProvider>
+				<HttpProvider>
+					<AuthProvider>
+						<AuthHttpProvider>
+							<Routes />
+						</AuthHttpProvider>
+					</AuthProvider>
+				</HttpProvider>
 			</I18nProvider>
 		</Router>
 	)
