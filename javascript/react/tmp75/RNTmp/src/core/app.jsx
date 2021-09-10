@@ -1,20 +1,18 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { createDrawerNavigator } from '@react-navigation/drawer'
-import { HelloReactNative } from '@/screens/hello-react-native'
-import { Home } from '@/screens/home'
-
-const Drawer = createDrawerNavigator()
-const Stack = createNativeStackNavigator()
+import { HttpProvider } from '@/core/hooks/http/use-http'
+import { Routes } from '@/core/routes'
 
 export const App = () => {
 	return (
 		<NavigationContainer>
-			<Drawer.Navigator initialRouteName="HelloReactNative">
-				<Drawer.Screen name="HelloReactNative" component={HelloReactNative} />
-				<Drawer.Screen name="Home" component={Home} />
-			</Drawer.Navigator>
+			<HttpProvider>
+				{/*<AuthProvider>*/}
+				{/*	<AuthHttpProvider>*/}
+				<Routes />
+				{/*</AuthHttpProvider>*/}
+				{/*</AuthProvider>*/}
+			</HttpProvider>
 		</NavigationContainer>
 	)
 }

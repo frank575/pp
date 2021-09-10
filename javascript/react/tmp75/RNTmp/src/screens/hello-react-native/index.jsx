@@ -24,8 +24,9 @@ import {
 	ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen'
 import tw from 'tailwind-react-native-classnames'
+import { useNavigation } from '@react-navigation/native'
 
-const Section = ({ children, title }): Node => {
+const Section = ({ children, title }) => {
 	const isDarkMode = useColorScheme() === 'dark'
 	return (
 		<View style={tw`mt-8 px-6`}>
@@ -51,7 +52,8 @@ const Section = ({ children, title }): Node => {
 	)
 }
 
-export const HelloReactNative = ({ navigation }) => {
+export const HelloReactNative = () => {
+	const navigation = useNavigation()
 	const isDarkMode = useColorScheme() === 'dark'
 
 	const backgroundStyle = {
