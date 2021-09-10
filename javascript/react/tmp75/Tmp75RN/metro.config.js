@@ -6,9 +6,21 @@
  */
 
 module.exports = {
-	// resolver: {
-	// 	sourceExts: ['jsx', 'js'],
-	// },
+	resolver: {
+		sourceExts: [
+			'expo.ts',
+			'expo.tsx',
+			'expo.js',
+			'expo.jsx',
+			'ts',
+			'tsx',
+			'js',
+			'jsx',
+			'json',
+			'wasm',
+			'svg',
+		],
+	},
 	transformer: {
 		getTransformOptions: async () => ({
 			transform: {
