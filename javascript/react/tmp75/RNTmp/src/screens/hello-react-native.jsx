@@ -68,7 +68,7 @@ export const HelloReactNative = ({ navigation }) => {
 				<Header />
 				<Button
 					title={'Go to home'}
-					onPress={() => navigation.navigate('home')}
+					onPress={() => navigation.navigate('Home')}
 				/>
 				<View
 					style={{
