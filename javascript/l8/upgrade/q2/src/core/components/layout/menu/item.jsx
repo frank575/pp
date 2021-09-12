@@ -68,13 +68,7 @@ export const MenuItem = ({ el, border = false }) => {
 		[layoutCollapse, collapse, hasChildren, sideKey, isMatch],
 	)
 
-	useEffect(() => {
-		if (!hasChildren) return
-		setCollapse(previousCollapseRef.current)
-		previousCollapseRef.current = collapse
-	}, [layoutCollapse])
-
-	useEffect(() => {
+	const onChangeCollapse = () => {
 		const ul = ulRef.current
 		let timout = null
 		if (ul != null) {
@@ -90,7 +84,17 @@ export const MenuItem = ({ el, border = false }) => {
 				clearTimeout(timout)
 			}
 		}
-	}, [collapse])
+	}
+
+	const onChangeLayoutCollapse = () => {
+		if (!hasChildren) return
+		setCollapse(previousCollapseRef.current)
+		previousCollapseRef.current = collapse
+	}
+
+	useEffect(onChangeLayoutCollapse, [layoutCollapse])
+
+	useEffect(onChangeCollapse, [collapse])
 
 	return el.role != null && !el.role.some(e => e === auth?.role) ? null : (
 		<li

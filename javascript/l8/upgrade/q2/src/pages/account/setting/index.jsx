@@ -4,9 +4,11 @@ import { SplitPicture } from '@/components/split-picture'
 import { useAuthHttp } from '@/core/hooks/http/use-auth-http'
 import { useState } from 'react'
 import { createMessage } from '@/lib/create-message'
+import { useAuth } from '@/core/hooks/use-auth'
 
 export default () => {
 	const { _http } = useAuthHttp()
+	const auth = useAuth(e => e.auth)
 	const [uploadImgSrc, setUploadImgSrc] = useState(null)
 	const onSendUploadPicture = file => {
 		if (file) {
@@ -25,7 +27,15 @@ export default () => {
 	return (
 		<PageContent>
 			<div className="text-2xl">帳戶設定</div>
-			<Upload onChange={onSendUploadPicture} />
+			{auth != null && (
+				<img
+					className="mt-2"
+					style={{ maxWidth: 120 }}
+					src={auth.imgLink}
+					alt=""
+				/>
+			)}
+			<Upload className="mt-2" onChange={onSendUploadPicture} />
 			<SplitPicture
 				type={'blob'}
 				src={uploadImgSrc}
