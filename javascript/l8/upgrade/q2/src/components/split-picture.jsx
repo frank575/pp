@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useInitialRef } from '@jsl-react/hooks'
+import { Button } from '@/components/button'
 
 const CANVAS_WIDTH = 504
 const CANVAS_HEIGHT = 302
@@ -314,14 +315,20 @@ export const SplitPicture = ({ src, onSplit, type = 'base64' }) => {
 	useEffect(() => setImgSrc(src), [src])
 
 	return imgSrc != null ? (
-		<>
+		<div style={{ width: CANVAS_WIDTH }}>
 			<canvas
 				ref={canvasRef}
 				width={canvasState.current.canvasWidth}
 				height={canvasState.current.canvasHeight}
 			/>
 			<canvas className="hidden" ref={splitCanvasRef} width={0} height={0} />
-			{imgLoaded ? <button onClick={onSplitPicture}>確定</button> : null}
-		</>
+
+			{imgLoaded ? (
+				<div className="text-center mt-2">
+					{' '}
+					<Button onClick={onSplitPicture}>確定</Button>
+				</div>
+			) : null}
+		</div>
 	) : null
 }
