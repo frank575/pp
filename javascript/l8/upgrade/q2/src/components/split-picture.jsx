@@ -48,6 +48,7 @@ export const SplitPicture = ({ src, onSplit, type = 'base64' }) => {
 		img.src = imgSrc
 		img.crossOrigin = '*'
 		img.onload = () => {
+			// TODO 寬高比動態調整有空再寫
 			setImgLoaded(true)
 			const { padding, doublePadding, maxWidth, canvasWidth } =
 				canvasState.current

@@ -1,5 +1,5 @@
 import { lazy } from 'react'
-import { Redirect, Route, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { NoLayoutFallback } from '@/core/components/fallback/no-layout-fallback'
 import { Layout } from '@/core/components/layout'
 import { LayoutFallback } from '@/core/components/fallback/layout-fallback'
@@ -46,12 +46,23 @@ export const Routes = () => {
 				/>
 
 				<RouteWrapper
-					path={'/news'}
+					path={'/user/setting'}
 					exact
 					component={withSuspensePrivateRoute(
-						lazy(() => import('@/pages/news')),
+						lazy(() => import('@/pages/account/setting')),
 						LayoutFallback,
-						withTitle('最新消息'),
+						withTitle('帳戶設定'),
+					)}
+					layout={Layout}
+				/>
+
+				<RouteWrapper
+					path={'/users'}
+					exact
+					component={withSuspensePrivateRoute(
+						lazy(() => import('@/pages/users')),
+						LayoutFallback,
+						withTitle('會員管理'),
 					)}
 					layout={Layout}
 				/>
