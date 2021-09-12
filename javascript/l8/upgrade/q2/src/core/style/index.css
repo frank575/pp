@@ -47,17 +47,6 @@ html, body {
   animation: spWaveAf 0.6s infinite linear;
 }
 
-@-webkit-keyframes spWaveAf {
-  from {
-    -webkit-transform: scale(0.5, 0.5);
-    opacity: 0;
-  }
-  to {
-    -webkit-transform: scale(1, 1);
-    opacity: 1;
-  }
-}
-
 @keyframes spWaveAf {
   from {
     transform: scale(0.5, 0.5);
@@ -66,17 +55,6 @@ html, body {
   to {
     transform: scale(1, 1);
     opacity: 1;
-  }
-}
-
-@-webkit-keyframes spWaveBe {
-  from {
-    -webkit-transform: scale(1, 1);
-    opacity: 1;
-  }
-  to {
-    -webkit-transform: scale(1.5, 1.5);
-    opacity: 0;
   }
 }
 
@@ -89,4 +67,50 @@ html, body {
     -webkit-transform: scale(1.5, 1.5);
     opacity: 0;
   }
+}
+
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateY(-25px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-25px);
+    opacity: 0;
+  }
+}
+
+
+.ani-slide-in {
+  animation: slide-in .2s forwards;
+}
+
+.ani-slide-out {
+  animation: slide-out .2s forwards;
 }
