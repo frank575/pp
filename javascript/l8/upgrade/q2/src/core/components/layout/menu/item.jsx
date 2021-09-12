@@ -43,14 +43,18 @@ export const MenuItem = ({ el, border = false }) => {
 
 	const Content = useCallback(
 		({ el }) => (
-			<>
+			<div
+				className={createClassName({
+					'flex items-center cursor-pointer': true,
+					'text-primary': collapse || isMatch,
+				})}
+			>
 				<div className="mr-2">{el.icon}</div>
 				<div
 					className={createClassName({
 						'transition-all': true,
 						'opacity-0': !layoutCollapse,
 						'opacity-1': layoutCollapse,
-						'text-primary': collapse || isMatch,
 					})}
 				>
 					{el.name}
@@ -63,7 +67,7 @@ export const MenuItem = ({ el, border = false }) => {
 						})}
 					/>
 				) : null}
-			</>
+			</div>
 		),
 		[layoutCollapse, collapse, hasChildren, sideKey, isMatch],
 	)
@@ -88,12 +92,15 @@ export const MenuItem = ({ el, border = false }) => {
 
 	const onChangeLayoutCollapse = () => {
 		if (!hasChildren) return
-		setCollapse(previousCollapseRef.current)
-		previousCollapseRef.current = collapse
+		if (!layoutCollapse) {
+			previousCollapseRef.current = collapse
+			setCollapse(false)
+		} else {
+			setCollapse(previousCollapseRef.current)
+		}
 	}
 
 	useEffect(onChangeLayoutCollapse, [layoutCollapse])
-
 	useEffect(onChangeCollapse, [collapse])
 
 	return el.role != null && !el.role.some(e => e === auth?.role) ? null : (
@@ -104,15 +111,11 @@ export const MenuItem = ({ el, border = false }) => {
 			})}
 		>
 			{el.to ? (
-				<Link
-					className="flex items-center cursor-pointer"
-					to={el.to}
-					onClick={onCollapse}
-				>
+				<Link to={el.to} onClick={onCollapse}>
 					<Content el={el} />
 				</Link>
 			) : (
-				<div className="flex items-center cursor-pointer" onClick={onCollapse}>
+				<div onClick={onCollapse}>
 					<Content el={el} />
 				</div>
 			)}
