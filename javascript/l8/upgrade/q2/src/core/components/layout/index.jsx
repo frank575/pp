@@ -1,12 +1,10 @@
 import { Header } from '@/core/components/layout/header'
 import { Menu } from '@/core/components/layout/menu'
 import { useMemo } from 'react'
-import { useAuth } from '@/core/hooks/use-auth'
 import { LayoutProvider } from '@/core/components/layout/service'
 import { ERole } from '@/enums/role'
 
 export const Layout = ({ children }) => {
-	const auth = useAuth(e => e.auth)
 	const menus = useMemo(
 		() => [
 			{
