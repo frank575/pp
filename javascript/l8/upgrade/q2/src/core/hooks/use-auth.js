@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useLocalStorageState } from '@jsl-react/hooks'
 import { createProvider } from '@jsl-react/lib'
@@ -19,9 +19,10 @@ export const { Provider: AuthProvider, inject: useAuth } =
 
 function service() {
 	const history = useHistory()
+	const { on } = useMitt()
 	const [auth, setAuth] = useState(null) // Object | null
 	const [token, setToken] = useLocalStorageState('l8-q2_token', null)
-	const { on } = useMitt()
+	const role = useMemo(() => auth?.role, [auth])
 
 	const clearAuthState = useCallback(() => {
 		setAuth(null)
@@ -44,5 +45,6 @@ function service() {
 		setToken,
 		clearAuthState,
 		logout,
+		role,
 	}
 }

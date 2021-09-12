@@ -4,6 +4,7 @@ import { useLayout } from '@/core/components/layout/service'
 
 export const Header = () => {
 	const auth = useAuth(e => e.auth)
+	const logout = useAuth(e => e.logout)
 	const setCollapse = useLayout(e => e.setCollapse)
 
 	return (
@@ -24,7 +25,7 @@ export const Header = () => {
 							{auth.name}({auth.username})
 						</div>
 					</div>
-					<i className="fas fa-sign-out-alt cursor-pointer" />
+					<i className="fas fa-sign-out-alt cursor-pointer" onClick={logout} />
 				</div>
 			) : null}
 		</header>

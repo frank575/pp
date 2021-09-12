@@ -8,8 +8,12 @@ import { RouteWrapper } from '@/core/components/routes/route-wrapper'
 import { withSuspenseRoute } from '@/core/components/routes/with-suspense-route'
 import { withSuspensePrivateRoute } from '@/core/components/routes/with-suspense-private-route'
 import { PathnameHistoriesProvider } from '@/core/hooks/use-pathname-histories'
+import { useAuth } from '@/core/hooks/use-auth'
+import { ERole } from '@/enums/role'
 
 export const Routes = () => {
+	const role = useAuth(e => e.role)
+
 	return (
 		<PathnameHistoriesProvider>
 			<Switch>
@@ -56,16 +60,18 @@ export const Routes = () => {
 					layout={Layout}
 				/>
 
-				<RouteWrapper
-					path={'/users'}
-					exact
-					component={withSuspensePrivateRoute(
-						lazy(() => import('@/pages/users')),
-						LayoutFallback,
-						withTitle('會員管理'),
-					)}
-					layout={Layout}
-				/>
+				{role === ERole.ADMIN && (
+					<RouteWrapper
+						path={'/users'}
+						exact
+						component={withSuspensePrivateRoute(
+							lazy(() => import('@/pages/users')),
+							LayoutFallback,
+							withTitle('會員管理'),
+						)}
+						layout={Layout}
+					/>
+				)}
 				{/* LayoutRoute END */}
 
 				<Route

@@ -92,7 +92,7 @@ export const MenuItem = ({ el, border = false }) => {
 		}
 	}, [collapse])
 
-	return el.role != null && el.role !== auth?.role ? null : (
+	return el.role != null && !el.role.some(e => e === auth?.role) ? null : (
 		<li
 			className={createClassName({
 				'ml-4 py-2 whitespace-nowrap': true,

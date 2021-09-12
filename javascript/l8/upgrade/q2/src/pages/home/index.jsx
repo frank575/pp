@@ -1,5 +1,9 @@
 import { PageContent } from '@/components/page-content'
 
 export default () => {
-	return <PageContent>首頁</PageContent>
+	return (
+		<PageContent>
+			<div className="text-2xl">首頁</div>
+		</PageContent>
+	)
 }

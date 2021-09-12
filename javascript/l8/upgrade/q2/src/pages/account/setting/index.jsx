@@ -24,6 +24,7 @@ export default () => {
 
 	return (
 		<PageContent>
+			<div className="text-2xl">帳戶設定</div>
 			<Upload onChange={onSendUploadPicture} />
 			<SplitPicture
 				type={'blob'}
