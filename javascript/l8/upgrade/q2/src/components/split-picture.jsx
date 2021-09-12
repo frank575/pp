@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useInitialRef } from '@jsl-react/hooks'
 import { Button } from '@/components/button'
+import { Modal } from '@/components/modal'
 
 const CANVAS_WIDTH = 504
 const CANVAS_HEIGHT = 302
@@ -11,6 +12,7 @@ const MAX_HEIGHT = CANVAS_HEIGHT - DOUBLE_PADDING
 const MIN_RECT_SIZE = 120
 
 export const SplitPicture = ({ src, onSplit, type = 'base64' }) => {
+	const [visible, setVisible] = useState(false)
 	const canvasRef = useRef(null)
 	const splitCanvasRef = useRef(null)
 	/**
@@ -295,40 +297,53 @@ export const SplitPicture = ({ src, onSplit, type = 'base64' }) => {
 		} else if (type === 'blob') {
 			splitCanvas.toBlob(blob => onSplit?.(blob))
 		}
+
+		onCancel()
 	}, [])
 
+	const onCancel = () => {
+		setVisible(false)
+		setImgSrc(null)
+	}
+
 	useEffect(() => {
-		if (imgSrc == null) return
+		if (src == null) return
+		setImgSrc(src)
+		setVisible(true)
+	}, [src])
 
-		initCanvas()
-		window.addEventListener('mousedown', onMousedown)
-		window.addEventListener('mousemove', onMousemove)
-		window.addEventListener('mouseup', onMouseup)
-		return () => {
-			document.body.style.userSelect = null
-			window.removeEventListener('mousedown', onMousedown)
-			window.removeEventListener('mousemove', onMousemove)
-			window.removeEventListener('mouseup', onMouseup)
+	useEffect(() => {
+		if (visible) {
+			initCanvas()
+			window.addEventListener('mousedown', onMousedown)
+			window.addEventListener('mousemove', onMousemove)
+			window.addEventListener('mouseup', onMouseup)
+			return () => {
+				document.body.style.userSelect = null
+				window.removeEventListener('mousedown', onMousedown)
+				window.removeEventListener('mousemove', onMousemove)
+				window.removeEventListener('mouseup', onMouseup)
+			}
 		}
-	}, [imgSrc])
+	}, [visible])
 
-	useEffect(() => setImgSrc(src), [src])
+	return (
+		<Modal visible={visible} onCancel={onCancel}>
+			<div style={{ width: CANVAS_WIDTH }}>
+				<canvas
+					ref={canvasRef}
+					width={canvasState.current.canvasWidth}
+					height={canvasState.current.canvasHeight}
+				/>
+				<canvas className="hidden" ref={splitCanvasRef} width={0} height={0} />
 
-	return imgSrc != null ? (
-		<div style={{ width: CANVAS_WIDTH }}>
-			<canvas
-				ref={canvasRef}
-				width={canvasState.current.canvasWidth}
-				height={canvasState.current.canvasHeight}
-			/>
-			<canvas className="hidden" ref={splitCanvasRef} width={0} height={0} />
-
-			{imgLoaded ? (
-				<div className="text-center mt-2">
-					{' '}
-					<Button onClick={onSplitPicture}>確定</Button>
-				</div>
-			) : null}
-		</div>
-	) : null
+				{imgLoaded ? (
+					<div className="text-center mt-2">
+						{' '}
+						<Button onClick={onSplitPicture}>確定</Button>
+					</div>
+				) : null}
+			</div>
+		</Modal>
+	)
 }
