@@ -2,24 +2,12 @@ import { useLayout } from '@/core/components/layout/service'
 import { MenuItem } from '@/core/components/layout/menu/item'
 import { createClassName } from '@jsl'
 import { useMemo } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
-import { initialMenus } from '@/core/components/layout/menu/utils'
+import { initMenus } from '@/core/components/layout/menu/utils'
 
 export const Menu = ({ data }) => {
-	const params = useParams()
-	const location = useLocation()
-	const initMenuState = {
-		params,
-		location,
-	}
 	const hasData = useMemo(() => data && data.length, [data])
 	const collapse = useLayout(e => e.collapse)
-
-	useMemo(
-		() =>
-			initialMenus(data, initMenuState.params, initMenuState.location.pathname),
-		[data],
-	)
+	useMemo(() => initMenus(data), [data])
 
 	return useMemo(
 		() => (

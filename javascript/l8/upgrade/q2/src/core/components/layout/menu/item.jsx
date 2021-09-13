@@ -2,10 +2,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useLayout } from '@/core/components/layout/service'
 import { createClassName } from '@jsl'
 import { Link } from 'react-router-dom'
-import { useAuth } from '@/core/hooks/use-auth'
 import { useRouteMatch } from 'react-router'
+import { useMitt } from '@/core/hooks/use-mitt'
 
 export const MenuItem = ({ el, border = false }) => {
+	const { on, emit } = useMitt()
 	const routeMatch = useRouteMatch(el.to)
 	const isMatch = useMemo(
 		() =>
@@ -13,17 +14,13 @@ export const MenuItem = ({ el, border = false }) => {
 			el._matchs.some(path => routeMatch.isExact && path === routeMatch.path),
 		[el.to, el._matchs, routeMatch],
 	)
-	const auth = useAuth(e => e.auth)
 	const layoutCollapse = useLayout(e => e.collapse)
-	const sideKey = useLayout(e => e.sideKey)
 	const hasChildren = useMemo(
 		() => el.children && el.children.length,
 		[el.children],
 	)
 	const ulRef = useRef(null)
-	const [collapse, setCollapse] = useState(
-		hasChildren ? el._defaultOpen : false,
-	)
+	const [collapse, setCollapse] = useState(false)
 	const previousCollapseRef = useRef(collapse)
 
 	const getChildrenHeight = () =>
@@ -69,7 +66,7 @@ export const MenuItem = ({ el, border = false }) => {
 				) : null}
 			</div>
 		),
-		[layoutCollapse, collapse, hasChildren, sideKey, isMatch],
+		[layoutCollapse, collapse, hasChildren, isMatch],
 	)
 
 	const onChangeCollapse = () => {
@@ -100,10 +97,28 @@ export const MenuItem = ({ el, border = false }) => {
 		}
 	}
 
+	const checkFirstInParentCollapse = useCallback(() => {
+		if (!hasChildren && routeMatch != null && routeMatch.isExact) {
+			setTimeout(() => {
+				const _keys = el._key.split('-')
+				const _keysLength = _keys.length
+				for (let i = _keysLength - 1; i > 0; i--) {
+					let emitKey = `menu-item`
+					for (let j = 0; j < i; j++) {
+						emitKey += `-${_keys[j]}`
+					}
+					emit(emitKey, true)
+				}
+			})
+		}
+	}, [routeMatch])
+
+	on(`menu-item-${el._key}`, collapse => setCollapse(collapse))
 	useEffect(onChangeLayoutCollapse, [layoutCollapse])
 	useEffect(onChangeCollapse, [collapse])
+	useEffect(checkFirstInParentCollapse, [])
 
-	return el.role != null && !el.role.some(e => e === auth?.role) ? null : (
+	return el.validator != null && !el.validator(el) ? null : (
 		<li
 			className={createClassName({
 				'ml-4 py-2 whitespace-nowrap': true,
