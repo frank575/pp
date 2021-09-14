@@ -6,6 +6,7 @@ import { useDebounce } from '../utils/use-debounce'
 import { useDebounceFunc } from '../utils/use-debounce-func'
 import { useMethods } from '../utils/use-methods'
 import { useSafeState } from '../utils/use-safe-state'
+import { useInitialRef } from '../utils/use-initial-ref'
 
 
 export {
@@ -17,5 +18,6 @@ export {
   useDebounce,
   useDebounceFunc,
   useMethods,
-  useSafeState
+  useSafeState,
+  useInitialRef,
 }
