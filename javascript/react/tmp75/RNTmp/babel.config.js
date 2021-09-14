@@ -8,8 +8,8 @@ module.exports = {
 				alias: {
 					// '^~(.+)': './src/\\1',
 					'@': './src',
-					'@jsl': './src/core/jsl/src/js/lib',
-					'@jsl-react': './src/core/jsl/src/js/react',
+					'@jsl': '../@jsl/common/native',
+					'@jsl-react': '../@jsl/react/native',
 					'@i18n': './src/core/i18n',
 				},
 				extensions: [

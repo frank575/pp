@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react'
+import { useSafeState } from '@jsl-react'
 import { EAuthCode } from '@/core/hooks/use-auth'
-import { useSafeState } from '@jsl-react/hooks'
 import { useAuth } from '@/core/hooks/use-auth'
 
 export const useValidateAuth = () => {
