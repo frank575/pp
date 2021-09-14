@@ -1,7 +1,6 @@
 import React from 'react'
 import { Button, Text, View } from 'react-native'
 import tw from 'tailwind-react-native-classnames'
-import { inject } from '@/core/app'
 import { useNavigation } from '@react-navigation/native'
 
 export const Home = () => {

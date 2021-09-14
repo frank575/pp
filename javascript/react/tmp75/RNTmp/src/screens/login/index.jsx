@@ -1,7 +1,6 @@
 import React from 'react'
 import { Button, Text, View } from 'react-native'
 import tw from 'tailwind-react-native-classnames'
-import { inject } from '@/core/app'
 import { useNavigation } from '@react-navigation/native'
 
 export const Login = () => {
@@ -13,7 +12,7 @@ export const Login = () => {
 			<View style={tw`mb-2`}>
 				<Button
 					title={'Go to HelloReactNative screen'}
-					onPress={() => navigation.navigate('Hello')}
+					onPress={() => navigation.navigate('HelloReactNative')}
 				/>
 			</View>
 			<Button
