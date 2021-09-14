@@ -5,7 +5,7 @@
 
 import { Dispatch } from 'react'
 import { getStorageItem, useUpdateStorage } from './util'
-import { useSafeState } from '../use-safe-state'
+import { useSafeState } from '../../utils/use-safe-state'
 
 /**
  * @template T

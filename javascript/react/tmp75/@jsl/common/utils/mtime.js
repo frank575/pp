@@ -11,30 +11,30 @@ import moment from 'moment'
 const today = () => [moment().startOf('day'), moment().endOf('day')]
 
 const yesterday = () => [
-	moment().subtract(1, 'day').startOf('day'),
-	moment().endOf('day'),
+  moment().subtract(1, 'day').startOf('day'),
+  moment().endOf('day'),
 ]
 
 const thisWeek = () => [
-	moment().isoWeekday(1).startOf('day'),
-	moment().endOf('day'),
+  moment().isoWeekday(1).startOf('day'),
+  moment().endOf('day'),
 ]
 
 const pastWeek = () => [
-	moment().isoWeekday(-6).startOf('day'),
-	moment().isoWeekday(0).endOf('day'),
+  moment().isoWeekday(-6).startOf('day'),
+  moment().isoWeekday(0).endOf('day'),
 ]
 
 const thisMonth = () => [moment().date(1).startOf('day'), moment().endOf('day')]
 
 const pastMonth = () => [
-	moment()
-		.month(moment().month() - 1)
-		.date(1)
-		.startOf('day'),
-	moment()
-		.month(moment().month() - 1)
-		.endOf('month'),
+  moment()
+    .month(moment().month() - 1)
+    .date(1)
+    .startOf('day'),
+  moment()
+    .month(moment().month() - 1)
+    .endOf('month'),
 ]
 
 // const msTranslate = (ms = 0) => {
@@ -56,10 +56,10 @@ const pastMonth = () => [
 // }
 
 export default {
-	today,
-	yesterday,
-	thisWeek,
-	pastWeek,
-	thisMonth,
-	pastMonth,
+  today,
+  yesterday,
+  thisWeek,
+  pastWeek,
+  thisMonth,
+  pastMonth,
 }

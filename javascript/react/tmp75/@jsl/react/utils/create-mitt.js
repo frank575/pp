@@ -1,7 +1,7 @@
 /// 創建 mitt() 鉤子
 /// v0 {author: frank575}
 
-import React, { useCallback, useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import mitt from 'mitt'
 
 export { createMitt }

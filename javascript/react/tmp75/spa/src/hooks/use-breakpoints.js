@@ -1,4 +1,4 @@
-import { createBreakpoints } from '@jsl-react/lib'
+import { createBreakpoints } from '@jsl-react'
 
 export { useBreakpoints }
 

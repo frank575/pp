@@ -1,10 +1,9 @@
 import { useCallback, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useLocalStorageState } from '@jsl-react/hooks'
+import { useLocalStorageState, createProvider } from '@jsl-react'
 import { createEnum } from '@jsl'
 import { useMitt } from '@/core/hooks/use-mitt'
 import { AUTHORIZATION_FAILED } from '@/core/mitt-type'
-import { createProvider } from '@jsl-react/lib'
 
 export const EAuthCode = createEnum({
 	validating: [0, '驗證中'],

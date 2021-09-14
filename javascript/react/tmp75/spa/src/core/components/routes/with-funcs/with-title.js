@@ -1,4 +1,4 @@
-import { useTitle } from '@jsl-react/hooks'
+import { useTitle } from '@jsl-react'
 
 export const withTitle = title => () => {
 	useTitle(title)

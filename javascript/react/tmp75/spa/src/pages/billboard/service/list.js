@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
 import {
+	createProvider,
 	useDebounceFunc,
 	useSafeState,
 	useQueryString,
-} from '@jsl-react/hooks'
+} from '@jsl-react'
 import { fetchBillboard, fetchLikeBillboardPost } from '@/core/__fake-api'
 import { message } from 'antd'
-import { createProvider } from '@jsl-react/lib'
 
 export const { Provider: ListProvider, inject: useList } = createProvider(service)
 

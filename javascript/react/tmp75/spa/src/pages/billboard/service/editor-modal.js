@@ -1,12 +1,12 @@
 import { Form, message } from 'antd'
 import { useMemo, useState } from 'react'
+import { createProvider } from '@jsl-react'
 import { EEditorStatus } from '@/enums/e-editor-status'
 import {
 	fetchAddBillboardPost,
 	fetchEditBillboardPost,
 } from '@/core/__fake-api'
 import { useList } from '@/pages/billboard/service/list'
-import { createProvider } from '@jsl-react/lib'
 
 export const { Provider: EditorModalProvider, inject: useEditorModal } =
 	createProvider(service)

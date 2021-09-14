@@ -1,8 +1,8 @@
 System.config({
 	paths: {
 		'@/*': './src/*',
-		'@jsl': './src/core/jsl/src/js/lib',
-		'@jsl-react/*': './src/core/jsl/src/js/react/*',
+		'@jsl': '../@jsl/common/web',
+		'@jsl-react': '../@jsl/react/web',
 		'@i18n': './src/core/i18n',
 	},
 })

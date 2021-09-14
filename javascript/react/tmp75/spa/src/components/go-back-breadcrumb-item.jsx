@@ -1,6 +1,6 @@
-import { Breadcrumb } from 'antd'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import { Breadcrumb } from 'antd'
 
 export const GoBackBreadcrumbItem = ({ children }) => {
 	const history = useHistory()

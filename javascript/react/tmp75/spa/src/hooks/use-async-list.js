@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import { useQueryString } from '@jsl-react'
 import { useAsync } from '@/hooks/use-async'
-import { useQueryString } from '@jsl-react/hooks'
 import { useAuthHttp } from '@/core/hooks/http/use-auth-http'
 
 /**

@@ -1,6 +1,6 @@
-import { useLocation } from 'react-router-dom'
 import { useEffect, useMemo, useState } from 'react'
-import { createProvider } from '@jsl-react/lib'
+import { useLocation } from 'react-router-dom'
+import { createProvider } from '@jsl-react'
 
 const service = () => {
 	const location = useLocation()
