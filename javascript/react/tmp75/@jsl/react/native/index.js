@@ -7,8 +7,10 @@ import { useDebounceFunc } from '../common/use-debounce-func'
 import { useMethods } from '../common/use-methods'
 import { useSafeState } from '../common/use-safe-state'
 import { useInitialRef } from '../common/use-initial-ref'
+import { useAsyncStorageStore } from './use-async-storage-store'
 
 export {
+	useAsyncStorageStore,
 	// common
 	createI18n,
 	createMitt,
