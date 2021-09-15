@@ -4,7 +4,7 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import { createProvider } from './create-provider'
-import { findNestedDynamicObj } from '../../common/utils/find-nested-dynamic-obj'
+import { findNestedDynamicObj } from '../../common/common/find-nested-dynamic-obj'
 import { useLocalStorageState } from '../web/storage/use-local-storage-state'
 import { useSessionStorageState } from '../web/storage/use-session-storage-state'
 

@@ -1,16 +1,16 @@
-import { createClassName } from '../utils/create-class-name'
-import { createEnum } from '../utils/create-enum'
-import { stepPrice } from '../utils/step-price'
+import { createClassName } from '../common/create-class-name'
+import { createEnum } from '../common/create-enum'
+import { stepPrice } from '../common/step-price'
 import {
 	toSimple,
 	toTraditional,
 	checkSameChinese,
 	checkIncludeText,
-} from '../utils/cn-translate'
-import mtime from '../utils/mtime'
-import { timeout } from '../utils/timer/timeout'
-import { interval } from '../utils/timer/interval'
-import { aniFrame } from '../utils/timer/ani-frame'
+} from '../common/cn-translate'
+import mtime from '../common/mtime'
+import { timeout } from '../common/timer/timeout'
+import { interval } from '../common/timer/interval'
+import { aniFrame } from '../common/timer/ani-frame'
 import { copyText } from './copy-text'
 import { checkMobile } from './check-mobile'
 import { downloadBlob } from './download-blob'
@@ -23,7 +23,7 @@ export {
 	downloadBlob,
 	insertBefore,
 	insertAfter,
-	// utils
+	// common
 	createClassName,
 	createEnum,
 	stepPrice,

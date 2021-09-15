@@ -10,7 +10,7 @@
 
 import { useCallback, useEffect, useRef } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
-import { useSafeState } from '../utils/use-safe-state'
+import { useSafeState } from '../common/use-safe-state'
 
 const getValue = (search, param) => new URLSearchParams(search).get(param)
 const isNone = e => e == null || (typeof e === 'string' && e.trim() === '')

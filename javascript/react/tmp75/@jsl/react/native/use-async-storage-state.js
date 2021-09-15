@@ -1,4 +1,4 @@
-import { useSafeState } from '../utils/use-safe-state'
+import { useSafeState } from '../common/use-safe-state'
 
 export const useAsyncStorageState = (key, initialValue) => {
 	const [state, setState] = useSafeState(initialValue)
