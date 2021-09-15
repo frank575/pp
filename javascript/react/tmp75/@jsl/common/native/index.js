@@ -1,4 +1,3 @@
-import { createClassName } from '../common/create-class-name'
 import { createEnum } from '../common/create-enum'
 import { stepPrice } from '../common/step-price'
 import {
@@ -14,7 +13,6 @@ import { aniFrame } from '../common/timer/ani-frame'
 
 export {
 	// common
-	createClassName,
 	createEnum,
 	stepPrice,
 	toSimple,

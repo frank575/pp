@@ -1,4 +1,4 @@
-import { createClassName } from '../common/create-class-name'
+import { createClassName } from './create-class-name'
 import { createEnum } from '../common/create-enum'
 import { stepPrice } from '../common/step-price'
 import {
