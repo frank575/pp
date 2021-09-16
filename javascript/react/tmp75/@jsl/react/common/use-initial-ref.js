@@ -1,7 +1,7 @@
 /// 只會被初始化一次的 useRef
 /// v0 {author: frank575}
 
-import { useRef } from 'react'
+import React, { useRef } from 'react'
 
 /**
  * @template T
