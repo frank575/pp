@@ -1,12 +1,8 @@
-import {
-	createProvider,
-	useLocalStorageState,
-	useSafeState,
-} from '@jsl-react'
+import { createProvider, useLocalStorageState, useSafeState } from '@jsl-react'
 
 const service = () => {
 	const [menuCollapsed, setMenuCollapsed] = useLocalStorageState(
-		'tmp75_menu-collapsed',
+		`${import.meta.env.VITE_PROJECT_NAME}_menu-collapsed`,
 		false,
 	)
 	const [sideSelectedKeys, setSideSelectedKeys] = useSafeState([])

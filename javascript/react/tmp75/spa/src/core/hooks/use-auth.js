@@ -13,12 +13,16 @@ export const EAuthCode = createEnum({
 	hasAuth: [4, '已取得身分資訊'],
 })
 
-export const { Provider: AuthProvider, inject: useAuth } = createProvider(service)
+export const { Provider: AuthProvider, inject: useAuth } =
+	createProvider(service)
 
 function service() {
 	const history = useHistory()
 	const [auth, setAuth] = useState(null) // Object | null
-	const [token, setToken] = useLocalStorageState('tmp75_token', null)
+	const [token, setToken] = useLocalStorageState(
+		`${import.meta.env.VITE_PROJECT_NAME}_token`,
+		null,
+	)
 	const { on } = useMitt()
 
 	const clearAuthState = useCallback(() => {
