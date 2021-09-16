@@ -20,7 +20,7 @@ export const Routes = () => {
 					path={'/login'}
 					exact
 					component={withSuspenseRoute(
-						lazy(() => import('@/pages/account/login')),
+						lazy(() => import('@/pages/user/login')),
 						NoLayoutFallback,
 						withTitle('登入'),
 					)}
@@ -30,7 +30,7 @@ export const Routes = () => {
 					path={'/register'}
 					exact
 					component={withSuspenseRoute(
-						lazy(() => import('@/pages/account/register')),
+						lazy(() => import('@/pages/user/register')),
 						NoLayoutFallback,
 						withTitle('註冊'),
 					)}
