@@ -13,11 +13,6 @@ export default ({ mode }) => {
 			reactRefresh(),
 			reactSvgPlugin({
 				defaultExport: 'component',
-				svgo: true,
-				svgoConfig: {
-					addClassesToSVGElement: 'enabled',
-					addAttributesToSVGElement: 'enabled',
-				},
 				expandProps: 'end',
 			}),
 			vitePluginImport([
