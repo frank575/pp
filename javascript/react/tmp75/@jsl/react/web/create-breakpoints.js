@@ -1,27 +1,20 @@
 /// 斷點鉤子
+/// v3 {author: frank575} 將 screens 抽出去，並使用 ts 寫 jsdoc 優化 ide 調用
 /// v2 {author: frank575} 修正為只判斷寬度變化
 /// v1 {author: frank575} 擴展 opts.delay, opts.bootstrap
 /// v0 {author: frank575}
 
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 
-export const createBreakpoints = (screens = {}) => {
-	const _screens = {
-		'2xl': 1536,
-		xl: 1280,
-		lg: 1024,
-		md: 768,
-		sm: 640,
-		xs: 425,
-		...screens,
-	}
+/**
+ * @type {<T extends Object, K extends keyof T>(screens: T) => {
+ * useBreakpoints: (range: K | number, callback: (is: boolean) => void, opts?: { boostrap?: boolean, delay?: number }) => void
+ * }}
+ */
+export const createBreakpoints = screens => {
+	const _screens = screens
 
-	/**
-	 * @param {string|number} range
-	 * @param {function(boolean)} cb
-	 * @param {{bootstrap?: boolean, delay?: number}} opts
-	 */
-	const useBreakpoints = (range, cb, opts = {}) => {
+	const useBreakpoints = (range, callback, opts = {}) => {
 		const { bootstrap = true, delay = 500 } = opts
 		const breakpoints = useMemo(
 			() => (typeof range === 'number' ? range : _screens[range] || 0),
@@ -33,20 +26,20 @@ export const createBreakpoints = (screens = {}) => {
 			if (timer.current != null) clearTimeout(timer.current)
 			timer.current = setTimeout(() => {
 				timer.current = null
-				cb && cb(window.innerWidth <= breakpoints)
+				callback?.(window.innerWidth <= breakpoints)
 			}, delay)
-		}, [cb, breakpoints])
+		}, [callback, breakpoints])
 
 		useEffect(() => {
 			if (bootstrap) {
-				cb && cb(window.innerWidth <= breakpoints)
+				callback?.(window.innerWidth <= breakpoints)
 			}
 		}, [])
 
 		useEffect(() => {
 			window.addEventListener('resize', onResize)
 			return () => window.removeEventListener('resize', onResize)
-		}, [cb, onResize])
+		}, [callback, onResize])
 	}
 
 	return { useBreakpoints }
