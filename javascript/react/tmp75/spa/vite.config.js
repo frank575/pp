@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv } from 'vite'
 import reactRefresh from '@vitejs/plugin-react-refresh'
 import vitePluginImport from 'vite-plugin-babel-import'
+import reactSvgPlugin from 'vite-plugin-react-svg'
 const path = require('path')
 
 // https://vitejs.dev/config/
@@ -10,6 +11,15 @@ export default ({ mode }) => {
 	return defineConfig({
 		plugins: [
 			reactRefresh(),
+			reactSvgPlugin({
+				defaultExport: 'component',
+				svgo: true,
+				svgoConfig: {
+					addClassesToSVGElement: 'enabled',
+					addAttributesToSVGElement: 'enabled',
+				},
+				expandProps: 'end',
+			}),
 			vitePluginImport([
 				{
 					libraryName: 'antd',
