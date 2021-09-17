@@ -10,6 +10,7 @@ import mtime from '../common/mtime'
 import { timeout } from '../common/timer/timeout'
 import { interval } from '../common/timer/interval'
 import { aniFrame } from '../common/timer/ani-frame'
+import { generateId } from '../common/generateId'
 
 export {
 	// common
@@ -23,4 +24,5 @@ export {
 	timeout,
 	interval,
 	aniFrame,
+	generateId,
 }

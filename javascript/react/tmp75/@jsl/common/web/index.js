@@ -10,6 +10,7 @@ import mtime from '../common/mtime'
 import { timeout } from '../common/timer/timeout'
 import { interval } from '../common/timer/interval'
 import { aniFrame } from '../common/timer/ani-frame'
+import { generateId } from '../common/generateId'
 import { createClassName } from './create-class-name'
 import { copyText } from './copy-text'
 import { checkMobile } from './check-mobile'
@@ -35,4 +36,5 @@ export {
 	timeout,
 	interval,
 	aniFrame,
+	generateId,
 }
