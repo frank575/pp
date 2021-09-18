@@ -2,3 +2,18 @@
   display: flex;
   align-items: center;
 }
+
+.ant-picker-separator {
+  display: inline-flex !important;
+  align-items: center;
+}
+
+.ant-select-clear {
+  margin-top: -8px !important;
+}
+
+.ant-btn-icon-only {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

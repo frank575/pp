@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 /**
  * @type {
@@ -6,22 +6,22 @@ import { useEffect, useRef, useState } from 'react'
  *     defaultValue: T,
  *     value: T,
  *     onChange?: (e: T, el: any) => void
- *   }) => [T, (e: T, el: any) => void]
+ *   }) => [value: T, _onChange: (e: T, el: any) => void]
  * }
  */
-export const useCommonSelectState = ({ defaultValue, value, onChange }) => {
-	const hasValue = useRef(value !== undefined)
-	const [v, setV] = useState(defaultValue)
-	useEffect(() => {
-		if (hasValue.current) {
-			setV(value)
-		}
-	}, [value])
+export const useCommonSelectState = ({
+	defaultValue,
+	value: propValue,
+	onChange,
+}) => {
+	const [value, setValue] = useState(defaultValue)
+
 	const _onChange = (e, el) => {
-		if (!hasValue.current) {
-			setV(e)
-		}
-		onChange && onChange(e, el)
+		setValue(e)
+		onChange?.(e, el)
 	}
-	return [v, _onChange]
+
+	useEffect(() => setValue(propValue ?? defaultValue), [propValue])
+
+	return [value, _onChange]
 }
