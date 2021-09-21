@@ -3,9 +3,6 @@
 
 import { useCallback, useState, Dispatch, SetStateAction } from 'react'
 
-/**
- * @type {(defaultValue: boolean = false) => [boolean, () => void, Dispatch<SetStateAction<boolean>>]}
- */
 export const useToggle = (defaultValue = false) => {
 	const [value, setValue] = useState(defaultValue)
 

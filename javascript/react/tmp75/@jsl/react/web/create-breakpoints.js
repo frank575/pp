@@ -6,11 +6,6 @@
 
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 
-/**
- * @type {<T extends Object, K extends keyof T>(screens: T) => {
- * useBreakpoints: (range: K | number, callback: (is: boolean) => void, opts?: { boostrap?: boolean, delay?: number }) => void
- * }}
- */
 export const createBreakpoints = screens => {
 	const _screens = screens
 

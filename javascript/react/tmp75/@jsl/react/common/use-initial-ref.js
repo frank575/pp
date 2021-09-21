@@ -3,11 +3,6 @@
 
 import React, { useRef } from 'react'
 
-/**
- * @template T
- * @param {T | function(): T} ref
- * @return {React.MutableRefObject<T>}
- */
 export const useInitialRef = ref => {
 	const isInit = useRef(false)
 

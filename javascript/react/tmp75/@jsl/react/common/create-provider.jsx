@@ -6,14 +6,6 @@
 import React from 'react'
 import { createContext, useContextSelector } from 'use-context-selector'
 
-/**
- * @type {
- *   <T>(providerService: () => T) => {
- *     Provider: (prop: {children: React.ReactElement}) => React.ReactElement,
- *     inject: (getter: (e: T) => any) => any
- *   }
- * }
- */
 export const createProvider = providerService => {
 	const context = createContext(null)
 	const Provider = ({ children }) => (

@@ -7,12 +7,6 @@ import { useSafeState } from './use-safe-state'
 
 const CACHE_STATE = {}
 
-/**
- * @template T
- * @param {Symbol} symbol
- * @param {T} initialState
- * @returns [T, function(T | function(T): T): void]
- */
 export const useCacheState = (symbol, initialState) => {
 	const [state, setState] = useSafeState(CACHE_STATE[symbol] ?? initialState)
 

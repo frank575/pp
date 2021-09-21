@@ -7,12 +7,6 @@ import { Dispatch } from 'react'
 import { getStorageItem, useUpdateStorage } from './util'
 import { useSafeState } from '../../common/use-safe-state'
 
-/**
- * @template T
- * @param {string} key
- * @param {T} initialValue
- * @returns {[T, Dispatch<T>]}
- */
 export const useSessionStorageState = (key, initialValue) => {
 	const [state, setState] = useSafeState(
 		getStorageItem(key, initialValue, sessionStorage),

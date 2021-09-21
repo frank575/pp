@@ -3,19 +3,6 @@
 
 import { Dispatch, SetStateAction, useCallback, useState } from 'react'
 
-/**
- * @type {<T extends Object, K extends keyof T>(initialValueFunc: () => T, init: boolean = true) => [
- * 		T[],
- * 		Dispatch<SetStateAction<T[]>>,
- * 		action: {
- * 		 create: () => void,
- * 		 editByIndex: (index: number, value: T) => void,
- * 		 editKeyValueByIndex: (index: number, key: K, value: T[K]) => void,
- * 		 removeByIndex: (index: number, removeNum: number = 1) => void,
- * 		 removeByKeyValue: (key: K, value: T[K]) => void,
- * 		}
- * 	]}
- */
 export const useListEditor = (initialValueFunc, init = true) => {
 	const [list, setList] = useState(() => (init ? [initialValueFunc()] : []))
 

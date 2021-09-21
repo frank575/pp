@@ -4,16 +4,9 @@
 
 import { useEffect } from 'react'
 
-/**
- * @template T
- * @param {T} effect
- * @param {*[]} deps
- * @param [delay=500]
- * @returns {T}
- */
-export const useDebounce = (effect, deps, delay = 500) => {
+export const useDebounce = (callback, deps, delay = 500) => {
 	useEffect(() => {
-		const handler = setTimeout(() => effect(), delay)
+		const handler = setTimeout(() => callback(), delay)
 		return () => clearTimeout(handler)
 	}, [...deps ?? [], delay])
 }

@@ -53,9 +53,11 @@ type Cons<H, T> = T extends readonly any[] ?
   : never;
 
 type PathArray<T, D extends number = 5> = [D] extends [never] ? never : T extends object ?
-  { [K in keyof T]-?: [K] | (Paths<T[K], Prev[D]> extends infer P ?
+  {
+    [K in keyof T]-?: [K] | (Paths<T[K], Prev[D]> extends infer P ?
     P extends [] ? never : Cons<K, P> : never
-    ) }[keyof T]
+    )
+  }[keyof T]
   : [];
 
 type LeaveArray<T, D extends number = 5> = [D] extends [never] ? never : T extends object ?
@@ -82,7 +84,7 @@ type ValueOf<T> = T[keyof T];
 
 declare module "@jsl" {
   import {Moment} from "moment";
-
+  import {Dispatch} from "react";
 
 
   export function findNestedDynamicObj<T extends object, K extends Join<Paths<T>, ''>, KS extends Split<K, '.'>>(
@@ -90,13 +92,10 @@ declare module "@jsl" {
   ): DeepValue<T, KS>
 
 
-
   export function stepPrice(price: string | number, step: number): string
 
 
-
   export function generateId(length?: number): string
-
 
 
   type EnumValue = boolean | string | number
@@ -113,6 +112,7 @@ declare module "@jsl" {
         : T[K]
       : T[K]
   }
+
   export function createEnum<T extends CreateEnumObject, T2 extends KeyValueEnumObject<T>>(obj: T): T2 & {
     t: (val: EnumValues<T2>) => EnumValue
     key: (val: EnumValues<T2>) => string
@@ -122,36 +122,117 @@ declare module "@jsl" {
   }
 
 
-
   export namespace mtime {
     export function today(): [Moment, Moment]
+
     export function yesterday(): [Moment, Moment]
+
     export function thisWeek(): [Moment, Moment]
+
     export function pastWeek(): [Moment, Moment]
+
     export function thisMonth(): [Moment, Moment]
+
     export function pastMonth(): [Moment, Moment]
   }
 
 
-
   export function toSimple(text: string): string
-  export function toTraditional(text: string): string
-  export function checkSameChinese(text1: string, text2: string): boolean
-  export function checkIncludeText(text1: string, keyword: string): boolean
 
+  export function toTraditional(text: string): string
+
+  export function checkSameChinese(text1: string, text2: string): boolean
+
+  export function checkIncludeText(text1: string, keyword: string): boolean
 
 
   export function interval(): {
     start: (callback: () => void, delay?: number) => void
     stop: () => void
   }
+
   export function timeout(): {
     start: (callback: () => void, delay?: number) => void
     startSync: (callback: Promise<void>, delay?: number) => void
     stop: () => void
   }
+
   export function aniFrame(): {
     start: (callback: () => void) => void
     stop: () => void
+  }
+}
+
+declare module "@jsl-react" {
+  import {Dispatch, MutableRefObject, ReactElement, SetStateAction} from "react";
+
+
+  export function useSafeState<T>(initialState: T | (() => T)): [T, Dispatch<SetStateAction<T>>]
+
+
+  export function useTitle(title: string, restoreOnUnmount?: boolean): string
+
+
+  export function useQueryString<T extends object>(initialState: T): [T, Dispatch<SetStateAction<T>>]
+
+
+  export function createBreakpoints<T extends object, K extends keyof T>(screens: T): {
+    useBreakpoints: (
+      range: K | number,
+      callback: (is: boolean) => void,
+      opts?: { boostrap?: boolean, delay?: number }
+    ) => void
+  }
+
+
+  export function useLocalStorageState<T>(key: string, initialValue: T): [T, Dispatch<SetStateAction<T>>]
+
+
+  export function useSessionStorageState<T>(key: string, initialValue: T): [T, Dispatch<SetStateAction<T>>]
+
+
+  export function useToggle<T>(initialState: T | (() => T)): [T, () => void, Dispatch<SetStateAction<T>>]
+
+
+  // TODO 該類型應該是錯的，這 hook 沒啥用，先寫著放著
+  export function useMethods<T, U extends { [funName: string]: (state: T, ...args: any) => T }>(initialValue: T, methods: U): { [key in keyof T]: (...args: any) => T }
+
+
+  export function useListEditor<T extends object, K extends keyof T>(initialValueFunc: () => T, init?: boolean): [
+    T[],
+    Dispatch<SetStateAction<T[]>>,
+    {
+      create: () => void
+      editByIndex: (index: number, value: T) => void
+      editKeyValueByIndex: (index: number, key: K, value: T[K]) => void
+      removeByIndex: (index: number, removeNum?: number) => void
+      removeByKeyValue: (key: K, value: T[K]) => void
+    }
+  ]
+
+
+  export function useInitialRef<T>(initialValue: T | (() => T)): MutableRefObject<T>
+
+
+  // TODO 沒意外是錯的
+  export function useDebounceFunc(callback: Function[], delay?: number): [(...args: any) => void, () => void]
+
+
+  export function useDebounce<T>(callback: T, deps: any[], delay?: number): void
+
+
+  export function useCacheState<T>(symbol: Symbol, initialValue: T): [T, (arg: T | ((arg: T) => T)) => void]
+
+
+  export function createProvider<T>(providerService: () => T): {
+    Provider: (prop: { children: ReactElement }) => ReactElement
+    inject: <V>(getter: (e: T) => V) => V
+  }
+
+  export function createMitt(): {
+    useMitt: {
+      emit: any
+      on: any
+    }
   }
 }

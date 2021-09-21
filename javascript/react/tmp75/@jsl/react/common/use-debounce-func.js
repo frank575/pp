@@ -4,12 +4,7 @@
 
 import { useCallback, useRef } from 'react'
 
-/**
- * @param {function(...[*]): void} func
- * @param [delay=500]
- * @return {[function(...[*]): void, function(): void]}
- */
-export const useDebounceFunc = (func, delay = 500) => {
+export const useDebounceFunc = (callback, delay = 500) => {
 	const timeout = useRef(null)
 
 	const _clearTimeout = useCallback(() => {
@@ -22,11 +17,11 @@ export const useDebounceFunc = (func, delay = 500) => {
 		(...args) => {
 			_clearTimeout()
 			timeout.current = setTimeout(() => {
-				func(...args)
+				callback(...args)
 				timeout.current = null
 			}, delay)
 		},
-		[func, delay, _clearTimeout],
+		[callback, delay, _clearTimeout],
 	)
 
 	return [debounceFunc, _clearTimeout]

@@ -70,11 +70,6 @@ const transformState = state => {
 	return _state
 }
 
-/**
- * @template T
- * @param {T} initialState
- * @returns [T, function(T | function(T): T): void]
- */
 export const useQueryString = (initialState = {}) => {
 	const location = useLocation()
 	const history = useHistory()

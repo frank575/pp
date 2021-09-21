@@ -5,11 +5,6 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-/**
- * @template T
- * @param {T} initialState
- * @returns [T, function(T | function(T): T): void]
- */
 export const useSafeState = initialState => {
 	const _isMounted = useRef(true)
 	const [state, setState] = useState(initialState)
