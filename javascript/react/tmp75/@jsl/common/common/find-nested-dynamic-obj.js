@@ -2,12 +2,6 @@
 /// v1 {author: frank575} 重寫邏輯(原本懶得寫用他人的)，修正 cannot read property 'split' of undefined 的錯誤
 /// v0 {author: frank575}
 
-/**
- * @template T
- * @param {T} obj 要查詢的物件
- * @param {string} key 迴圈查詢的key eg x.x.x
- * @return {*} 找出的值
- */
 export const findNestedDynamicObj = (obj, key) => {
 	if (typeof obj !== 'object') {
 		console.warn(`[findNestedDynamicObj::warn] obj 請傳 {}`)

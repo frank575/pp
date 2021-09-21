@@ -1,9 +1,6 @@
 /// 數字加逗號，step(參數2)為多少位加逗號，預設千非位
 /// v0 {author: frank575}
 
-/**
- * @type {function(price: string | number, step: number): string}
- */
 export const stepPrice = (() => {
 	const ds = {}
 	const createStepD = step =>

@@ -1,9 +1,6 @@
 /// 產生隨機 id
 /// v0 {author: frank575}
 
-/**
- * @type {(length?: number) => string}
- */
 export const generateId = (length = 6) => {
 	let result = ''
 	const characters =

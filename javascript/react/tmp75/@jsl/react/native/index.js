@@ -1,3 +1,4 @@
+/// <reference path="../../type.d.ts" />
 import { createI18n } from '../common/create-i18n'
 import { createMitt } from '../common/create-mitt'
 import { createProvider } from '../common/create-provider'

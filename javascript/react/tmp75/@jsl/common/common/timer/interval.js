@@ -3,9 +3,9 @@
 
 const start =
 	state =>
-	(fun, delay = 0) => {
+	(callback, delay = 0) => {
 		stop(state)()
-		state.timer = setInterval(() => fun(), delay)
+		state.timer = setInterval(() => callback(), delay)
 	}
 
 const stop = state => () => {
@@ -15,10 +15,6 @@ const stop = state => () => {
 	}
 }
 
-/**
- * @template T
- * @returns {{stop: function(): void, start: function(fun: function(): void, delay: number = 0): void}}
- */
 export const interval = () => {
 	const state = { timer: null }
 	return {

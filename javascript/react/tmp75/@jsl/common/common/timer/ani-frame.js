@@ -1,9 +1,9 @@
 /// requestAnimationFrame 封裝
 /// v0 {author: frank575}
 
-const start = state => fun => {
+const start = state => callback => {
 	function run() {
-		fun()
+		callback()
 		state.timer = requestAnimationFrame(run)
 	}
 
@@ -14,10 +14,6 @@ const stop = state => () => {
 	cancelAnimationFrame(state.timer)
 }
 
-/**
- * requestAnimationFrame 封裝
- * @returns {{stop: function(): void, start: function(fun: function(): void): void}}
- */
 export const aniFrame = () => {
 	let state = { timer: null }
 	return {

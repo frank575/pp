@@ -3,9 +3,9 @@
 
 const start =
 	state =>
-	(fun, delay = 0) => {
+	(callback, delay = 0) => {
 		stop(state)()
-		state.timer = setTimeout(() => fun(), delay)
+		state.timer = setTimeout(() => callback(), delay)
 	}
 
 const startSync =
@@ -34,10 +34,6 @@ const stop = state => () => {
 	}
 }
 
-/**
- * @template T
- * @returns {{stop: function(): void, start: function(fun: function(): void, delay: number = 0): void, startSync: function(function() :Promise<T>, delay: number = 0): Promise<T>}}
- */
 export const timeout = () => {
 	const state = { timer: null }
 	return {

@@ -4,11 +4,6 @@
 /// v1 {author: frank575} [broken] Enum 改名為 createEnum
 /// v0 {author: frank575}
 
-/**
- * @template T
- * @param {T} obj
- * @return {T & {t(val: *): string, key(val: *): string, keys: string[], map: function(callback?: function(*, string): *): *[], reduce: function(callback: function(*, *, string): *, initialValue: *): *}}
- */
 export const createEnum = obj => {
 	const translation = {}
 	const reverseEnum = {}

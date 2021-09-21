@@ -5106,30 +5106,17 @@ const t = (text, prefix) => {
 	return result
 }
 
-/**
- * 繁轉簡
- * @param {string} text
- * @returns {string}
- */
+// 繁轉簡
 const toSimple = text => {
 	return t(text, 't')
 }
 
-/**
- * 簡轉繁
- * @param {string} text
- * @returns {string}
- */
+// 簡轉繁
 const toTraditional = text => {
 	return t(text, 's')
 }
 
-/**
- * 檢測中文字是否相等
- * @param {string} text1
- * @param {string} text2
- * @returns {boolean}
- */
+// 檢測中文字是否相等
 const checkSameChinese = (text1, text2) => {
 	if (text1.length !== text2.length) {
 		return false
@@ -5154,12 +5141,7 @@ const checkSameChinese = (text1, text2) => {
 	return same
 }
 
-/**
- * 檢測文字(參數1)是否包含關鍵字(參數2)
- * @param {string} text
- * @param {string} keyword
- * @returns {boolean}
- */
+// 檢測文字(參數1)是否包含關鍵字(參數2)
 const checkIncludeText = (text, keyword) => {
 	return toSimple(text).includes(toSimple(keyword))
 }
