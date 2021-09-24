@@ -3,7 +3,6 @@
 /// v1 {author: frank575} useState改成useSafeState
 /// v0 {author: frank575}
 
-import { Dispatch } from 'react'
 import { getStorageItem, useUpdateStorage } from './util'
 import { useSafeState } from '../../common/use-safe-state'
 

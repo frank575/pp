@@ -1,7 +1,7 @@
 /// 新增刪除編輯列表用鉤子
 /// v0 {author: frank575}
 
-import { Dispatch, SetStateAction, useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 
 export const useListEditor = (initialValueFunc, init = true) => {
 	const [list, setList] = useState(() => (init ? [initialValueFunc()] : []))
