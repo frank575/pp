@@ -3,11 +3,6 @@
 /// v1 {author: frank575} [broken] 改名為 createClassName
 /// v0 {author: frank575}
 
-/**
- * @param {Object.<string, boolean>} obj
- * @param {string[]} classNames
- * @return {string} 轉換後的className
- */
 export const createClassName = (obj, ...classNames) => {
 	let className = classNames.join(' ')
 	for (const k in obj) {

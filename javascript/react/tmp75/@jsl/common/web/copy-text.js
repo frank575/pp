@@ -1,10 +1,6 @@
 /// 複製文字
 /// v0 {author: frank575}
 
-/**
- * @param {number | string} value
- * @return {string} 拷貝的值
- */
 export const copyText = value => {
 	const copy = typeof value === 'number' ? String(value) : value
 	if (typeof copy !== 'string') {
