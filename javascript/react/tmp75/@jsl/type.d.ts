@@ -82,7 +82,7 @@ declare module '@jsl' {
 		KS extends Split<K, '.'>,
 	>(obj: T, key: K): DeepValue<T, KS>
 
-	export function stepPrice(price: string | number, step: number): string
+	export function stepPrice(price: string | number, step?: number): string
 
 	export function generateId(length?: number): string
 
@@ -166,13 +166,26 @@ declare module '@jsl' {
 
 	export function copyText(value: number | string): string
 
-	export function createClassName(obj: {[key: string]: boolean}, ...classNames: string[]): string
+	export function createClassName(
+		obj: { [key: string]: boolean },
+		...classNames: string[]
+	): string
 
-	export function downloadBlob(blob: any, fileName: string, fileType: string): void
+	export function downloadBlob(
+		blob: any,
+		fileName: string,
+		fileType: string,
+	): void
 
-	export function insertBefore(newNode: HTMLElement, existingNode: HTMLElement): void
+	export function insertBefore(
+		newNode: HTMLElement,
+		existingNode: HTMLElement,
+	): void
 
-	export function insertAfter(newNode: HTMLElement, existingNode: HTMLElement): void
+	export function insertAfter(
+		newNode: HTMLElement,
+		existingNode: HTMLElement,
+	): void
 }
 
 declare module '@jsl-react' {
@@ -287,5 +300,8 @@ declare module '@jsl-react' {
 		}>
 	}
 
-	export function useAsyncStorageStore<T extends Object, K extends keyof T>(appName: string, initialStore: T): [T, (key: K, value: T[K]) => void]
+	export function useAsyncStorageStore<T extends Object, K extends keyof T>(
+		appName: string,
+		initialStore: T,
+	): [T, (key: K, value: T[K]) => void]
 }
