@@ -1,14 +1,15 @@
+/// 本地緩存單一數據管理
+/// v0 {author: frank575}
+
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useSafeState } from '../common/use-safe-state'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 
-/**
- * @type {<T extends Object, K extends keyof T>(appName: string, initialStore: T) => [T, (key: K, value: T[K]) => void]}
- */
 export const useAsyncStorageStore = (appName, initialStore) => {
 	const [store, setStore] = useSafeState(null)
 
-	const initStore = async () => {
+	let initStore
+	initStore = useCallback(async () => {
 		const store = {}
 		const promiseGetItems = []
 		for (const k in initialStore) {
@@ -32,18 +33,25 @@ export const useAsyncStorageStore = (appName, initialStore) => {
 			}
 		})
 		setStore(store)
-	}
+	}, [AsyncStorage, appName, initialStore, setStore])
 
-	const updateStore = (key, value) => {
-		setStore(e => ({ ...e, [key]: value }))
+	const updateStore = useCallback(
+		(key, value) => {
+			setStore(e => ({ ...e, [key]: value }))
 
-		const storageKey = appName + '_' + key
-		if (value == null) {
-			AsyncStorage.removeItem(storageKey)
-		} else {
-			storageKey.setItem(key, JSON.stringify(value))
-		}
-	}
+			const storageKey = appName + '_' + key
+			if (value == null) {
+				AsyncStorage.removeItem(storageKey)
+			} else {
+				try {
+					AsyncStorage.setItem(storageKey, JSON.stringify(value))
+				} catch (err) {
+					AsyncStorage.removeItem(storageKey)
+				}
+			}
+		},
+		[AsyncStorage, appName, setStore],
+	)
 
 	useEffect(initStore, [])
 	useEffect(updateStore, [])

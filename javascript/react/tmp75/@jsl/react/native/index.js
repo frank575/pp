@@ -11,9 +11,11 @@ import { useInitialRef } from '../common/use-initial-ref'
 import { useToggle } from '../common/use-toggle'
 import { useListEditor } from '../common/use-list-editor'
 import { useAsyncStorageStore } from './use-async-storage-store'
+import { useAsyncStorageState } from './use-async-storage-state'
 
 export {
 	useAsyncStorageStore,
+	useAsyncStorageState,
 	// common
 	createI18n,
 	createMitt,
