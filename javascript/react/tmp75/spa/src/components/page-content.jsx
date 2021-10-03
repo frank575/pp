@@ -1,4 +1,3 @@
-import React from 'react'
 import { createClassName } from '@jsl'
 
 export const PageContent = ({ className, children }) => {

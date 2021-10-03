@@ -1,4 +1,3 @@
-import React from 'react'
 import { OrderedListOutlined } from '@ant-design/icons'
 import { PageContent } from '@/components/page-content'
 import { PageTitle } from '@/components/page-title'

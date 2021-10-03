@@ -1,4 +1,3 @@
-import React from 'react'
 import { NoLayoutWrap } from '@/components/no-layout-wrap'
 import { Result, Spin } from 'antd'
 

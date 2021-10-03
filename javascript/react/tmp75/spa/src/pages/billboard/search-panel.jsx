@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button, Form, Input, Typography } from 'antd'
 import { EEditorStatus } from '@/enums/e-editor-status'
 import { useEditorModal } from '@/pages/billboard/service/editor-modal'

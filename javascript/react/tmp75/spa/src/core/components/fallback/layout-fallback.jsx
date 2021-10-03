@@ -1,4 +1,3 @@
-import React from 'react'
 import { PageContent } from '@/components/page-content'
 import { LoadingOutlined } from '@ant-design/icons'
 

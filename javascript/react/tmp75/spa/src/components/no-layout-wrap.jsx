@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const NoLayoutWrap = ({ children, title }) => {
 	return (
 		<div className="bg-gray-200 min-w-max min-h-screen flex items-center justify-center ">

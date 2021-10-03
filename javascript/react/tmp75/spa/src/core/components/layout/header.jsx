@@ -1,4 +1,3 @@
-import React from 'react'
 import { Avatar, Button } from 'antd'
 import { LogoutOutlined, MenuOutlined, UserOutlined } from '@ant-design/icons'
 import { useLayout } from '@/core/components/layout/service'

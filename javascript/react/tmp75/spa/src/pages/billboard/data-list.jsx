@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { message, Modal, Select, Table, Tag, Tooltip, Typography } from 'antd'
 import {
 	DeleteOutlined,

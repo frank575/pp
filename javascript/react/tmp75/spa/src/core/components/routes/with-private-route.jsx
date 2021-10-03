@@ -1,4 +1,3 @@
-import React from 'react'
 import { AuthComponent } from '@/core/components/routes/auth-component'
 
 export const withPrivateRoute =

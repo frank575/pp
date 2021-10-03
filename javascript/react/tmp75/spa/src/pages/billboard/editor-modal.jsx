@@ -1,4 +1,3 @@
-import React from 'react'
 import { Form, Input, Modal } from 'antd'
 import { useEditorModal } from '@/pages/billboard/service/editor-modal'
 

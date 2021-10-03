@@ -1,4 +1,3 @@
-import React from 'react'
 import { PageContent } from '@/components/page-content'
 import { PageTitle } from '@/components/page-title'
 import { TranslationOutlined } from '@ant-design/icons'

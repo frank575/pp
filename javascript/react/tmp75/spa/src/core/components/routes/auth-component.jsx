@@ -1,5 +1,4 @@
 import { Redirect } from 'react-router-dom'
-import React from 'react'
 import { LoadingOutlined } from '@ant-design/icons'
 import { useValidateAuth } from '@/core/hooks/use-validate-auth'
 import { EAuthCode } from '@/core/hooks/use-auth'

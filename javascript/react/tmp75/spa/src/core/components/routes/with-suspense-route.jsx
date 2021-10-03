@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import { Suspense } from 'react'
 import { RouteContent } from '@/core/components/routes/route-content'
 
 export const withSuspenseRoute =

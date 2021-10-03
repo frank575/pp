@@ -1,4 +1,4 @@
-import React, { lazy } from 'react'
+import { lazy } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import { NoLayoutFallback } from '@/core/components/fallback/no-layout-fallback'
 import { Layout } from '@/core/components/layout'

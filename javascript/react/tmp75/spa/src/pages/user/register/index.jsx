@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { NoLayoutWrap } from '@/components/no-layout-wrap'
 import { Button, Form, Input, message } from 'antd'
 import { Link } from 'react-router-dom'

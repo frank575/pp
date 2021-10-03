@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import { Suspense } from 'react'
 import { AuthComponent } from '@/core/components/routes/auth-component'
 
 export const withSuspensePrivateRoute =

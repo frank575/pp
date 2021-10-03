@@ -41,9 +41,9 @@ export default ({ mode }) => {
 		},
 		// ant-mobile bundle 錯誤修復用
 		// build: { commonjsOptions: { transformMixedEsModules: true } },
-		// esbuild: {
-		// 	jsxInject: `import React from 'react'`,
-		// },
+		esbuild: {
+			jsxInject: `import React from 'react'`,
+		},
 		resolve: {
 			alias: {
 				'@': path.resolve(__dirname, 'src'),
