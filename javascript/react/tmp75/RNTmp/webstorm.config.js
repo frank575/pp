@@ -1,8 +1,8 @@
 System.config({
 	paths: {
 		'@/*': './src/*',
-		'@jsl': '75l/common/native',
-		'@jsl-react': '75l/react/native',
+		'75l': '75l/common/native',
+		'75l-react': '75l/react/native',
 		'@i18n': './src/core/i18n',
 	},
 })

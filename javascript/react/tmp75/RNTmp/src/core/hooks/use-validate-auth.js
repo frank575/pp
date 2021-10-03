@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react'
-import { useSafeState } from '@jsl-react'
+import { useSafeState } from '75l-react'
 import { EAuthCode } from '@/core/hooks/use-auth'
 import { useAuth } from '@/core/hooks/use-auth'
 

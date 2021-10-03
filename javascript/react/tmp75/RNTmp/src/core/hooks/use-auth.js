@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { createEnum } from '@jsl'
-import { useLocalStorageState, createProvider } from '@jsl-react'
+import { createEnum } from '75l'
+import { useLocalStorageState, createProvider } from '75l-react'
 import { useMitt } from '@/core/hooks/use-mitt'
 import { AUTHORIZATION_FAILED } from '@/core/mitt-type'
 

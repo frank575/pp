@@ -1,3 +1,3 @@
-import { createMitt } from '@jsl-react'
+import { createMitt } from '75l-react'
 
 export const { useMitt } = createMitt()
