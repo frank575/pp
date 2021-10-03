@@ -1,6 +1,6 @@
 /// 時間處理函數(moment)
-/// v1 {author: frank575} 修正昨天返回值錯誤
-/// v0 {author: frank575}
+/// v1 - 修正昨天返回值錯誤
+/// v0
 
 import moment from 'moment'
 

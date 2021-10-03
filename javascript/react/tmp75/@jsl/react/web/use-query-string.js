@@ -1,12 +1,12 @@
 /// 自動綁定querystring的useState
-/// v7 {author: frank575} 修正數字正則錯誤(原本會 parse 0001 這類數字)
-/// v6 {author: frank575} 修正 transformState 值空判斷由 ! 改成 !=null
-/// v5 {author: frank575} 修正空 search 及值轉空無限導址錯誤
-/// v4 {author: frank575} useSearch 更名為 useQueryString
-/// v3 {author: frank575} 使用replace防止某些情況下導致瀏覽器歷史上一步卡死
-/// v2 {author: frank575} refactor: 移除冗餘代碼
-/// v1 {author: frank575} fix: 修正路由未正確帶參及parse壞掉的問題還有二次初始化的錯誤
-/// v0 {author: frank575}
+/// v7 - 修正數字正則錯誤(原本會 parse 0001 這類數字)
+/// v6 - 修正 transformState 值空判斷由 ! 改成 !=null
+/// v5 - 修正空 search 及值轉空無限導址錯誤
+/// v4 - useSearch 更名為 useQueryString
+/// v3 - 使用replace防止某些情況下導致瀏覽器歷史上一步卡死
+/// v2 - refactor: 移除冗餘代碼
+/// v1 - fix: 修正路由未正確帶參及parse壞掉的問題還有二次初始化的錯誤
+/// v0
 
 import { useCallback, useEffect, useRef } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'

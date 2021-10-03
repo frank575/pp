@@ -1,6 +1,6 @@
 /// 迴圈查詢嵌套物件的值
-/// v1 {author: frank575} 重寫邏輯(原本懶得寫用他人的)，修正 cannot read property 'split' of undefined 的錯誤
-/// v0 {author: frank575}
+/// v1 - 重寫邏輯(原本懶得寫用他人的)，修正 cannot read property 'split' of undefined 的錯誤
+/// v0
 
 export const findNestedDynamicObj = (obj, key) => {
 	if (typeof obj !== 'object') {

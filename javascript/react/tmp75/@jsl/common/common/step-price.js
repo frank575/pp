@@ -1,5 +1,5 @@
 /// 數字加逗號，step(參數2)為多少位加逗號，預設千非位
-/// v0 {author: frank575}
+/// v0
 
 export const stepPrice = (() => {
 	const ds = {}

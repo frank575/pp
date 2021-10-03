@@ -1,5 +1,5 @@
 /// 只會被初始化一次的 useRef
-/// v0 {author: frank575}
+/// v0
 
 import React, { useRef } from 'react'
 

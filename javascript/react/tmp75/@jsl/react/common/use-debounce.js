@@ -1,6 +1,6 @@
 /// 防抖Effect鉤子
-/// v1 {author: frank575} 修正 deps 報錯異常
-/// v0 {author: frank575}
+/// v1 - 修正 deps 報錯異常
+/// v0
 
 import { useEffect } from 'react'
 

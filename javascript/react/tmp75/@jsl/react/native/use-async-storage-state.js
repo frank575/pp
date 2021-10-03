@@ -1,5 +1,5 @@
 /// asyncStorageState
-/// v0 {author: frank575}
+/// v0
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useSafeState } from '../common/use-safe-state'

@@ -1,8 +1,8 @@
 /// enum 實用的狀態轉換器
-/// v3 {author: frank575} map, reduce 返回 index
-/// v2 {author: frank575} [broken] map 返回改成 v, k，並新增 reduce 方法
-/// v1 {author: frank575} [broken] Enum 改名為 createEnum
-/// v0 {author: frank575}
+/// v3 - map, reduce 返回 index
+/// v2 - [broken] map 返回改成 v, k，並新增 reduce 方法
+/// v1 - [broken] Enum 改名為 createEnum
+/// v0
 
 export const createEnum = obj => {
 	const translation = {}

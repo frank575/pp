@@ -1,6 +1,6 @@
 /// 自動緩存到內存的useState
-/// v1 {author: frank575} 修正初始化沒寫入緩存
-/// v0 {author: frank575}
+/// v1 - 修正初始化沒寫入緩存
+/// v0
 
 import { useCallback, useEffect } from 'react'
 import { useSafeState } from './use-safe-state'

@@ -1,5 +1,5 @@
 /// 複製文字
-/// v0 {author: frank575}
+/// v0
 
 export const copyText = value => {
 	const copy = typeof value === 'number' ? String(value) : value

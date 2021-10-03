@@ -1,7 +1,7 @@
 /// create-i18n 可以在任意地方翻譯(t)的國際化
-/// v2 {author: frank575} 移除 storage 配置項
-/// v1 {author: frank575} useHook 提供 t 函數
-/// v0 {author: frank575}
+/// v2 - 移除 storage 配置項
+/// v1 - useHook 提供 t 函數
+/// v0
 
 import { useCallback, useEffect, useState } from 'react'
 import { createProvider } from './create-provider'

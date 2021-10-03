@@ -1,8 +1,8 @@
 /// 斷點鉤子
-/// v3 {author: frank575} 將 screens 抽出去，並使用 ts 寫 jsdoc 優化 ide 調用
-/// v2 {author: frank575} 修正為只判斷寬度變化
-/// v1 {author: frank575} 擴展 opts.delay, opts.bootstrap
-/// v0 {author: frank575}
+/// v3 - 將 screens 抽出去，並使用 ts 寫 jsdoc 優化 ide 調用
+/// v2 - 修正為只判斷寬度變化
+/// v1 - 擴展 opts.delay, opts.bootstrap
+/// v0
 
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 

@@ -1,7 +1,7 @@
 /// 防止內存洩漏的 useState
-/// v2 {author: frank575} 調整JSDOC類型
-/// v1 {author: frank575} parameter改名_state->initialState
-/// v0 {author: frank575}
+/// v2 - 調整JSDOC類型
+/// v1 - parameter改名_state->initialState
+/// v0
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 

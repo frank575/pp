@@ -1,7 +1,7 @@
 /// 自動存到 sessionStorage 的 useState
-/// v2 {author: frank575} 改成export const
-/// v1 {author: frank575} useState改成useSafeState
-/// v0 {author: frank575}
+/// v2 - 改成export const
+/// v1 - useState改成useSafeState
+/// v0
 
 import { getStorageItem, useUpdateStorage } from './util'
 import { useSafeState } from '../../common/use-safe-state'

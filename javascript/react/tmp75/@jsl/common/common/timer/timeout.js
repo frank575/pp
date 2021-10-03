@@ -1,5 +1,5 @@
 /// setTimeout 封裝
-/// v0 {author: frank575}
+/// v0
 
 const start =
 	state =>

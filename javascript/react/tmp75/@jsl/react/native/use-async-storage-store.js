@@ -1,5 +1,5 @@
 /// 本地緩存單一數據管理
-/// v0 {author: frank575}
+/// v0
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useSafeState } from '../common/use-safe-state'

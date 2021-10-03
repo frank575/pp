@@ -1,6 +1,6 @@
 /// 更新頁籤 title
-/// v1 {author: frank575} 新增 jsdoc
-/// v0 {author: frank575}
+/// v1 - 新增 jsdoc
+/// v0
 
 import { useEffect, useRef } from 'react'
 

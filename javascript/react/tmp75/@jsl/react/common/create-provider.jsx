@@ -1,7 +1,7 @@
 /// 提供者&供給者
-/// v2 {author: frank575} 由 ts 重寫類型
-/// v1 {author: frank575} [broken] 移除inject傳入字串的使用方式
-/// v0 {author: frank575}
+/// v2 - 由 ts 重寫類型
+/// v1 - [broken] 移除inject傳入字串的使用方式
+/// v0
 
 import React from 'react'
 import { createContext, useContextSelector } from 'use-context-selector'

@@ -1,5 +1,5 @@
 /// toggle useState
-/// v0 {author: frank575}
+/// v0
 
 import { useCallback, useState } from 'react'
 

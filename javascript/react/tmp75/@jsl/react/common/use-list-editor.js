@@ -1,5 +1,5 @@
 /// 新增刪除編輯列表用鉤子
-/// v0 {author: frank575}
+/// v0
 
 import { useCallback, useState } from 'react'
 

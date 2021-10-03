@@ -1,5 +1,5 @@
 /// 產生隨機 id
-/// v0 {author: frank575}
+/// v0
 
 export const generateId = (length = 6) => {
 	let result = ''

@@ -1,5 +1,5 @@
 /// 簡繁翻譯
-/// v0 {author: frank575}
+/// v0
 
 // [simple][traditional]...
 const stObj = {
