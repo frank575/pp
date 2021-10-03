@@ -10,6 +10,7 @@ import { useSafeState } from '../common/use-safe-state'
 import { useInitialRef } from '../common/use-initial-ref'
 import { useToggle } from '../common/use-toggle'
 import { useListEditor } from '../common/use-list-editor'
+import { useCheckInjectReturn } from '../common/use-check-inject-return'
 import { createBreakpoints } from './create-breakpoints'
 import { useQueryString } from './use-query-string'
 import { useTitle } from './use-title'
@@ -34,4 +35,5 @@ export {
 	useInitialRef,
 	useToggle,
 	useListEditor,
+	useCheckInjectReturn,
 }
