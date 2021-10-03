@@ -73,7 +73,7 @@ type DeepValue<
 
 type ValueOf<T> = T[keyof T]
 
-declare module '@jsl' {
+declare module '75l' {
 	import { Moment } from 'moment'
 
 	export function findNestedDynamicObj<
@@ -188,7 +188,7 @@ declare module '@jsl' {
 	): void
 }
 
-declare module '@jsl-react' {
+declare module '75l-react' {
 	import {
 		Dispatch,
 		MutableRefObject,
@@ -248,6 +248,18 @@ declare module '@jsl-react' {
 			editKeyValueByIndex: (index: number, key: K, value: T[K]) => void
 			removeByIndex: (index: number, removeNum?: number) => void
 			removeByKeyValue: (key: K, value: T[K]) => void
+		},
+	]
+
+	export function useCheckInjectReturn<T extends object, K extends keyof T>(
+		returnValue: T,
+		checkKeys: K[],
+	): [
+		T,
+		{
+			current: {
+				[P in K]: boolean
+			}
 		},
 	]
 
