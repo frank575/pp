@@ -47,8 +47,8 @@ export default ({ mode }) => {
 		resolve: {
 			alias: {
 				'@': path.resolve(__dirname, 'src'),
-				'@jsl': path.resolve(__dirname, '../@jsl/common/web'),
-				'@jsl-react': path.resolve(__dirname, '../@jsl/react/web'),
+				'@jsl': '75l/common/web',
+				'@jsl-react': '75l/react/web',
 				'@i18n': path.resolve(__dirname, 'src/core/i18n'),
 			},
 		},
