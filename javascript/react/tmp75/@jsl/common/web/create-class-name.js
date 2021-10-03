@@ -1,4 +1,5 @@
 /// 似 Vue 的 class obj 方式寫 className
+/// v3 - remove ...classNames
 /// v2 - JSDOC 類型修正
 /// v1 - [broken] 改名為 createClassName
 /// v0

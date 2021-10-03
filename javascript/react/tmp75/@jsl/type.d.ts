@@ -166,10 +166,7 @@ declare module '75l' {
 
 	export function copyText(value: number | string): string
 
-	export function createClassName(
-		obj: { [key: string]: boolean },
-		...classNames: string[]
-	): string
+	export function createClassName(obj: { [key: string]: boolean }): string
 
 	export function downloadBlob(
 		blob: any,
