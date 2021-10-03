@@ -1,6 +1,6 @@
 import { Form, message } from 'antd'
 import { useMemo, useState } from 'react'
-import { createProvider } from '@jsl-react'
+import { createProvider } from '75l-react'
 import { EEditorStatus } from '@/enums/e-editor-status'
 import {
 	fetchAddBillboardPost,

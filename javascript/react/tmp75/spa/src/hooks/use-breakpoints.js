@@ -1,4 +1,4 @@
-import { createBreakpoints } from '@jsl-react'
+import { createBreakpoints } from '75l-react'
 
 export { useBreakpoints, breakScreens }
 

@@ -1,4 +1,4 @@
-import { createProvider, useLocalStorageState, useSafeState } from '@jsl-react'
+import { createProvider, useLocalStorageState, useSafeState } from '75l-react'
 
 const service = () => {
 	const [menuCollapsed, setMenuCollapsed] = useLocalStorageState(

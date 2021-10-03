@@ -1,4 +1,4 @@
-import { createEnum, timeout } from '@jsl'
+import { createEnum, timeout } from '75l'
 
 export {
 	EBillboardStatus,

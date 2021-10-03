@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useQueryString } from '@jsl-react'
+import { useQueryString } from '75l-react'
 import { useAsync } from '@/hooks/use-async'
 import { useAuthHttp } from '@/core/hooks/http/use-auth-http'
 

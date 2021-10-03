@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useLocalStorageState, createProvider } from '@jsl-react'
-import { createEnum } from '@jsl'
+import { useLocalStorageState, createProvider } from '75l-react'
+import { createEnum } from '75l'
 import { useMitt } from '@/core/hooks/use-mitt'
 import { AUTHORIZATION_FAILED } from '@/core/mitt-type'
 

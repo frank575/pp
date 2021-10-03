@@ -1,4 +1,4 @@
-import { createEnum } from '@jsl'
+import { createEnum } from '75l'
 
 export const ELocale = createEnum({
 	zh_TW: ['zh_TW', '繁體中文'],

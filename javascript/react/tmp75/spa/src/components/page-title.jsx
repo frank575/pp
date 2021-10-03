@@ -1,7 +1,7 @@
 import { Link, useHistory } from 'react-router-dom'
 import { Breadcrumb, Typography } from 'antd'
 import { ArrowLeftOutlined, HomeOutlined } from '@ant-design/icons'
-import { createClassName } from '@jsl'
+import { createClassName } from '75l'
 
 const { Item } = Breadcrumb
 export const PageTitle = ({
@@ -28,12 +28,10 @@ export const PageTitle = ({
 					{title}
 				</Typography.Title>
 				<Breadcrumb
-					className={createClassName(
-						{
-							'flex-1 bg-gray-100 px-2 ml-2': true,
-						},
-						[className],
-					)}
+					className={createClassName({
+						'flex-1 bg-gray-100 px-2 ml-2': true,
+						[className]: className != null,
+					})}
 				>
 					<Item>
 						<Link to={'/'}>
