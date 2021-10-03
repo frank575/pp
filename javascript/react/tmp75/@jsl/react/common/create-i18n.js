@@ -7,8 +7,6 @@ import { useCallback, useEffect, useState } from 'react'
 import { createProvider } from './create-provider'
 import { findNestedDynamicObj } from '../../common/common/find-nested-dynamic-obj'
 
-export { createI18n }
-
 const translate = (messages, nestedKey, replaceArrayStr = []) => {
 	let v = findNestedDynamicObj(messages, nestedKey)
 	if (v == null) return nestedKey
@@ -42,7 +40,7 @@ const service =
 		}
 	}
 
-function createI18n({ locale, messages } = {}) {
+export const createI18n = ({ locale, messages } = {}) => {
 	let _locale = locale
 	const _setLocale = locale => (_locale = locale)
 

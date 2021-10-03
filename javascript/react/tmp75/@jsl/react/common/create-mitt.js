@@ -4,9 +4,7 @@
 import { useCallback, useEffect } from 'react'
 import mitt from 'mitt'
 
-export { createMitt }
-
-const createMitt = () => {
+export const createMitt = () => {
 	const emitter = mitt()
 	const useMitt = () => {
 		/**
