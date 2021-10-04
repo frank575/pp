@@ -7,8 +7,8 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "75l": "^0.2.1",
     "@ant-design/icons": "^4.6.2",
+    "75l": "^0.2.4",
     "antd": "^4.16.6",
     "axios": "^0.21.1",
     "mitt": "^3.0.0",
