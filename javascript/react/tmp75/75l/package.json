@@ -1,8 +1,9 @@
 {
   "name": "75l",
-  "version": "0.2.1",
+  "version": "0.2.4",
   "description": "",
   "main": "index.js",
+  "typings": "type.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
