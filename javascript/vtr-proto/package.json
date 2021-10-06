@@ -1,0 +1,35 @@
+{
+  "name": "vtr-proto",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^4.6.2",
+    "75l": "^0.2.4",
+    "antd": "^4.16.6",
+    "axios": "^0.21.1",
+    "mitt": "^3.0.0",
+    "moment": "^2.29.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
+    "use-context-selector": "^1.3.7"
+  },
+  "devDependencies": {
+    "@types/node": "^15.14.0",
+    "@types/react": "^17.0.2",
+    "@vitejs/plugin-react-refresh": "^1.3.6",
+    "autoprefixer": "^10.2.6",
+    "less": "^4.1.1",
+    "postcss": "^8.3.5",
+    "prettier": "^2.2.1",
+    "sass": "^1.42.1",
+    "tailwindcss": "^2.2.4",
+    "vite": "^2.5.10",
+    "vite-plugin-babel-import": "^2.0.5",
+    "vite-plugin-react-svg": "^0.2.0"
+  }
+}

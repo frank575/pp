@@ -9,7 +9,6 @@
 	<script>
 		function initMap () {
 			// 通過 address 取得地圖相關資訊
-			return
 			const geocoder = new google.maps.Geocoder()
 			// address    408台灣台中市南屯區大墩十一街730號
 			geocoder.geocode({address: '408台中市南屯區公益路二段'}, (results, status) => {
@@ -31,7 +30,7 @@
 <body>
 <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
 <script
-	src='https://maps.googleapis.com/maps/api/js?key=<YOUR_KEY>&callback=initMap&placeId=ChIJR6k5pcM9aTQR_RbJOyWfedI'
+	src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDCrjRtVW_vnhhb52h_go32UkCtdBvGMUI&callback=initMap&placeId=ChIJR6k5pcM9aTQR_RbJOyWfedI'
 	async
 ></script>
 </body>
