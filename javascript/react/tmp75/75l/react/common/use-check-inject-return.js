@@ -28,7 +28,9 @@ export const useCheckInjectReturn = (propReturnValue, checkKeys) => {
     return inObject
   }, [propReturnValue])
 
-  useEffect(() => (isEndRef.current = true), [])
+  useEffect(() => {
+    isEndRef.current = true
+  }, [])
 
   return [returnValue, checkRefs]
 }
