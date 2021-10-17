@@ -56,9 +56,6 @@ export const useAsyncStorageStore = (appName, initialStore) => {
 	useEffect(() => {
 		initStore()
 	}, [])
-	useEffect(() => {
-		updateStore()
-	}, [])
 
 	return [store, updateStore]
 }
