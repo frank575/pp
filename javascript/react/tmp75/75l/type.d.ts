@@ -285,7 +285,7 @@ declare module '75l-react' {
 	}
 
 	export function createMitt(): {
-		useMitt: {
+		useMitt: () => {
 			emit: (type: any, event: any) => void
 			on: (type: any, handler: Function) => void
 		}

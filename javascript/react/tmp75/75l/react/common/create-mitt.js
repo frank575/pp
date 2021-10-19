@@ -24,7 +24,7 @@ export const createMitt = () => {
 				return () => {
 					emitter.off(type, cb)
 				}
-			}, [])
+			}, [cb])
 		}, [])
 
 		return {
