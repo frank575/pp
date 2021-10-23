@@ -6,32 +6,34 @@ import { NoLayoutWrap } from '@/components/no-layout-wrap'
 import { useHistory } from 'react-router-dom'
 import { useAuth } from '@/core/hooks/use-auth'
 
+const initialUsername = import.meta.env.VITE_USERNAME
+const initialPassword = import.meta.env.VITE_PASSWORD
+
 export default () => {
-	const [submitLoading, setSubmitLoading] = useState(false)
 	const history = useHistory()
 	const setAuth = useAuth(e => e.setAuth)
 	const setToken = useAuth(e => e.setToken)
-	const initialUsername = import.meta.env.VITE_USERNAME
-	const initialPassword = import.meta.env.VITE_PASSWORD
+	const [submitLoading, setSubmitLoading] = useState(false)
+
 	const usernameValidator = (_, value) => {
 		if (!value) {
 			return Promise.reject(new Error('必填'))
 		}
 		return Promise.resolve()
 	}
+
 	const passwordValidator = (_, value) => {
 		if (!value) {
 			return Promise.reject(new Error('必填'))
 		}
 		return Promise.resolve()
 	}
-	const onLogin = async data => {
-		$devLog(data)
 
-		const { username, password } = data
+	const onLogin = async _data => {
 		setSubmitLoading(true)
 		const { success } = await { success: true }
 		setSubmitLoading(false)
+
 		if (success) {
 			setAuth({ id: 1, account: initialUsername, name: 'frank' })
 			setToken('just token')
@@ -54,7 +56,7 @@ export default () => {
 					]}
 					validateTrigger={['onChange', 'onBlur']}
 				>
-					<Input placeholder={'frank@handsome.com'} />
+					<Input />
 				</Form.Item>
 				<Form.Item
 					label={'密碼'}
@@ -68,7 +70,6 @@ export default () => {
 					validateTrigger={['onChange', 'onBlur']}
 				>
 					<Input.Password
-						placeholder={'0000'}
 						iconRender={visible =>
 							visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
 						}
