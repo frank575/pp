@@ -3,7 +3,7 @@
 
 import { useCallback, useState } from 'react'
 
-export const useListEditor = (initialValueFunc, init = true) => {
+export const useEditorList = (initialValueFunc, init = true) => {
 	const [list, setList] = useState(() => (init ? [initialValueFunc()] : []))
 
 	const create = useCallback(

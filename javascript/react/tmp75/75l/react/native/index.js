@@ -9,7 +9,7 @@ import { useMethods } from '../common/use-methods'
 import { useSafeState } from '../common/use-safe-state'
 import { useInitialRef } from '../common/use-initial-ref'
 import { useToggle } from '../common/use-toggle'
-import { useListEditor } from '../common/use-list-editor'
+import { useEditorList } from '../common/use-editor-list'
 import { useCheckInjectReturn } from '../common/use-check-inject-return'
 import { useAsyncStorageStore } from './use-async-storage-store'
 import { useAsyncStorageState } from './use-async-storage-state'
@@ -28,6 +28,6 @@ export {
 	useSafeState,
 	useInitialRef,
 	useToggle,
-	useListEditor,
+	useEditorList,
 	useCheckInjectReturn,
 }

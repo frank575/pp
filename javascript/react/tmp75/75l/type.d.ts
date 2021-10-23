@@ -1,3 +1,5 @@
+import {useListEditor} from "75l-react";
+
 type Prev = [never, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ...0[]]
 
 type Next = [1, 2, 3, 4, 5, 6, 7, 8, 9, ...10[]]
@@ -233,7 +235,7 @@ declare module '75l-react' {
 		U extends { [funName: string]: (state: T, ...args: any) => T },
 	>(initialValue: T, methods: U): { [key in keyof T]: (...args: any) => T }
 
-	export function useListEditor<T extends object, K extends keyof T>(
+	export function useEditorList<T extends object, K extends keyof T>(
 		initialValueFunc: () => T,
 		init?: boolean,
 	): [
