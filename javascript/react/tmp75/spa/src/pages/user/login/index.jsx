@@ -4,14 +4,11 @@ import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { NoLayoutWrap } from '@/components/no-layout-wrap'
 import { useHistory } from 'react-router-dom'
-import { callNoAuthFakeApi } from '@/core/__fake-api'
 import { useAuth } from '@/core/hooks/use-auth'
-import { usePathnameHistories } from '@/core/hooks/use-pathname-histories'
 
 export default () => {
 	const [submitLoading, setSubmitLoading] = useState(false)
 	const history = useHistory()
-	const fromPathname = usePathnameHistories(e => e.previousPathname)
 	const setAuth = useAuth(e => e.setAuth)
 	const setToken = useAuth(e => e.setToken)
 	const initialUsername = import.meta.env.VITE_USERNAME
@@ -33,21 +30,13 @@ export default () => {
 
 		const { username, password } = data
 		setSubmitLoading(true)
-		const { success } = await callNoAuthFakeApi()
+		const { success } = await { success: true }
 		setSubmitLoading(false)
 		if (success) {
 			setAuth({ id: 1, account: initialUsername, name: 'frank' })
 			setToken('just token')
 			message.success('登入成功')
-			if (
-				fromPathname != null &&
-				fromPathname !== '/register' &&
-				fromPathname !== '/login'
-			) {
-				history.replace(fromPathname)
-			} else {
-				history.replace('/billboard')
-			}
+			history.replace('/')
 		}
 	}
 

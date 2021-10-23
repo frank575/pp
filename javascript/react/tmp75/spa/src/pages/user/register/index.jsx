@@ -4,7 +4,6 @@ import { Button, Form, Input, message } from 'antd'
 import { Link } from 'react-router-dom'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
-import { callNoAuthFakeApi } from '@/core/__fake-api'
 import { useAuth } from '@/core/hooks/use-auth'
 
 export default () => {
@@ -29,7 +28,7 @@ export default () => {
 
 		const { username, password } = data
 		setSubmitLoading(true)
-		const { success } = await callNoAuthFakeApi()
+		const { success } = await { success: true }
 		setSubmitLoading(false)
 		if (success) {
 			setAuth({ id: 1, account: initialUsername, name: 'frank' })

@@ -2,7 +2,7 @@ import { Redirect } from 'react-router-dom'
 import { LoadingOutlined } from '@ant-design/icons'
 import { useValidateAuth } from '@/core/hooks/use-validate-auth'
 import { EAuthCode } from '@/core/hooks/use-auth'
-import { PageContent } from '@/components/page-content'
+import { PageContent } from '@/components/page/page-content'
 import { RouteContent } from '@/core/components/routes/route-content'
 
 export const AuthComponent = ({ component: RouteComponent }) => {

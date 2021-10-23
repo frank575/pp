@@ -1,4 +1,4 @@
-import { PageContent } from '@/components/page-content'
+import { PageContent } from '@/components/page/page-content'
 import { LoadingOutlined } from '@ant-design/icons'
 
 export const LayoutFallback = () => {

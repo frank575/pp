@@ -3,7 +3,6 @@ import { message } from 'antd'
 import { useSafeState } from '75l-react'
 import { EAuthCode } from '@/core/hooks/use-auth'
 import { useAuth } from '@/core/hooks/use-auth'
-import { callNoAuthRandomSuccessFakeApi } from '@/core/__fake-api'
 
 export const useValidateAuth = () => {
 	const auth = useAuth(e => e.auth)
@@ -17,7 +16,7 @@ export const useValidateAuth = () => {
 	const checkAuth = useCallback(async () => {
 		if (token) {
 			if (auth == null) {
-				const { success } = await callNoAuthRandomSuccessFakeApi()
+				const { success } = await { success: true }
 				if (success) {
 					setAuth({
 						id: 1,
