@@ -13,7 +13,9 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { useSafeState } from '../common/use-safe-state'
 
 const getValue = (search, param) => new URLSearchParams(search).get(param)
+
 const isNone = e => e == null || (typeof e === 'string' && e.trim() === '')
+
 const transformQueryMapToString = (queryMap = {}) => {
 	let first = true
 	return Object.entries(queryMap).reduce((p, [k, e]) => {
@@ -28,8 +30,9 @@ const transformQueryMapToString = (queryMap = {}) => {
 		}
 	}, '')
 }
+
 const initState = (initialState, location) => {
-	const _state = initialState
+	const _state = { ...initialState }
 	if (typeof _state === 'object') {
 		for (let k in initialState) {
 			const searchEl = getValue(location.search, k)
@@ -52,6 +55,7 @@ const initState = (initialState, location) => {
 	}
 	return _state
 }
+
 const transformState = state => {
 	let _state = null
 	if (typeof state === 'object') {
