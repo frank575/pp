@@ -1,14 +1,16 @@
 import { useCallback, useEffect } from 'react'
-import { message } from 'antd'
 import { useSafeState } from '75l-react'
-import { EAuthCode } from '@/core/hooks/use-auth'
-import { useAuth } from '@/core/hooks/use-auth'
+import { EAuthCode, useAuth } from '@/core/hooks/use-auth'
 
 export const useValidateAuth = () => {
-	const auth = useAuth(e => e.auth)
-	const token = useAuth(e => e.token)
-	const setAuth = useAuth(e => e.setAuth)
-	const clearAuthState = useAuth(e => e.clearAuthState)
+	const { auth, token, setAuth, clearAuthState } = useAuth(
+		({ auth, token, setAuth, clearAuthState }) => ({
+			auth,
+			token,
+			setAuth,
+			clearAuthState,
+		}),
+	)
 	const [code, setCode] = useSafeState(
 		auth == null ? EAuthCode.validating : EAuthCode.authSuccess,
 	)
@@ -16,14 +18,9 @@ export const useValidateAuth = () => {
 	const checkAuth = useCallback(async () => {
 		if (token) {
 			if (auth == null) {
-				const { success } = await { success: true }
+				const { success } = await { success: false }
 				if (success) {
-					setAuth({
-						id: 1,
-						account: import.meta.env.VITE_USERNAME,
-						name: 'frank',
-					})
-					message.success(EAuthCode.t(EAuthCode.authSuccess))
+					setAuth(undefined)
 					return {
 						code: EAuthCode.authSuccess,
 						message: EAuthCode.t(EAuthCode.authSuccess),
@@ -35,7 +32,6 @@ export const useValidateAuth = () => {
 					message: EAuthCode.t(EAuthCode.hasAuth),
 				}
 			}
-			message.error(EAuthCode.t(EAuthCode.authError))
 			return {
 				code: EAuthCode.authError,
 				message: EAuthCode.t(EAuthCode.authError),

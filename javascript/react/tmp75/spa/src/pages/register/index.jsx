@@ -5,16 +5,21 @@ import { Link } from 'react-router-dom'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
 import { useAuth } from '@/core/hooks/use-auth'
+import { useHttp } from '@/core/hooks/http/use-http'
 
 export default () => {
-	const [submitLoading, setSubmitLoading] = useState(false)
 	const history = useHistory()
-	const setAuth = useAuth(e => e.setAuth)
-	const setToken = useAuth(e => e.setToken)
+	const { http } = useHttp()
+	const [submitLoading, setSubmitLoading] = useState(false)
+	const { setAuth, setToken } = useAuth(({ setAuth, setToken }) => ({
+		setAuth,
+		setToken,
+	}))
+
 	const password2Validator = getFieldValue => (_, value) => {
 		const password = getFieldValue('password')
 		if (!value) {
-			return Promise.reject(new Error('必填'))
+			return Promise.reject(new Error('確認密碼為必填'))
 		} else if (value?.length < 4 || value?.length > 20) {
 			return Promise.reject(new Error('必須為4-20個字元'))
 		} else if (value !== password) {
@@ -23,18 +28,16 @@ export default () => {
 		return Promise.resolve()
 	}
 
-	const onRegister = async data => {
-		$devLog(data)
-
-		const { username, password } = data
+	const onRegister = async _data => {
 		setSubmitLoading(true)
-		const { success } = await { success: true }
+		const { success } = await { success: false }
 		setSubmitLoading(false)
+
 		if (success) {
-			setAuth({ id: 1, account: initialUsername, name: 'frank' })
-			setToken('just token')
-			message.success('登入成功')
-			history.replace('/billboard')
+			setAuth(undefined)
+			setToken(undefined)
+			message.success('註冊成功')
+			history.replace('/login')
 		}
 	}
 
@@ -50,10 +53,7 @@ export default () => {
 				<Form.Item
 					label={'帳號'}
 					name={'username'}
-					rules={[
-						{ required: true, message: '必填' },
-						{ type: 'email', message: '必須為email' },
-					]}
+					rules={[{ required: true }, { type: 'email' }]}
 					validateTrigger={['onChange', 'onBlur']}
 				>
 					<Input placeholder={'請輸入email'} />
@@ -61,10 +61,7 @@ export default () => {
 				<Form.Item
 					label={'密碼'}
 					name={'password'}
-					rules={[
-						{ required: true, message: '必填' },
-						{ min: 4, max: 10, message: '必須為4-20個字元' },
-					]}
+					rules={[{ required: true }, { min: 4, max: 10 }]}
 					validateTrigger={['onChange', 'onBlur']}
 				>
 					<Input.Password

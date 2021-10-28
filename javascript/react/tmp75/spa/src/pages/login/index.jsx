@@ -1,42 +1,31 @@
 import { useState } from 'react'
 import { Button, Form, Input, message } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { NoLayoutWrap } from '@/components/no-layout-wrap'
-import { useHistory } from 'react-router-dom'
 import { useAuth } from '@/core/hooks/use-auth'
+import { useHttp } from '@/core/hooks/http/use-http'
 
 const initialUsername = import.meta.env.VITE_USERNAME
 const initialPassword = import.meta.env.VITE_PASSWORD
 
 export default () => {
 	const history = useHistory()
-	const setAuth = useAuth(e => e.setAuth)
-	const setToken = useAuth(e => e.setToken)
+	const { http } = useHttp()
+	const { setAuth, setToken } = useAuth(({ setAuth, setToken }) => ({
+		setAuth,
+		setToken,
+	}))
 	const [submitLoading, setSubmitLoading] = useState(false)
-
-	const usernameValidator = (_, value) => {
-		if (!value) {
-			return Promise.reject(new Error('必填'))
-		}
-		return Promise.resolve()
-	}
-
-	const passwordValidator = (_, value) => {
-		if (!value) {
-			return Promise.reject(new Error('必填'))
-		}
-		return Promise.resolve()
-	}
 
 	const onLogin = async _data => {
 		setSubmitLoading(true)
-		const { success } = await { success: true }
+		const { success } = await { success: false }
 		setSubmitLoading(false)
 
 		if (success) {
-			setAuth({ id: 1, account: initialUsername, name: 'frank' })
-			setToken('just token')
+			setAuth(undefined)
+			setToken(undefined)
 			message.success('登入成功')
 			history.replace('/')
 		}
@@ -49,11 +38,7 @@ export default () => {
 					label={'帳號'}
 					name={'username'}
 					initialValue={initialUsername}
-					rules={[
-						{
-							validator: usernameValidator,
-						},
-					]}
+					rules={[{ required: true }]}
 					validateTrigger={['onChange', 'onBlur']}
 				>
 					<Input />
@@ -62,11 +47,7 @@ export default () => {
 					label={'密碼'}
 					name={'password'}
 					initialValue={initialPassword}
-					rules={[
-						{
-							validator: passwordValidator,
-						},
-					]}
+					rules={[{ required: true }]}
 					validateTrigger={['onChange', 'onBlur']}
 				>
 					<Input.Password

@@ -35,9 +35,7 @@ function service() {
 		history.replace('/login')
 	}, [])
 
-	on(AUTHORIZATION_FAILED, () => {
-		logout()
-	})
+	on(AUTHORIZATION_FAILED, logout)
 
 	return {
 		auth,

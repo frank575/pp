@@ -4,6 +4,7 @@ import { useAuth } from '@/core/hooks/use-auth'
 import { AxiosInstance } from 'axios'
 import { useMitt } from '@/core/hooks/use-mitt'
 import { AUTHORIZATION_FAILED } from '@/core/mitt-type'
+import { message } from 'antd'
 
 export { AuthHttpProvider, useAuthHttp }
 
@@ -34,12 +35,12 @@ function AuthHttpProvider({ children }) {
 			error => {
 				// 統一 try/catch
 				const res = error.response
-				// if (res && res.data) {
-				// 	message.error(res.data.message)
-				// }
-				// if (res.status === 401 || res.status === 403) {
-				// 	emit(AUTHORIZATION_FAILED)
-				// }
+				if (res && res.data) {
+					message.error(res.data.message)
+				}
+				if (res.status === 401 || res.status === 403) {
+					emit(AUTHORIZATION_FAILED)
+				}
 				return Promise.resolve(res)
 			},
 		)
