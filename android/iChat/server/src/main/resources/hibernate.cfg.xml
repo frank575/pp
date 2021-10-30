@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+  "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+  "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+  <session-factory>
+    <!-- 數據庫鏈接驅動 -->
+    <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+    <!--鏈接地址用戶名密碼 -->
+    <property name="connection.url">jdbc:mysql://127.0.0.1:3306/DB_I_T_PUSH_TEST?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false</property>
+    <property name="connection.username">test</property>
+    <property name="connection.password">test</property>
+
+    <!--<property name="connection.url">jdbc:mysql://qiujuer.net:6968/DB_I_T_PUSH?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false</property>-->
+
+
+    <!-- JDBC 鏈接池大小 -->
+    <property name="connection.pool_size">5</property>
+
+    <!-- SQL 方言 -->
+    <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
+
+    <!-- Hibernate session 上下文為線程級別 -->
+    <property name="current_session_context_class">thread</property>
+
+    <!-- 配置C3P0緩存鏈接池  -->
+    <property name="cache.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>
+    <!--在連接池中可用數據庫連接的最小數目-->
+    <property name="c3p0.min_size">6</property>
+    <!--在連接池中所有數據庫連接的最大數目-->
+    <property name="c3p0.max_size">50</property>
+    <!--設定數據庫連接的超時時間-->
+    <!--<property name="c3p0.time_out">1800</property>-->
+    <property name="c3p0.timeout">100</property>
+    <!--可以被緩存的PreparedStatement的最大數目-->
+    <property name="c3p0.max_statement">50</property>
+    <!-- 當連接池裡面的連接用完的時候，C3P0一下獲取的新的連接數 -->
+    <property name="c3p0.acquire_increment">1</property>
+    <!-- 連接對象因該多長時間被自動校驗的時間段，以秒為單位-->
+    <property name="c3p0.idle_test_period">100</property> <!-- seconds -->
+    <!--最多可以創建Statements對象的個數. . 就是可以執行SQL語句的對象的個數-->
+    <property name="c3p0.max_statements">0</property>
+
+    <!-- SQL語句輸出 -->
+    <property name="show_sql">true</property>
+    <property name="format_sql">true</property>
+
+    <!-- 自動更新數據庫的級別 -->
+    <property name="hbm2ddl.auto">update</property>
+    <!--
+    create：表示啟動的時候先drop，再create
+    create-drop: 也表示創建，只不過再系統關閉前執行一下drop
+    update: 這個操作啟動的時候會去檢查schema是否一致，如果不一致會做scheme更新
+    validate: 啟動時驗證現有schema與你配置的hibernate是否一致，如果不一致就拋出異常，並不做更新
+    -->
+
+
+<!--    <mapping package="net.qiujuer.web.ichat.push.bean.db"-->
+<!--             class="net.qiujuer.web.ichat.push.bean.db.User"/>-->
+<!--    <mapping package="net.qiujuer.web.ichat.push.bean.db"-->
+<!--             class="net.qiujuer.web.ichat.push.bean.db.UserFollow"/>-->
+
+<!--    <mapping package="net.qiujuer.web.ichat.push.bean.db"-->
+<!--             class="net.qiujuer.web.ichat.push.bean.db.Group"/>-->
+<!--    <mapping package="net.qiujuer.web.ichat.push.bean.db"-->
+<!--             class="net.qiujuer.web.ichat.push.bean.db.GroupMember"/>-->
+
+<!--    <mapping package="net.qiujuer.web.ichat.push.bean.db"-->
+<!--             class="net.qiujuer.web.ichat.push.bean.db.Message"/>-->
+
+<!--    <mapping package="net.qiujuer.web.ichat.push.bean.db"-->
+<!--             class="net.qiujuer.web.ichat.push.bean.db.PushHistory"/>-->
+<!--    <mapping package="net.qiujuer.web.ichat.push.bean.db"-->
+<!--             class="net.qiujuer.web.ichat.push.bean.db.Apply"/>-->
+
+  </session-factory>
+</hibernate-configuration>

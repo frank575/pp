@@ -1,0 +1,49 @@
+plugins {
+    id 'war'
+    id 'java'
+}
+
+group 'iChat'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    mavenCentral()
+}
+
+dependencies {
+    // Gson json
+    implementation 'com.google.code.gson:gson:2.8.8'
+    // Guava java 類封裝
+    implementation 'com.google.guava:guava:21.0'
+
+    // Jersey 輕量級 Restful 接口框架
+    implementation 'org.glassfish.jersey.core:jersey-client:2.28'
+    implementation 'org.glassfish.jersey.core:jersey-server:2.28'
+    implementation 'org.glassfish.jersey.containers:jersey-container-servlet:2.28'
+    // https://mvnrepository.com/artifact/org.glassfish.jersey.inject/jersey-hk2
+    implementation group: 'org.glassfish.jersey.inject', name: 'jersey-hk2', version: '2.28'
+    // 也是一個 json 解析庫
+    implementation 'org.glassfish.jersey.media:jersey-media-json-jackson:2.28'
+    implementation 'org.glassfish.jersey.media:jersey-media-multipart:2.28'
+
+    // orm 數據庫框架
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-core
+    implementation 'org.hibernate:hibernate-core:5.4.1.Final'
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager
+    implementation 'org.hibernate:hibernate-entitymanager:5.4.1.Final'
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-c3p0
+    implementation 'org.hibernate:hibernate-c3p0:5.4.1.Final'
+
+    // MySQL 驅動庫
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.14'
+
+//    testImplementation 'junit:junit:4.11'
+//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
