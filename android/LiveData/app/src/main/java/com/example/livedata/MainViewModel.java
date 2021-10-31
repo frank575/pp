@@ -1,22 +1,15 @@
 package com.example.livedata;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class MainViewModel extends ViewModel {
-  private MutableLiveData<Integer> count;
-
-  public MutableLiveData<Integer> getCount() {
-    if (count == null) {
-      count = new MutableLiveData<>();
-      count.setValue(1);
-    }
-    return count;
-  }
-
+  public MutableLiveData<Integer> count = new MutableLiveData<>(0);
 
   public void increase(Integer _count) {
-    Integer countValue = count.getValue() == null ? 0 : count.getValue();
-    count.setValue(countValue + _count);
+    this.count.setValue(count.getValue() + _count);
+    Log.d("myapp", String.valueOf(count.getValue()));
   }
 }
