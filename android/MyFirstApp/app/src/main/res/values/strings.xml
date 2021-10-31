@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MyFirstApp</string>
+    <string name="app_version">0.0.0.beta</string>
+    <string name="account_placeholder">請輸入帳號</string>
+    <string name="password_placeholder">請輸入密碼</string>
+    <string name="logtin_button">登入</string>
+    <string name="login_logo">登入圖</string>
+</resources>
