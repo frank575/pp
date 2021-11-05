@@ -5,7 +5,7 @@
 TODO
   1. feat: use(Local|Session)Storage 使用 storage listener 監聽緩存變化，並將數據同步至所有 store 裡，並且新增 options(回朔使用者在 storage 更新的數據)
   2. refactor: 將 tmp 的部分 hooks/lib 模塊使用 useCheckInjectReturn 優化性能
-  3. fix: useQueryString 路由連結重新進入的話會導致 queryString 被清空
+  3. fix: useQueryString 路由連結重新進入的話會導致 queryString 被清空, 修正 initial value 如果是空字串會被強制導回前頁
   4. feat: react/native 新增數據獲取緩存鉤子(名稱暫定為 useFetchState)，使用 async-storage 處理
   5. feat: react/web 新增數據獲取緩存鉤子(名稱暫定為 useFetchState)，使用 use(Local|Session)Storage 處理
   6. feat: use-click-outside
