@@ -12,9 +12,9 @@ const initialPassword = import.meta.env.VITE_PASSWORD
 export default () => {
 	const history = useHistory()
 	const { http } = useHttp()
-	const { setAuth, setToken } = useAuth(({ setAuth, setToken }) => ({
-		setAuth,
-		setToken,
+	const { setAuth, setToken } = useAuth(e => ({
+		setAuth: e.setAuth,
+		setToken: e.setToken,
 	}))
 	const [submitLoading, setSubmitLoading] = useState(false)
 

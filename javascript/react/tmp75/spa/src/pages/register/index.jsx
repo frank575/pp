@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { NoLayoutWrap } from '@/components/no-layout-wrap'
 import { Button, Form, Input, message } from 'antd'
 import { Link } from 'react-router-dom'
@@ -11,22 +11,27 @@ export default () => {
 	const history = useHistory()
 	const { http } = useHttp()
 	const [submitLoading, setSubmitLoading] = useState(false)
-	const { setAuth, setToken } = useAuth(({ setAuth, setToken }) => ({
-		setAuth,
-		setToken,
+	const { setAuth, setToken } = useAuth(e => ({
+		setAuth: e.setAuth,
+		setToken: e.setToken,
 	}))
 
-	const password2Validator = getFieldValue => (_, value) => {
-		const password = getFieldValue('password')
-		if (!value) {
-			return Promise.reject(new Error('確認密碼為必填'))
-		} else if (value?.length < 4 || value?.length > 20) {
-			return Promise.reject(new Error('必須為4-20個字元'))
-		} else if (value !== password) {
-			return Promise.reject(new Error('與密碼不吻合'))
-		}
-		return Promise.resolve()
-	}
+	const password2Rules = useMemo(
+		() => [
+			getFieldValue => (_, value) => {
+				const password = getFieldValue('password')
+				if (!value) {
+					return Promise.reject(new Error('確認密碼為必填'))
+				} else if (value?.length < 4 || value?.length > 20) {
+					return Promise.reject(new Error('必須為4-20個字元'))
+				} else if (value !== password) {
+					return Promise.reject(new Error('與密碼不吻合'))
+				}
+				return Promise.resolve()
+			},
+		],
+		[],
+	)
 
 	const onRegister = async _data => {
 		setSubmitLoading(true)
@@ -75,11 +80,7 @@ export default () => {
 					label={'確認密碼'}
 					name={'password2'}
 					required
-					rules={[
-						({ getFieldValue }) => ({
-							validator: password2Validator(getFieldValue),
-						}),
-					]}
+					rules={password2Rules}
 					validateTrigger={['onChange', 'onBlur']}
 				>
 					<Input.Password
