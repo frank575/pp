@@ -20,7 +20,7 @@ export const Header = () => {
 				選單
 			</Button>
 			<div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 font-bold text-lg">
-				TMP75-REACT-SPA
+				{import.meta.env.VITE_COMMON_APP_TITLE}
 			</div>
 			<div className="flex items-center">
 				{auth != null ? (

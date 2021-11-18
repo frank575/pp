@@ -1,4 +1,5 @@
 import { defineConfig, loadEnv } from 'vite'
+import { minifyHtml, injectHtml } from 'vite-plugin-html'
 import react from '@vitejs/plugin-react'
 import vitePluginImport from 'vite-plugin-babel-import'
 import reactSvgPlugin from 'vite-plugin-react-svg'
@@ -31,6 +32,12 @@ export default ({ mode }) => {
 				// 	},
 				// },
 			]),
+			minifyHtml(),
+			injectHtml({
+				data: {
+					title: process.env.VITE_COMMON_APP_TITLE,
+				},
+			}),
 		],
 		css: {
 			preprocessorOptions: {
