@@ -2,6 +2,7 @@ import { Header } from '@/core/components/layout/header'
 import { SideMenu } from '@/core/components/layout/side-menu'
 import { Version } from '@/core/components/layout/version'
 import { LayoutProvider } from '@/core/components/layout/service'
+import { ContentWrapper } from '@/core/components/content-wrapper'
 
 export const Layout = ({ children }) => {
 	return (
@@ -11,7 +12,9 @@ export const Layout = ({ children }) => {
 				<div className="flex flex-1">
 					<SideMenu />
 					<div className="flex-1 flex flex-col">
-						<div className="flex-1">{children}</div>
+						<div className="flex-1">
+							<ContentWrapper>{children}</ContentWrapper>
+						</div>
 						<Version />
 					</div>
 				</div>

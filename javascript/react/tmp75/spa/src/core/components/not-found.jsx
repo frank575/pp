@@ -1,10 +1,11 @@
 import { Button, Result } from 'antd'
 import { Link } from 'react-router-dom'
+import { ContentWrapper } from '@/core/components/content-wrapper'
 
 export default () => {
 	return (
 		<div className="flex items-center justify-center min-w-full min-h-screen bg-gray-200">
-			<div className="bg-white shadow-md rounded-md">
+			<ContentWrapper>
 				<Result
 					status="404"
 					title="404"
@@ -15,7 +16,7 @@ export default () => {
 						</Link>
 					}
 				/>
-			</div>
+			</ContentWrapper>
 		</div>
 	)
 }
