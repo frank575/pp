@@ -1,31 +1,35 @@
 import { lazy } from 'react'
-import { Route, Switch } from 'react-router-dom'
-import { NoLayoutFallback } from '@/core/components/fallback/no-layout-fallback'
+import { Switch } from 'react-router-dom'
 import { withTitle } from '@/core/components/routes/with-funcs/with-title'
 import { withSuspenseRoute } from '@/core/components/routes/with-suspense-route'
+import { RouteWrapper } from '@/core/components/routes/route-wrapper'
+import { LayoutFallback } from '@/core/components/fallback/layout-fallback'
+import { CardWrap } from '@/core/components/card-wrap'
 
 export const Routes = () => {
 	return (
 		// <PathnameHistoriesProvider>
 			<Switch>
-				<Route
+				<RouteWrapper
 					path={'/login'}
 					exact
 					component={withSuspenseRoute(
 						lazy(() => import('@/pages/login')),
-						NoLayoutFallback,
+						LayoutFallback,
 						withTitle('登入'),
 					)}
+					layout={CardWrap}
 				/>
 
-				<Route
+				<RouteWrapper
 					path={'/register'}
 					exact
 					component={withSuspenseRoute(
 						lazy(() => import('@/pages/register')),
-						NoLayoutFallback,
+						LayoutFallback,
 						withTitle('註冊'),
 					)}
+					layout={CardWrap}
 				/>
 
 				{/* LayoutRoute START */}
@@ -42,12 +46,13 @@ export const Routes = () => {
 				{/*/>*/}
 				{/* LayoutRoute END */}
 
-				<Route
+				<RouteWrapper
 					component={withSuspenseRoute(
 						lazy(() => import('@/core/components/not-found')),
-						NoLayoutFallback,
+						LayoutFallback,
 						withTitle('找不到頁面'),
 					)}
+					layout={CardWrap}
 				/>
 			</Switch>
 		// </PathnameHistoriesProvider>

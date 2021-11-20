@@ -1,5 +1,5 @@
 import { createClassName } from '75l'
-import { ErrorBoundary } from '@/core/components/error-boundary'
+import { useMemo } from 'react'
 
 export const ContentWrapper = ({ className: pclassName, children }) => {
 	const className = useMemo(
@@ -11,9 +11,5 @@ export const ContentWrapper = ({ className: pclassName, children }) => {
 		[pclassName],
 	)
 
-	return (
-		<main className={className}>
-			<ErrorBoundary>{children}</ErrorBoundary>
-		</main>
-	)
+	return <main className={className}>{children}</main>
 }

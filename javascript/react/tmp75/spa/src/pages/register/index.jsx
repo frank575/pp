@@ -1,9 +1,7 @@
 import { useMemo, useState } from 'react'
-import { NoLayoutWrap } from '@/components/no-layout-wrap'
 import { Button, Form, Input, message } from 'antd'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
-import { useHistory } from 'react-router-dom'
 import { useAuth } from '@/core/hooks/use-auth'
 import { useHttp } from '@/core/hooks/http/use-http'
 
@@ -47,7 +45,8 @@ export default () => {
 	}
 
 	return (
-		<NoLayoutWrap title={'註冊'}>
+		<>
+			<div className="text-lg font-bold mb-4 text-center">註冊</div>
 			<Form
 				name={'register-form'}
 				onFinish={onRegister}
@@ -99,6 +98,6 @@ export default () => {
 					</Button>
 				</div>
 			</Form>
-		</NoLayoutWrap>
+		</>
 	)
 }

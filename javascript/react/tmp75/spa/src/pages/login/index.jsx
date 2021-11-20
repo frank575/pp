@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Button, Form, Input, message } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { Link, useHistory } from 'react-router-dom'
-import { NoLayoutWrap } from '@/components/no-layout-wrap'
 import { useAuth } from '@/core/hooks/use-auth'
 import { useHttp } from '@/core/hooks/http/use-http'
 
@@ -32,7 +31,8 @@ export default () => {
 	}
 
 	return (
-		<NoLayoutWrap title={'登入'}>
+		<>
+			<div className="text-lg font-bold mb-4 text-center">登入</div>
 			<Form name={'login-form'} onFinish={onLogin}>
 				<Form.Item
 					label={'帳號'}
@@ -65,6 +65,6 @@ export default () => {
 					</Button>
 				</div>
 			</Form>
-		</NoLayoutWrap>
+		</>
 	)
 }
