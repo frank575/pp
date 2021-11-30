@@ -3,14 +3,12 @@ import { useSafeState } from '75l-react'
 import { EAuthCode, useAuth } from '@/core/hooks/use-auth'
 
 export const useValidateAuth = () => {
-	const { auth, token, setAuth, clearAuthState } = useAuth(
-		({ auth, token, setAuth, clearAuthState }) => ({
-			auth,
-			token,
-			setAuth,
-			clearAuthState,
-		}),
-	)
+	const { auth, token, setAuth, clearAuthState } = useAuth(e => ({
+		auth: e.auth,
+		token: e.token,
+		setAuth: e.setAuth,
+		clearAuthState: e.clearAuthState,
+	}))
 	const [code, setCode] = useSafeState(
 		auth == null ? EAuthCode.validating : EAuthCode.authSuccess,
 	)
