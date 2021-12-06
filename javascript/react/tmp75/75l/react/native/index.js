@@ -1,5 +1,6 @@
 /// <reference path="../../type.d.ts" />
 import { createI18n } from '../common/create-i18n'
+import { createLang } from '../common/create-lang'
 import { createMitt } from '../common/create-mitt'
 import { createProvider } from '../common/create-provider'
 import { useCacheState } from '../common/use-cache-state'
@@ -19,6 +20,7 @@ export {
 	useAsyncStorageState,
 	// common
 	createI18n,
+	createLang,
 	createMitt,
 	createProvider,
 	useCacheState,
