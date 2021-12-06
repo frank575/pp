@@ -1,17 +1,13 @@
 import { useMemo } from 'react'
 import { Menu } from 'antd'
-import {
-	BgColorsOutlined,
-	OrderedListOutlined,
-	BugOutlined,
-	ScheduleOutlined,
-	TranslationOutlined,
-} from '@ant-design/icons'
+import { OrderedListOutlined, ScheduleOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { useLayout } from '@/core/components/layout/service'
 
 const { SubMenu, Item } = Menu
 export const SideMenu = () => {
+	// 基礎身分權限用
+	// const checkPermission = useAuth(e => e.checkPermission)
 	const menuCollapsed = useLayout(e => e.menuCollapsed)
 	const selectedKeys = useLayout(e => e.sideSelectedKeys)
 
