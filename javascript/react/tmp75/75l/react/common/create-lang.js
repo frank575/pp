@@ -1,3 +1,6 @@
+/// create-lang 可以在任意地方翻譯(t)的國際化
+/// v0
+
 import { useCallback, useMemo, useState } from 'react'
 import { createProvider } from './create-provider'
 

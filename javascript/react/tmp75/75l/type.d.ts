@@ -309,6 +309,25 @@ declare module '75l-react' {
 		}>
 	}
 
+	type CreateLangTranslate = <T = string>(text: T, replaceArgs: any[]) => T
+
+	export function createLang<
+		T extends object,
+		Lang = T & { $t: CreateLangTranslate },
+	>(options: {
+		defaultLocale: string
+		languages: object
+		typeBindObj: T
+	}): {
+		lang: Lang
+		Provider: ServiceProvider
+		inject: ServiceInject<{
+			lang: Lang
+			locale: string
+			changeLocale: (locale: string) => void
+		}>
+	}
+
 	export function useAsyncStorageStore<T extends Object, K extends keyof T>(
 		appName: string,
 		initialStore: T,
