@@ -8,9 +8,8 @@ import { createProvider } from './create-provider'
 const t = (text, replaceArgs = []) => {
 	if (!text) return text
 	if (Array.isArray(replaceArgs) && replaceArgs.length > 0) {
-		let parsedText = text
 		for (let i = 0; i < replaceArgs.length; i++) {
-			parsedText = parsedText.replace(new RegExp(`\\{${i}\\}`, 'g'), e)
+			text = text.replace(new RegExp(`\\{${i}\\}`, 'g'), replaceArgs[i])
 		}
 	}
 	return text
@@ -49,7 +48,7 @@ export const createLang = ({
 	let langRef = { current: languages[defaultLocale] || {} }
 
 	return {
-		lang: langRef.current,
+		langRef,
 		...createProvider(useService({ defaultLocale, languages, langRef })),
 	}
 }

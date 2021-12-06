@@ -319,7 +319,7 @@ declare module '75l-react' {
 		languages: object
 		typeBindObj: T
 	}): {
-		lang: Lang
+		langRef: { current: Lang }
 		Provider: ServiceProvider
 		inject: ServiceInject<{
 			lang: Lang
