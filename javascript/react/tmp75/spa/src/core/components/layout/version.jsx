@@ -1,7 +1,18 @@
-export const Version = () => {
-	return (
-		<div className="px-4 text-right select-none">
-			last-update-time: 2021.07.02 / version 0.0.0
-		</div>
+import { useMemo } from 'react'
+import { createClassName } from '75l'
+import { useVersion } from '@/core/hooks/use-version'
+
+export const Version = ({ className: pclassName }) => {
+	const className = useMemo(
+		() =>
+			createClassName({
+				'p-3 text-center': true,
+				[pclassName]: pclassName != null,
+			}),
+		[pclassName],
 	)
+
+	const version = useVersion(e => e.version)
+
+	return <div className={className}>{version}</div>
 }

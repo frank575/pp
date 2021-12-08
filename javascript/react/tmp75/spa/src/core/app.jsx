@@ -5,6 +5,7 @@ import { AuthProvider } from '@/core/hooks/use-auth'
 import { Routes } from '@/core/routes'
 import { AuthHttpProvider } from '@/core/hooks/http/use-auth-http'
 import { HttpProvider } from '@/core/hooks/http/use-http'
+import { VersionProvider } from '@/core/hooks/use-version'
 import '@/core/style/app.scss'
 import '@/core/lib/dev-log'
 
@@ -12,13 +13,15 @@ export const App = () => {
 	return (
 		<Router>
 			<I18nProvider>
-				<HttpProvider>
-					<AuthProvider>
-						<AuthHttpProvider>
-							<Routes />
-						</AuthHttpProvider>
-					</AuthProvider>
-				</HttpProvider>
+				<VersionProvider>
+					<HttpProvider>
+						<AuthProvider>
+							<AuthHttpProvider>
+								<Routes />
+							</AuthHttpProvider>
+						</AuthProvider>
+					</HttpProvider>
+				</VersionProvider>
 			</I18nProvider>
 		</Router>
 	)
