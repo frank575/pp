@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "75l": "^0.3.5",
+    "75l": "^0.4.0",
     "@ant-design/icons": "^4.6.2",
     "antd": "^4.16.6",
     "axios": "^0.21.1",
