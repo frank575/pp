@@ -86,6 +86,8 @@ declare module '75l' {
 
 	export function generateId(length?: number): string
 
+	export function mergeWords(...conditionTextArr: any[]): string
+
 	type EnumValue = boolean | string | number
 	type CreateEnumObject = {
 		[key: string]: EnumValue | EnumValue[]
@@ -122,6 +124,17 @@ declare module '75l' {
 			) => void,
 			initialValue: T,
 		) => T
+	}
+
+	export function declareEnum<T extends object, V = any>(
+		obj: T,
+		typeBindValue: V,
+	): { [K in keyof T]: V } & {
+		t: { [K in keyof T]: string | undefined }
+		d: { [K in keyof T]: any }
+		keys: string[]
+		length: number
+		map: (callback: (value: V, key: keyof T, index: number) => any) => void
 	}
 
 	export namespace mtime {
@@ -306,6 +319,25 @@ declare module '75l-react' {
 			locale: string
 			changeLocale: Dispatch<SetStateAction<string>>
 			t: i18nT
+		}>
+	}
+
+	type CreateLangTranslate = <T = string>(text: T, replaceArgs: any[]) => T
+
+	export function createLang<
+		T extends object,
+		Lang = T & { $t: CreateLangTranslate },
+	>(options: {
+		defaultLocale: string
+		languages: object
+		typeBindObj: T
+	}): {
+		langRef: { current: Lang }
+		Provider: ServiceProvider
+		inject: ServiceInject<{
+			lang: Lang
+			locale: string
+			changeLocale: (locale: string) => void
 		}>
 	}
 

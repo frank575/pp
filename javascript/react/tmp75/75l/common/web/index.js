@@ -1,5 +1,6 @@
 /// <reference path="../../type.d.ts" />
 import { createEnum } from '../common/create-enum'
+import { declareEnum } from '../common/declare-enum'
 import { stepPrice } from '../common/step-price'
 import {
 	toSimple,
@@ -12,6 +13,7 @@ import { timeout } from '../common/timer/timeout'
 import { interval } from '../common/timer/interval'
 import { aniFrame } from '../common/timer/ani-frame'
 import { generateId } from '../common/generateId'
+import { mergeWords } from '../common/merge-words'
 import { findNestedDynamicObj } from '../common/find-nested-dynamic-obj'
 import { createClassName } from './create-class-name'
 import { copyText } from './copy-text'
@@ -29,6 +31,7 @@ export {
 	insertAfter,
 	// common
 	createEnum,
+	declareEnum,
 	stepPrice,
 	toSimple,
 	toTraditional,
@@ -39,5 +42,6 @@ export {
 	interval,
 	aniFrame,
 	generateId,
+	mergeWords,
 	findNestedDynamicObj,
 }

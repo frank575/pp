@@ -4,6 +4,7 @@ import { useLocalStorageState, createProvider } from '75l-react'
 import { createEnum } from '75l'
 import { useMitt } from '@/core/hooks/use-mitt'
 import { AUTHORIZATION_FAILED } from '@/core/mitt-type'
+import { ERoleLevel } from '@/enums/e-role-type'
 
 export const EAuthCode = createEnum({
 	validating: [0, '驗證中'],
@@ -11,6 +12,7 @@ export const EAuthCode = createEnum({
 	authError: [2, '身分驗證失敗(喔天哪，你這個傢伙可真壞耶！)'],
 	notLogin: [3, '尚未登入'],
 	hasAuth: [4, '已取得身分資訊'],
+	noRolePermission: [5, '沒有使用該功能之角色權限'],
 })
 
 export const { Provider: AuthProvider, inject: useAuth } =
@@ -24,6 +26,20 @@ function service() {
 		null,
 	)
 	const { on } = useMitt()
+	// 基礎身分權限用
+	// const checkPermission = useCallback(
+	// 	(permissionLevel = ERoleLevel.SUPER_USER) => {
+	// 		if (auth == null) return false
+	// 		if (permissionLevel != null) {
+	// 			if (ERoleLevel[auth.write_role_key] >= permissionLevel) {
+	// 				return true
+	// 			}
+	// 			return false
+	// 		}
+	// 		return true
+	// 	},
+	// 	[auth],
+	// )
 
 	const clearAuthState = useCallback(() => {
 		setAuth(null)
@@ -40,6 +56,7 @@ function service() {
 	return {
 		auth,
 		setAuth,
+		//checkPermission,
 		token,
 		setToken,
 		clearAuthState,

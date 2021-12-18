@@ -18,8 +18,12 @@ function HttpProvider({ children }) {
 			error => {
 				// 統一 try/catch
 				const res = error.response
-				if (res && res.data) {
-					message.error(res.data.message)
+				if (res) {
+					if (!res.config.headers.NoErrorMessage) {
+						if (res.data && res.data.message) {
+							message.error(res.data.message)
+						}
+					}
 				}
 				return Promise.resolve(res)
 			},
