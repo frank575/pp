@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "bin": "src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/main.js"
+    "start": "node src/main.js",
+    "pkg": "pkg . -t node16-macos-arm64 -o build",
+    "build": "rm -rf build && pkg . -t node16-macos-arm64 --out-path build",
+    "postbuild": "cp -R ./node_modules/puppeteer/.local-chromium build/chromium"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +17,7 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.10",
     "express": "^4.17.2",
+    "pkg": "^5.5.2",
     "puppeteer": "^13.1.1"
   }
 }
