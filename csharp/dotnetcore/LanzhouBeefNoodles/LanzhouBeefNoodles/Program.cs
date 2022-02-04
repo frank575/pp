@@ -8,7 +8,10 @@ var app = builder.Build();
 // app.MapDefaultControllerRoute();
 
 // 特徵路由 Attributes routes
-app.MapControllers();
+// app.MapControllers();
+
+// 自定義路由
+app.MapControllerRoute("default", "{controller=home}/{action=index}/{id?}");
 
 // app.MapGet("/", () => "Hello World!");
 // app.MapGet("/test", () => "Hello from test!");

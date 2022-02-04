@@ -48,7 +48,24 @@ namespace LanzhouBeefNoodles.controllers;
 
 
 // 同以上
-[Route("[controller]/[action]")]
+// [Route("[controller]/[action]")]
+// public class HomeController : Controller
+// {
+//     // 訪問 home/index
+//     public string Index()
+//     {
+//         return "hello from home";
+//     }
+//
+//     // 訪問 home/about
+//     public string About()
+//     {
+//         return "hello from about";
+//     }
+// }
+
+
+// 預設自定義路由
 public class HomeController : Controller
 {
     // 訪問 home/index
