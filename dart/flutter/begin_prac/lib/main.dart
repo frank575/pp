@@ -1,28 +1,23 @@
 import 'package:flutter/material.dart';
 
-class MyAppBar extends StatelessWidget {
-  const MyAppBar({Key? key, required this.title}) : super(key: key);
-
-  final Widget title;
+class TutorialHome extends StatelessWidget {
+  const TutorialHome({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 56,
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      decoration: BoxDecoration(color: Colors.blue.shade500),
-      child: Row(
-        children: [
-          const IconButton(
-            onPressed: null,
-            icon: Icon(
-              Icons.menu,
-              color: Colors.white,
-            ),
-            tooltip: 'Navigation Menu',
+    return Scaffold(
+      appBar: AppBar(
+        leading: const IconButton(
+          onPressed: null,
+          icon: Icon(
+            Icons.menu,
+            color: Colors.white,
           ),
-          Expanded(child: title),
-          const IconButton(
+          tooltip: 'Navigation menu',
+        ),
+        title: const Text('Example title'),
+        actions: const [
+          IconButton(
             onPressed: null,
             icon: Icon(
               Icons.search,
@@ -32,30 +27,13 @@ class MyAppBar extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class MyScaffold extends StatelessWidget {
-  const MyScaffold({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      child: Column(
-        children: [
-          MyAppBar(
-            title: Text(
-              'Example title',
-              style: Theme.of(context).primaryTextTheme.subtitle1,
-            ),
-          ),
-          const Expanded(
-            child: Center(
-              child: Text('Hello world!'),
-            ),
-          )
-        ],
+      body: const Center(
+        child: Text('hello world!'),
+      ),
+      floatingActionButton: const FloatingActionButton(
+        tooltip: 'Add',
+        child: Icon(Icons.add),
+        onPressed: null,
       ),
     );
   }
@@ -63,7 +41,7 @@ class MyScaffold extends StatelessWidget {
 
 void main() {
   runApp(const MaterialApp(
-    title: 'My App',
-    home: MyScaffold(),
+    title: 'Flutter Tutorial',
+    home: TutorialHome(),
   ));
 }
