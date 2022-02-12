@@ -27,8 +27,12 @@ class TutorialHome extends StatelessWidget {
           ),
         ],
       ),
-      body: const Center(
-        child: MyButton(),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          MyButton(),
+          Counter(),
+        ],
       ),
       floatingActionButton: const FloatingActionButton(
         tooltip: 'Add',
@@ -60,6 +64,49 @@ class MyButton extends StatelessWidget {
           child: Text('Engage'),
         ),
       ),
+    );
+  }
+}
+
+class Counter extends StatefulWidget {
+  const Counter({Key? key}) : super(key: key);
+
+  @override
+  _CounterState createState() => _CounterState();
+}
+
+class _CounterState extends State<Counter> {
+  var _count = 0;
+
+  void _increment() {
+    setState(() {
+      _count++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const Padding(
+          padding: EdgeInsets.only(top: 8.0),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: _increment,
+              child: const Text('Increment'),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(right: 8.0),
+            ),
+            Text(
+              'Count: $_count',
+            ),
+          ],
+        )
+      ],
     );
   }
 }
