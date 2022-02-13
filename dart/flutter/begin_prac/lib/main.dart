@@ -1,139 +1,108 @@
 import 'package:flutter/material.dart';
 
-class TutorialHome extends StatelessWidget {
-  const TutorialHome({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: const IconButton(
-          onPressed: null,
-          icon: Icon(
-            Icons.menu,
-            color: Colors.white,
-          ),
-          tooltip: 'Navigation menu',
-        ),
-        title: const Text('Example title'),
-        actions: const [
-          IconButton(
-            onPressed: null,
-            icon: Icon(
-              Icons.search,
-              color: Colors.white,
-            ),
-            tooltip: 'Search',
-          ),
-        ],
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          MyButton(),
-          Counter(),
-        ],
-      ),
-      floatingActionButton: const FloatingActionButton(
-        tooltip: 'Add',
-        child: Icon(Icons.add),
-        onPressed: null,
-      ),
-    );
-  }
+class Product {
+  const Product({required this.name});
+  final String name;
 }
 
-class MyButton extends StatelessWidget {
-  const MyButton({Key? key}) : super(key: key);
+typedef CartChangedCallback = void Function(Product product, bool inCart);
 
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        print('MyButton was tapped!');
-      },
-      child: Container(
-        height: 36.0,
-        padding: const EdgeInsets.all(8.0),
-        margin: const EdgeInsets.symmetric(horizontal: 8.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5.0),
-          color: Colors.lightGreen.shade500,
-        ),
-        child: const Center(
-          child: Text('Engage'),
-        ),
-      ),
-    );
-  }
-}
-
-class CounterDisplay extends StatelessWidget {
-  const CounterDisplay({Key? key, required this.count}) : super(key: key);
-
-  final int count;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text('Count: $count');
-  }
-}
-
-class CounterIncrementor extends StatelessWidget {
-  const CounterIncrementor({Key? key, required this.onPressed})
+class ShoppingListItem extends StatelessWidget {
+  const ShoppingListItem(
+      {Key? key,
+      required this.product,
+      required this.inCart,
+      required this.onCartChanged})
       : super(key: key);
 
-  final VoidCallback onPressed;
+  final Product product;
+  final bool inCart;
+  final CartChangedCallback onCartChanged;
+
+  Color _getColor(BuildContext context) {
+    return inCart ? Colors.black54 : Theme.of(context).primaryColor;
+  }
+
+  TextStyle? _getTextStyle() {
+    if (!inCart) return null;
+
+    return const TextStyle(
+      color: Colors.black54,
+      decoration: TextDecoration.lineThrough,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: onPressed, child: const Text('Increment'));
+    return ListTile(
+      onTap: () {
+        onCartChanged(product, !inCart);
+      },
+      leading: CircleAvatar(
+        backgroundColor: _getColor(context),
+        child: Text(product.name[0]),
+      ),
+      title: Text(
+        product.name,
+        style: _getTextStyle(),
+      ),
+    );
   }
 }
 
-class Counter extends StatefulWidget {
-  const Counter({Key? key}) : super(key: key);
+class ShoppingList extends StatefulWidget {
+  const ShoppingList({Key? key, required this.products}) : super(key: key);
+
+  final List<Product> products;
 
   @override
-  _CounterState createState() => _CounterState();
+  _ShoppingListState createState() => _ShoppingListState();
 }
 
-class _CounterState extends State<Counter> {
-  var _count = 0;
+class _ShoppingListState extends State<ShoppingList> {
+  final Set<Product> _shoppingCart = {};
 
-  void _increment() {
+  void _onCartChanged(Product product, bool inCart) {
     setState(() {
-      _count++;
+      if (inCart) {
+        _shoppingCart.add(product);
+      } else {
+        _shoppingCart.remove(product);
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Padding(
-          padding: EdgeInsets.only(top: 8.0),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CounterIncrementor(onPressed: _increment),
-            const Padding(
-              padding: EdgeInsets.only(right: 8.0),
-            ),
-            CounterDisplay(
-              count: _count,
-            ),
-          ],
-        )
-      ],
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Shopping List'),
+      ),
+      body: ListView(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        children: widget.products
+            .map(
+              (e) => ShoppingListItem(
+                product: e,
+                inCart: _shoppingCart.contains(e),
+                onCartChanged: _onCartChanged,
+              ),
+            )
+            .toList(),
+      ),
     );
   }
 }
 
 void main() {
   runApp(const MaterialApp(
-    title: 'Flutter Tutorial',
-    home: TutorialHome(),
+    title: 'Shopping App',
+    home: ShoppingList(
+      products: [
+        Product(name: 'Eggs'),
+        Product(name: 'Flour'),
+        Product(name: 'Chocolate chips'),
+      ],
+    ),
   ));
 }
