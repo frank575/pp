@@ -30,9 +30,10 @@ void main() {
     final response = await http.get(Uri.parse(
         'http://www.devio.org/io/flutter_app/json/test_common_model.json'));
     final result = json.decode(response.body);
-    print(result);
-    return result;
+    return CommonModal.fromJson(result);
   }
 
-  fetchPost();
+  fetchPost().then((CommonModal e) {
+    print(e.url);
+  });
 }
